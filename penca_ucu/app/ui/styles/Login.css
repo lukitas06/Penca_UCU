@@ -1,0 +1,7 @@
+#loginContainer{
+    margin: 0;
+    background-color: inherit;
+    font-family: system-ui,-apple-system;
+    display: grid;
+    place-content: center;
+}
