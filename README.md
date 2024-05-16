@@ -26,3 +26,11 @@ Para correr la aplicacion localmente sigue los siguientes pasos:
 5. Ejecuta npm run dev para iniciar el servidor de desarrollo.
 6. Abre tu navegador y dirigete a http://localhost:3000.
 
+## Contribuyendo
+Si quieres contribuir en este proyecto por favor sigue estos pasos:
+1. Crea una rama a partir de dev con la nomenclatura "<nombreUsuario>Branch".
+2. Para crear una funcionalidad nueva, muevete a tu rama y crea otra con la nomenclatura "feature/<funcionalidad>".
+3. Para arreglar un bug o error, muevete a tu rama y crea una a partir de la misma con la nomenclatura "fix/<arreglo>"
+4. Haz los cambios.
+5. Crea un pull request con la descripcion de los cambios que has hecho.
+
