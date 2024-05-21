@@ -5,6 +5,8 @@ Bienvenido a la aplicacion de pencas de la Universidad Catolica del Uruguay. Est
 Esta aplicacion permite a los alumnos de la universidad realizar apuestas en los partidos de la Copa America 2024 y competir contra otros alumnos.
 
 ## Estructura del proyecto
+- db: Se encuentran los scripts SQL que se ejecutaran cuando el contenedor corra por primera vez.
+- penca_ucu: Donde se encuentra la logica de la aplicacion en si.
 - app/: Es donde esta contenida la aplicacion, con sus componentes, paginas y demas funcionalidades.
 - app/actions/: Acciones como autenticacion de usuarios.
 - app/api/: Contiene las rutas a la API, con sus manejadores. Cada carpeta es una ruta. Carpetas anidadas son rutas anidadas.
@@ -21,10 +23,11 @@ Para correr la aplicacion localmente sigue los siguientes pasos:
 
 1. Clonea este repositorio en tu maquina.
 2. Navega hasta la carpeta del proyecto.
-3. Ingresa a la carpeta "penca_ucu".
-4. Ejecuta npm install para instalar dependencias.
-5. Ejecuta npm run dev para iniciar el servidor de desarrollo.
-6. Abre tu navegador y dirigete a http://localhost:3000.
+3. Ingresa el comando 'docker-compose up -d'. Esto creara un contenedor con la base de datos, y ejecutara los scripts SQL ubicados en la carpeta "bd".
+4. Ingresa a la carpeta "penca_ucu".
+5. Ejecuta npm install para instalar dependencias.
+6. Ejecuta npm run dev para iniciar el servidor de desarrollo.
+7. Abre tu navegador y dirigete a http://localhost:3000.
 
 ## Contribuyendo
 Si quieres contribuir en este proyecto por favor sigue estos pasos:
