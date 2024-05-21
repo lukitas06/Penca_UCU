@@ -6,9 +6,11 @@ import '../styles/LoginRegister.css';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom'
 
-export default function LoginRegisterCard() {
 
+export default function LoginRegisterCard({teams}: {teams: any[]}) {
     const divElementClassname = 'col-8 form-element-div';
+
+    console.log(teams)
 
     const [signupState, setSignupState] = useState({
         errors: any,
@@ -36,6 +38,7 @@ export default function LoginRegisterCard() {
             console.log(response?.errors.email)
             setSignupState({ errors: response?.errors, message: response?.errors.message}) })
     }
+    
     const signinValidation = (formData:any) => {
         signIn(formData)
         .then((response) => { 
@@ -43,16 +46,13 @@ export default function LoginRegisterCard() {
     }
     
 
-    if(register ) {
+
+    if(register) {
         return(
             
-            <div className="card">
+            <div className="col col-10 card">
                 
                 <div className='card-content form-container register-container'>         
-                    <div className='form-select-other select-login'>
-                        <h3>Ya tienes cuenta?</h3>
-                        <button onClick={toggleLogin}>¡Logueate aqui!</button>
-                    </div>
                     <form className='row ' action={signupValidation}>
                         <InputForm classname={divElementClassname} id='floatingName' type='name' name='name' label='Name' />
                         <div className='input-error-msg'>
@@ -74,9 +74,9 @@ export default function LoginRegisterCard() {
                             {signupState?.errors?.email && <p>{signupState.errors.email}</p>}        
                         </div>
 
-                        {/* <select className='form-select' name='firstPlace'>
+                         {/* <select className='form-select' name='firstPlace'>
                             <option selected>Selecciona campeon</option>
-                            {teams.map((team:any) =>(
+                            {teams?.map((team:any) =>(
                                 <option value={team.name}>{team.name}</option>
                             
                             ))}
@@ -87,10 +87,10 @@ export default function LoginRegisterCard() {
                                 <option value={team.name}>{team.name}</option>
                             
                             ))}
-                        </select> */}
+                        </select> 
                         <div className='input-error-msg'>
                             {signupState?.errors?.secondPlace && <p>{signupState.errors.secondPlace}</p>}
-                        </div>
+                        </div> */}
 
                         <InputForm classname={divElementClassname} id='floatingPassword' type='password' name='password' label='Password' />
                         {signupState?.errors?.password?.map((error:any) => 
@@ -103,9 +103,13 @@ export default function LoginRegisterCard() {
                         </div>
                         <div className='col-8'>
                             <SignupButton  />
+
                         </div>
                     </form>
-                    
+                    <div className='form-select-other select-login'>
+                        <h3>Ya tienes cuenta?</h3>
+                        <button onClick={toggleLogin}>¡Logueate aqui!</button>
+                    </div>
                                         
                 </div>
             </div>
@@ -113,7 +117,7 @@ export default function LoginRegisterCard() {
     }
     else{
         return(
-            <div className="card">
+            <div className="col col-10 card">
             
                 <div className='card-content form-container login-container'>
                     <form className='row' action={signinValidation}>

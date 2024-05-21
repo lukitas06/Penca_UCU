@@ -7,7 +7,6 @@
     border-radius: 10px;
     max-width: 600px;
     max-height: fit-content;
-    min-height: 400px;
     background-color: #262626;
 
 }
@@ -80,7 +79,7 @@ form{
     max-height:min-content;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    margin-right: 0px;
 }
 .input-error-msg{
     color: red;
@@ -99,25 +98,24 @@ form{
 
 .form-container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0 0 0 10px;
+    gap: 20px;
+    padding: 15px 0 15px 0;
+}
 
-}
-.register-container{
-    padding: 0 10px 0 0;
-}
 .form-select-other{
     display: flex;
     flex-direction: column;
-    gap: 10px;
     justify-content: center;
     align-items: center;
-    background-color: #F2F0E4;
-    height: 100%;
+    color: #e9ecef;
     padding: 0 10px 0 10px;
     min-width: fit-content;
     border-radius: 10px;
+
 }
 .form-select-other button{
     padding: 10px;

@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "mysql2": "^3.9.7",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/mysql": "^2.15.26",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
