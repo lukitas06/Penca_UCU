@@ -3,9 +3,12 @@ version: '3.1'
 services:
   db:
     image: mysql:latest
+    container_name: obligatorio_bd2
     restart: always
     ports:
     - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: obligatorio
-      MYSQL_DATABASE: obligatorio
+      MYSQL_DATABASE: penca_db
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
