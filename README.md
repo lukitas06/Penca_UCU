@@ -7,16 +7,14 @@ Esta aplicacion permite a los alumnos de la universidad realizar apuestas en los
 ## Estructura del proyecto
 - db: Se encuentran los scripts SQL que se ejecutaran cuando el contenedor corra por primera vez.
 - penca_ucu: Donde se encuentra la logica de la aplicacion en si.
+- public/: Para archivos estaticos como imagenes o logos.
 - app/: Es donde esta contenida la aplicacion, con sus componentes, paginas y demas funcionalidades.
-- app/actions/: Acciones como autenticacion de usuarios.
+- app/services/: Servicios utilizados a lo largo de la aplicacion. 
 - app/api/: Contiene las rutas a la API, con sus manejadores. Cada carpeta es una ruta. Carpetas anidadas son rutas anidadas.
 - app/lib/: Contiene las definiciones de esquemas y conecciones a bases de datos.
 - app/pages/: Contiene las paginas de la aplicacion. Cada page.tsx es una pagina.
-- app/ui/components/: Contiene componentes de UI reutilizables en toda la aplicacion.
+- app/ui/components/: Contiene componentes de UI reutilizables en las paginas.
 - app/ui/styles/: Se guardan los diferentes estilos de los componentes.
-- public/: Para archivos estaticos como imagenes o logos.
-- utils/: Funciones de utilidad usadas a lo largo de toda la aplicacion.
-- tests/: Tests unitarios para componentes y funciones.
 
 ## Instrucciones para ejecutar
 Para correr la aplicacion localmente sigue los siguientes pasos:
