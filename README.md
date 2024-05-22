@@ -29,8 +29,7 @@ Para correr la aplicación localmente sigue los siguientes pasos:
 
 ## Contribuyendo
 Si querés contribuir en este proyecto por favor seguí estos pasos:
-1. Creá una rama a partir de dev con la nomenclatura "<nombreUsuario>Branch".
-2. Para crear una funcionalidad nueva, movete a tu rama y creá otra con la nomenclatura "feature/<funcionalidad>".
-3. Para arreglar un bug o error, movete a tu rama y creá una a partir de la misma con la nomenclatura "fix/<arreglo>"
-4. Hacé los cambios.
-5. Creá un pull request con la descripción de los cambios que hiciste.
+1. Para crear una funcionalidad nueva, movete a tu rama y creá otra con la nomenclatura "feature/<funcionalidad>".
+2. Para arreglar un bug o error, movete a tu rama y creá una a partir de la misma con la nomenclatura "fix/<arreglo>"
+3. Hacé los cambios.
+4. Creá un pull request con la descripción de los cambios que hiciste.
