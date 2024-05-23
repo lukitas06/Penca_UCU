@@ -38,7 +38,7 @@ CREATE TABLE Partido
     equipo2_goles SMALLINT     NOT NULL,
     etapa         ENUM('GRUPOS', 'CUARTOS_DE_FINAL', 'SEMIFINAL', 'TERCER_PUESTO', 'FINAL') NOT NULL,
     fecha         DATETIME     NOT NULL,
-    finalizado    BOOLEAN      NOT NULL,
+    finalizado    BOOLEAN      NOT NULL
 );
 
 CREATE TABLE Equipo
