@@ -7,7 +7,7 @@ export async function GET() {
     try{
         const res = await getTeams();
 
-        return Response.json({res}); 
+        return Response.json(res); 
     }
     catch(err){
         return  new Response(
@@ -25,7 +25,7 @@ export async function POST() {
 const getTeams =  () => {
 
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM Team', (err, results) => {
+        connection.query('SELECT * FROM Equipo', (err, results) => {
             if (err) {
                 reject(err);
                 return;

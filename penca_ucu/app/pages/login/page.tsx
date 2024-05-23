@@ -2,15 +2,12 @@
 import LoginRegisterCard  from "../../ui/components/LoginRegisterCard"
 
 
-
 export default async function Login(){
-    const teamsData = fetchTeams();
-    const teams:any[] = await Promise.resolve(teamsData);
 
-    //const value = localStorage.getItem("user");
+    const teamsData = await fetchTeams()
 
     return(
-        <LoginRegisterCard teams= {teams} />
+        <LoginRegisterCard teams= {teamsData} />
     )    
 }
 const fetchTeams = async () => {
@@ -20,6 +17,7 @@ const fetchTeams = async () => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+
         return response.json();
     }
     catch (error) {

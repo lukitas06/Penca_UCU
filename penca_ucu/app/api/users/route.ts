@@ -35,8 +35,11 @@ export async function POST(req:any,res:any) {
 }
 
 const postUser =  (userData:any): Promise<string> => {
-    const {username, name, lastname, email, firstPlace, secondPlace,career, password} = userData;
-    const QUERY = `INSERT INTO Alumn (username, lastname, name, name_career, password, firstPlace, secondPlace, email) VALUES ('${username}','${lastname}','${name}','${career}','${password}','${firstPlace}','${secondPlace}','${email}');`;
+    const {username, name, lastname, email, firstPlace, secondPlace,career, password,admin} = userData;
+
+    const score = 0;
+    const QUERY = admin === true?`INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin) VALUES ('${username}','${name}','${lastname}','${email}','${password}',${admin});`
+    :`INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES ('${username}','${name}','${lastname}','${email}','${password}',${admin},${score},'${career}','${firstPlace}','${secondPlace}');`
     return new Promise((resolve, reject) => {
         connection.query(QUERY, (err, results) => {
             if (err) {

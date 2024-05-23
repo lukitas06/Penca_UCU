@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 
 export async function signUp(formData:any) {
   // Validate form fields
+
   const validatedFields = SignUpFormSchema.safeParse({
     username: formData.get('username'),
     name: formData.get('name'),
@@ -26,6 +27,7 @@ export async function signUp(formData:any) {
     }
   }
   //Fields to create a user in the db
+  const admin = formData.get('admin') === 'on' ? true : false;
   const {username, name, lastname, email, firstPlace, secondPlace,career, password} = await validatedFields.data;
   // crypto password
   const cryptedPassword = await bcrypt.hash(password, 10)
@@ -44,6 +46,7 @@ export async function signUp(formData:any) {
       firstPlace,
       secondPlace,
       career,
+      admin,
       password: cryptedPassword
     }),
   })
@@ -86,21 +89,16 @@ export async function signIn(formData:any) {
 
   const clientResponse =jsonResponse.then((data:any) => {
 
-    const role = data.role;
-    let userInfo= [];
+    const userInfo = data.user;
+    const userPsw = userInfo.contrasena;
+    const role = userInfo.es_admin===1 ? 'admin' : 'student';
 
-    if(role== 'admin'){
-      userInfo = data.user.adminRes;
-    }
-    else{
-      userInfo = data.user.alumnRes;
-    }
-    const userPsw = userInfo[0].password;
+    console.log('role',role);
     const match = bcrypt.compare(password, userPsw);
-
     const matchRes=  match.then((match:any) =>{
-      const username = userInfo[0].username;
+      const username = userInfo.usuario;
       if(match){
+
         const token = jwt.sign({username,role},'secret', {expiresIn: '1h'});
         return {token:token}
       }
@@ -113,6 +111,3 @@ export async function signIn(formData:any) {
   return clientResponse;
 }
 
-export async function initiateSession(role:string,username:string){
-
-}

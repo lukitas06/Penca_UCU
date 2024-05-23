@@ -1,5 +1,5 @@
 'use client'
-import { any, set} from 'zod';
+import { any} from 'zod';
 import InputForm from './InputForm';
 import  {signUp, signIn}  from '../../services/auth';
 import '../styles/LoginRegister.css';
@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom'
 import { useRouter } from 'next/navigation'
 
-export default function LoginRegisterCard({teams}: {teams: any[]}) {
+export default function LoginRegisterCard({teams}: {teams: any}) {
+
     const [user, setUser] = useState<any>(null);
     const router = useRouter();
     const divElementClassname = 'col-8 form-element-div';
@@ -50,22 +51,18 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
         })
     }
     
-    const signinValidation = (formData:any) => {
+    const signinValidation = async (formData:any) => {
+        
         signIn(formData)
-        .then((response) => { 
-            console.log(response)
-            
+        .then((response) => {             
             setSigninState({ errors: response?.errors, message: response?.errors?.message}) 
 
             if (response?.token == undefined && response?.errors == undefined) {
                 alert(response?.message);
             }
             else {
-                useEffect(() => {
-                    localStorage.setItem('user', response.token);
-                    router.push('/pages/home');
-                   
-                }, [])
+                localStorage.setItem('user', response.token);
+                router.push('/pages/home');
             }
         })
     }
@@ -79,16 +76,16 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
                     
                     <div className='card-content form-container register-container'>         
                         <form className='row ' action={signupValidation}>
-                            <InputForm classname={divElementClassname} id='floatingUsername' type='username' name='username' label='Username' />
+                            <InputForm classname={divElementClassname} id='floatingUsername' type='text' name='username' label='Username' />
                                 <div className='input-error-msg'>
                                     {signupState?.errors?.username && <p>{signupState.errors.username}</p>}
                                 </div>
-                            <InputForm classname={divElementClassname} id='floatingName' type='name' name='name' label='Name' />
+                            <InputForm classname={divElementClassname} id='floatingName' type='text' name='name' label='Name' />
                             <div className='input-error-msg'>
                                 {signupState?.errors?.name && <p>{signupState.errors.name}</p>}
                             </div>
 
-                            <InputForm classname={divElementClassname} id='floatingLastname' type='lastname' name='lastname' label='Lastname' />
+                            <InputForm classname={divElementClassname} id='floatingLastname' type='text' name='lastname' label='Lastname' />
                             <div className='input-error-msg'>
                                 {signupState?.errors?.lastname && <p>{signupState.errors.lastname}</p>}
                             </div>
@@ -101,14 +98,14 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
                             <select className='form-select' name='firstPlace'>
                                 <option selected>Selecciona campeon</option>
                                 {teams?.map((team:any) =>(
-                                    <option value={team.name}>{team.name}</option>
+                                    <option value={team.pais}>{team.pais}</option>
                                 
                                 ))}
                             </select>
                             <select className='form-select' name='secondPlace'>
                                 <option selected>Selecciona subcampeon</option>
                                 {teams.map((team:any) =>(
-                                    <option value={team.name}>{team.name}</option>
+                                    <option value={team.pais}>{team.pais}</option>
                                 
                                 ))}
                             </select> 
@@ -127,6 +124,7 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
                             </div>
                             <InputForm classname={divElementClassname} id='floatingCareer' type='text' name='career' label='Career name' />
 
+                            <InputForm classname={divElementClassname} id='floatingRole' type='checkbox' name='admin' label='Admin' /> 
                             <div className='col-8'>
                                 <SignupButton  />
 
