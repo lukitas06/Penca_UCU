@@ -1,20 +1,14 @@
-'use client';
-import React from "react";
-import { useState, useEffect } from "react";
-import LoginRegisterCard from "../../ui/components/LoginRegisterCard";
-import { Underdog } from "next/font/google";
-
+'use server'
+import LoginRegisterCard  from "../../ui/components/LoginRegisterCard"
 
 
 export default async function Login() {
 
-    const teamsData = fetchTeams();
-    const teams: any[] = await Promise.resolve(teamsData);
+    const teamsData = await fetchTeams()
 
-    return (
-        <LoginRegisterCard teams={teams} />
-    );
-
+    return(
+        <LoginRegisterCard teams= {teamsData} />
+    )    
 }
 const fetchTeams = async () => {
 
@@ -23,6 +17,7 @@ const fetchTeams = async () => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+
         return response.json();
     }
     catch (error) {
