@@ -2,7 +2,7 @@
 import LoginRegisterCard  from "../../ui/components/LoginRegisterCard"
 
 
-export default async function Login(){
+export default async function Login() {
 
     const teamsData = await fetchTeams()
 
@@ -22,6 +22,6 @@ const fetchTeams = async () => {
     }
     catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
-    
+
     }
-}
+};

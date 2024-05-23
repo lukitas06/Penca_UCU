@@ -1,4 +1,4 @@
-.card{
+.card {
     margin-top: 50px;
     margin-bottom: 50px;
     margin-left: auto;
@@ -11,17 +11,17 @@
 
 }
 
-.card-header{
+.card-header {
     background-color: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
     padding: 10px;
     border-radius: 10px 10px 0 0;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     display: flex;
     justify-content: space-between;
 }
 
-.card-content{
+.card-content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,12 +29,12 @@
     height: 100%;
 }
 
-.form-element-div{
+.form-element-div {
     position: relative;
     margin-top: 10px;
 }
 
-.form-element-div label{
+.form-element-div label {
     position: absolute;
     left: 10px;
     top: 10px;
@@ -45,38 +45,42 @@
     font-weight: bold;
     font-size: small;
 }
-.form-select{
+
+.form-select {
     display: flex;
-    width:80%;
+    width: 80%;
 }
 
-input:focus{
+input:focus {
     outline: none;
 
 }
-.focused + label,
-input:focus + label {
-  top: -10px;
-  font-size: 12px;
-  border: none;
-  outline: none;
+
+.focused+label,
+input:focus+label {
+    top: -10px;
+    font-size: 12px;
+    border: none;
+    outline: none;
 }
+
 .input-wrapper {
-  position: relative;
-  margin-bottom: 10px;
+    position: relative;
+    margin-bottom: 10px;
 }
+
 .label {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  transition: top 0.3s, font-size 0.3s;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transition: top 0.3s, font-size 0.3s;
 }
 
 
-form{
-    display:flex;
+form {
+    display: flex;
     gap: 10px;
-    max-height:min-content;
+    max-height: min-content;
     justify-content: center;
     align-items: center;
     margin-right: 0px;
@@ -93,13 +97,14 @@ form select{
     justify-content: center;
 
 }
-.input-error-msg p{
+
+.input-error-msg p {
     margin: 0;
     width: fit-content;
-    
+
 }
 
-.form-container{
+.form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -109,7 +114,7 @@ form select{
     padding: 15px 0 15px 0;
 }
 
-.form-select-other{
+.form-select-other {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,26 +125,27 @@ form select{
     border-radius: 10px;
 
 }
-.form-select-other button{
+
+.form-select-other button {
     padding: 10px;
     border: none;
     background-color: inherit;
     color: inherit;
     cursor: pointer;
 }
-.form-select-other button:hover{
+
+.form-select-other button:hover {
     text-decoration-line: underline;
 }
 
-form .submit-btn{
+form .submit-btn {
     max-width: fit-content;
     border: none;
     padding: 10px;
     border-radius: 10px;
 }
 
-form .submit-btn:hover{
+form .submit-btn:hover {
     background-color: #595958;
     color: white;
 }
-

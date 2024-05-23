@@ -1,5 +1,5 @@
-'use client'
-import { any} from 'zod';
+'use client';
+import { any } from 'zod';
 import InputForm from './InputForm';
 import  {signUp, signIn}  from '../../services/auth';
 import '../styles/LoginRegister.css';
@@ -21,22 +21,22 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
     const [signupState, setSignupState] = useState({
         errors: any,
         message: any
-    }
-    )
+    });
+
     const [signinState, setSigninState] = useState({
         errors: any,
         message: any
-    }
-    )
-    
+    });
+
     const [register, setRegister] = useState(false);
 
     const toggleRegister = () => {
         setRegister(true);
-    }
+    };
+
     const toggleLogin = () => {
         setRegister(false);
-    }
+    };
 
     const signupValidation = (formData:any) => {
         signUp(formData)
@@ -188,21 +188,21 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
 }
 
 export function SignupButton() {
-    const { pending } = useFormStatus()
-   
-    return (
-      <button className='btn btn-primary' type="submit">
-        {pending ? 'Submitting...' : 'Sign up'}
-      </button>
-    )
-  }
+    const { pending } = useFormStatus();
 
-  export function SigninButton() {
-    const { pending } = useFormStatus()
-   
     return (
-      <button className='btn btn-primary' type="submit">
-        {pending ? 'Submitting': 'Sign in'}
-      </button>
-    )
-  }
+        <button className='btn btn-primary' type="submit">
+            {pending ? 'Submitting...' : 'Sign up'}
+        </button>
+    );
+}
+
+export function SigninButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <button className='btn btn-primary' type="submit">
+            {pending ? 'Submitting' : 'Sign in'}
+        </button>
+    );
+}
