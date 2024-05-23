@@ -41,10 +41,9 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
     const signupValidation = (formData:any) => {
         signUp(formData)
         .then((response) => { 
-
+            console.log(response);
             setSignupState({ errors: response?.errors, message: response?.errors?.message});
-            alert(response?.message);
-
+            
             if (response?.message === 'User created successfully') {
                 setRegister(false);
             }
@@ -60,7 +59,7 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
             if (response?.token == undefined && response?.errors == undefined) {
                 alert(response?.message);
             }
-            else {
+            else if (response?.token !== undefined){
                 localStorage.setItem('user', response.token);
                 router.push('/pages/home');
             }
@@ -78,16 +77,16 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
                         <form className='row ' action={signupValidation}>
                             <InputForm classname={divElementClassname} id='floatingUsername' type='text' name='username' label='Username' />
                                 <div className='input-error-msg'>
-                                    {signupState?.errors?.username && <p>{signupState.errors.username}</p>}
+                                    {signupState?.errors?.usuario && <p>{signupState.errors.usuario}</p>}
                                 </div>
                             <InputForm classname={divElementClassname} id='floatingName' type='text' name='name' label='Name' />
                             <div className='input-error-msg'>
-                                {signupState?.errors?.name && <p>{signupState.errors.name}</p>}
+                                {signupState?.errors?.nombres && <p>{signupState.errors.nombres}</p>}
                             </div>
 
                             <InputForm classname={divElementClassname} id='floatingLastname' type='text' name='lastname' label='Lastname' />
                             <div className='input-error-msg'>
-                                {signupState?.errors?.lastname && <p>{signupState.errors.lastname}</p>}
+                                {signupState?.errors?.apellidos && <p>{signupState.errors.apellidos}</p>}
                             </div>
 
                             <InputForm classname={divElementClassname} id='floatingEmail' type='email' name='email' label='Email' />
@@ -110,17 +109,17 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
                                 ))}
                             </select> 
                             <div className='input-error-msg'>
-                                {signupState?.errors?.secondPlace && <p>{signupState.errors.secondPlace}</p>}
+                                {signupState?.errors?.segundoLugar && <p>{signupState.errors.segundoLugar}</p>}
                             </div>
 
                             <InputForm classname={divElementClassname} id='floatingPassword' type='password' name='password' label='Password' />
-                            {signupState?.errors?.password?.map((error:any) => 
+                            {signupState?.errors?.contrasena?.map((error:any) => 
                             <div className='input-error-msg'><p>{error}</p></div>
                             )}
                             
                             <InputForm classname={divElementClassname} id='floatingConfirmPassword' type='password' name='confirmPassword' label='Confirm password' />
                             <div className='input-error-msg'>
-                                {signupState?.errors?.confirmPassword && <p>{signupState.errors.confirmPassword}</p>}
+                                {signupState?.errors?.confirmarContrasena && <p>{signupState.errors.confirmarContrasena}</p>}
                             </div>
                             <InputForm classname={divElementClassname} id='floatingCareer' type='text' name='career' label='Career name' />
 
@@ -154,7 +153,7 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
                                 label='Username'
                             />
                             <div className='input-error-msg'>
-                                {signinState?.errors?.username && <p>{signinState.errors.username}</p>}
+                                {signinState?.errors?.usuario && <p>{signinState.errors.usuario}</p>}
                             </div>
 
                             <InputForm
@@ -165,7 +164,7 @@ export default function LoginRegisterCard({teams}: {teams: any}) {
                                 label='Password'
                             />
                             <div className='input-error-msg'>
-                                {signinState?.errors?.password && <p>{signinState.errors.password}</p>}
+                                {signinState?.errors?.contrasena && <p>{signinState.errors.contrasena}</p>}
                             </div>
 
                             <div className='col-8'>

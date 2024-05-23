@@ -9,15 +9,15 @@ export async function signUp(formData:any) {
   // Validate form fields
 
   const validatedFields = SignUpFormSchema.safeParse({
-    username: formData.get('username'),
-    name: formData.get('name'),
-    lastname: formData.get('lastname'),
+    usuario: formData.get('username'),
+    nombres: formData.get('name'),
+    apellidos: formData.get('lastname'),
     email: formData.get('email'),
-    firstPlace: formData.get('firstPlace'),
-    secondPlace: formData.get('secondPlace'),
-    career: formData.get('career'),
-    password: formData.get('password'),
-    confirmPassword: formData.get('confirmPassword'),
+    primer_lugar: formData.get('firstPlace'),
+    segundo_lugar: formData.get('secondPlace'),
+    carrera: formData.get('career'),
+    contrasena: formData.get('password'),
+    confirmarContrasena: formData.get('confirmPassword'),
   })
  
   // If any form fields are invalid, return early
@@ -59,8 +59,8 @@ export async function signUp(formData:any) {
 export async function signIn(formData:any) {
   // Validate form fields
   const validatedFields = SignInFormSchema.safeParse({
-    username: formData.get('username'),
-    password: formData.get('password'),
+    usuario: formData.get('username'),
+    contrasena: formData.get('password'),
   })
  
   // If any form fields are invalid, return early
