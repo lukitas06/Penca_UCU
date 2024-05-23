@@ -2,6 +2,7 @@ import {z} from "zod"
 
 
 export const SignUpFormSchema:any = z.object({
+    username: z.string().min(2, "El nombre de usuario debe tener al menos 2 caracteres").trim(),
     name: z
         .string()
         .min(2, "El nombre debe tener al menos 2 caracteres")
@@ -10,6 +11,7 @@ export const SignUpFormSchema:any = z.object({
     email: z.string().email({message: 'Por favor ingresar un email valido.'}).trim(),
     firstPlace: z.string().trim(),
     secondPlace: z.string().trim(),
+    career: z.string().trim(),
     password: z
         .string()
         .min(6, "La contraseña debe tener al menos 6 caracteres")
@@ -53,3 +55,8 @@ export type FormState =
       message?: string
     }
   | undefined
+
+
+export type UserResponse = {
+
+}

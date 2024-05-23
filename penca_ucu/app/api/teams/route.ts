@@ -5,7 +5,7 @@ export async function GET() {
     //call the provider or db to get the teams
         
     try{
-        const res = await realizarConsulta();
+        const res = await getTeams();
 
         return Response.json(res); 
     }
@@ -22,10 +22,10 @@ export async function POST() {
     return Response.json({message: 'POST method not implemented'});
 }
 
-const realizarConsulta =  () => {
+const getTeams =  () => {
 
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM Team', (err, results) => {
+        connection.query('SELECT * FROM Equipo', (err, results) => {
             if (err) {
                 reject(err);
                 return;
