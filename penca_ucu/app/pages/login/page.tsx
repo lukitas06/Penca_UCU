@@ -1,20 +1,17 @@
-'use client'
-import React from "react"
-import { useState, useEffect } from "react";
+'use server'
 import LoginRegisterCard  from "../../ui/components/LoginRegisterCard"
-import { Underdog } from "next/font/google";
 
 
 
 export default async function Login(){
-
     const teamsData = fetchTeams();
     const teams:any[] = await Promise.resolve(teamsData);
 
+    //const value = localStorage.getItem("user");
+
     return(
         <LoginRegisterCard teams= {teams} />
-    )
-    
+    )    
 }
 const fetchTeams = async () => {
 

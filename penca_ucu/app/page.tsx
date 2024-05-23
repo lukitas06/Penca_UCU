@@ -1,23 +1,24 @@
 'use client';
-import Image from "next/image";
-import styles from "./page.module.css";
 import { useRouter } from 'next/navigation'
 import { useEffect,useState } from "react";
-import LoginRegisterCard from "./ui/components/LoginRegisterCard";
 
 export default function Home() {
-  const [logged, setLogged] = useState("");
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
-    let value = localStorage.getItem("logged") || "";
-    console.log("logged: ", value);
-    setLogged(value);
-    if (logged == "") {
+    const userStorage =  localStorage.getItem('user');
+    setUser(userStorage);
+  }, [])
+
+  //Dirigir al login si no esta logueado.
+  useEffect(() => {
+    if (user == null) {
       router.push("/pages/login");
     }
+    //Dirigir a la landing page si esta logueado.
     else{
-      console.log("");
+      router.push("/pages/home");
     }
-  }, []);
+  })
 }
