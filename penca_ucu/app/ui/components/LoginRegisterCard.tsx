@@ -1,58 +1,55 @@
-'use client'
-import { any} from 'zod';
+'use client';
+import { any } from 'zod';
 import InputForm from './InputForm';
-import  {signUp, signIn}  from '../../actions/auth';
+import { signUp, signIn } from '../../actions/auth';
 import '../styles/LoginRegister.css';
 import { useState } from 'react';
-import { useFormStatus } from 'react-dom'
+import { useFormStatus } from 'react-dom';
 
 
-export default function LoginRegisterCard({teams}: {teams: any[]}) {
+export default function LoginRegisterCard({ teams }: { teams: any[]; }) {
     const divElementClassname = 'col-8 form-element-div';
 
-    console.log(teams)
+    console.log(teams);
 
     const [signupState, setSignupState] = useState({
         errors: any,
         message: any
-    }
-    )
+    });
+
     const [signinState, setSigninState] = useState({
         errors: any,
         message: any
-    }
-    )
-    
+    });
+
     const [register, setRegister] = useState(false);
 
     const toggleRegister = () => {
         setRegister(true);
-    }
+    };
+
     const toggleLogin = () => {
         setRegister(false);
-    }
+    };
 
-    const signupValidation = (formData:any) => {
-        signUp(formData)
-        .then((response) => { 
-            console.log(response?.errors.email)
-            setSignupState({ errors: response?.errors, message: response?.errors.message}) })
-    }
-    
-    const signinValidation = (formData:any) => {
-        signIn(formData)
-        .then((response) => { 
-            setSigninState({ errors: response?.errors, message: response?.errors.message}) })
-    }
-    
+    const signupValidation = (formData: any) => {
+        signUp(formData).then((response) => {
+            console.log(response?.errors.email);
+            setSignupState({ errors: response?.errors, message: response?.errors.message });
+        });
+    };
 
+    const signinValidation = (formData: any) => {
+        signIn(formData).then((response) => {
+            setSigninState({ errors: response?.errors, message: response?.errors.message });
+        });
+    };
 
-    if(register) {
-        return(
-            
+    if (register) {
+        return (
             <div className="col col-10 card">
-                
-                <div className='card-content form-container register-container'>         
+
+                <div className='card-content form-container register-container'>
                     <form className='row ' action={signupValidation}>
                         <InputForm classname={divElementClassname} id='floatingName' type='name' name='name' label='Name' />
                         <div className='input-error-msg'>
@@ -71,10 +68,10 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
 
                         <InputForm classname={divElementClassname} id='floatingEmail' type='email' name='email' label='Email' />
                         <div className='input-error-msg'>
-                            {signupState?.errors?.email && <p>{signupState.errors.email}</p>}        
+                            {signupState?.errors?.email && <p>{signupState.errors.email}</p>}
                         </div>
 
-                         {/* <select className='form-select' name='firstPlace'>
+                        {/* <select className='form-select' name='firstPlace'>
                             <option selected>Selecciona campeon</option>
                             {teams?.map((team:any) =>(
                                 <option value={team.name}>{team.name}</option>
@@ -93,16 +90,16 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
                         </div> */}
 
                         <InputForm classname={divElementClassname} id='floatingPassword' type='password' name='password' label='Password' />
-                        {signupState?.errors?.password?.map((error:any) => 
-                        <div className='input-error-msg'><p>{error}</p></div>
+                        {signupState?.errors?.password?.map((error: any) =>
+                            <div className='input-error-msg'><p>{error}</p></div>
                         )}
-                        
+
                         <InputForm classname={divElementClassname} id='floatingConfirmPassword' type='password' name='confirmPassword' label='Confirm password' />
                         <div className='input-error-msg'>
                             {signupState?.errors?.confirmPassword && <p>{signupState.errors.confirmPassword}</p>}
                         </div>
                         <div className='col-8'>
-                            <SignupButton  />
+                            <SignupButton />
 
                         </div>
                     </form>
@@ -110,15 +107,14 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
                         <h3>Ya tienes cuenta?</h3>
                         <button onClick={toggleLogin}>¡Logueate aqui!</button>
                     </div>
-                                        
+
                 </div>
             </div>
-        )
-    }
-    else{
-        return(
+        );
+    } else {
+        return (
             <div className="col col-10 card">
-            
+
                 <div className='card-content form-container login-container'>
                     <form className='row' action={signinValidation}>
 
@@ -147,34 +143,34 @@ export default function LoginRegisterCard({teams}: {teams: any[]}) {
                         <div className='col-8'>
                             <SigninButton />
                         </div>
-                    </form>     
+                    </form>
                     <div className='form-select-other select-register'>
                         <h3>¿No tienes cuenta?</h3>
                         <button onClick={toggleRegister}>¡Registrate aqui!</button>
                     </div>
                 </div>
             </div>
-    )
-}
+        );
+    }
 
 }
 
 export function SignupButton() {
-    const { pending } = useFormStatus()
-   
-    return (
-      <button className='btn btn-primary' type="submit">
-        {pending ? 'Submitting...' : 'Sign up'}
-      </button>
-    )
-  }
+    const { pending } = useFormStatus();
 
-  export function SigninButton() {
-    const { pending } = useFormStatus()
-   
     return (
-      <button className='btn btn-primary' type="submit">
-        {pending ? 'Submitting': 'Sign in'}
-      </button>
-    )
-  }
+        <button className='btn btn-primary' type="submit">
+            {pending ? 'Submitting...' : 'Sign up'}
+        </button>
+    );
+}
+
+export function SigninButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <button className='btn btn-primary' type="submit">
+            {pending ? 'Submitting' : 'Sign in'}
+        </button>
+    );
+}

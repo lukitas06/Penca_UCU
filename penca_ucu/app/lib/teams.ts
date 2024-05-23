@@ -1,11 +1,11 @@
-import z from "zod"
+import z from "zod";
 
 
 
-export const TeamSchema:any = z.object({
+export const TeamSchema: any = z.object({
 
-    name: z.string().min(2, "El nombre del equipo debe tener al menos 2 caracteres").trim(),
-    fifa_ranking: z.number().int().positive("El ranking FIFA debe ser un número positivo"),
+    pais: z.string().min(2, "El nombre del equipo debe tener al menos 2 caracteres").trim(),
+    rankingFifa: z.number().int().positive("El ranking FIFA debe ser un número entero positivo"),
     // group: z.string().min(1, "El grupo del equipo debe tener al menos 1 caracter").trim(),
     // flag: z.string().min(2, "La bandera del equipo debe tener al menos 2 caracteres").trim(),
     // fifa_ranking: z.number().int().positive("El ranking FIFA debe ser un número positivo"),
@@ -23,4 +23,4 @@ export const TeamSchema:any = z.object({
     // created_at: z.string(),
     // updated_at: z.string(),
     // deleted_at: z.string(),
-})
+});

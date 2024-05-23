@@ -1,20 +1,20 @@
-'use client'
-import React from "react"
+'use client';
+import React from "react";
 import { useState, useEffect } from "react";
-import LoginRegisterCard  from "../../ui/components/LoginRegisterCard"
+import LoginRegisterCard from "../../ui/components/LoginRegisterCard";
 import { Underdog } from "next/font/google";
 
 
 
-export default async function Login(){
+export default async function Login() {
 
     const teamsData = fetchTeams();
-    const teams:any[] = await Promise.resolve(teamsData);
+    const teams: any[] = await Promise.resolve(teamsData);
 
-    return(
-        <LoginRegisterCard teams= {teams} />
-    )
-    
+    return (
+        <LoginRegisterCard teams={teams} />
+    );
+
 }
 const fetchTeams = async () => {
 
@@ -27,6 +27,6 @@ const fetchTeams = async () => {
     }
     catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
-    
+
     }
-}
+};
