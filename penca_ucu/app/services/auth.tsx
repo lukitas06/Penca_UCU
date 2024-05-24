@@ -28,9 +28,10 @@ export async function signUp(formData: any) {
   }
   //Fields to create a user in the db
   const admin = formData.get('admin') === 'on' ? true : false;
-  const { username, name, lastname, email, firstPlace, secondPlace, career, password } = await validatedFields.data;
+  console.log('data', validatedFields.data);
+  const { usuario, nombres, apellidos, email, primerLugar, segundoLugar, carrera, contrasena } = await validatedFields.data;
   // crypto password
-  const cryptedPassword = await bcrypt.hash(password, 10)
+  const cryptedPassword = await bcrypt.hash(contrasena, 10)
 
   //insert user in the db
   const response = await fetch('http://localhost:3000/api/users', {
@@ -39,15 +40,15 @@ export async function signUp(formData: any) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      username,
-      name,
-      lastname,
+      usuario,
+      nombres,
+      apellidos,
       email,
-      firstPlace,
-      secondPlace,
-      career,
+      primerLugar,
+      segundoLugar,
+      carrera,
       admin,
-      password: cryptedPassword
+      contrasena: cryptedPassword
     }),
   })
 
@@ -70,15 +71,15 @@ export async function signIn(formData: any) {
     }
   }
   // Call the provider or db to validate the user
-  const { username, password } = await validatedFields.data;
+  const { usuario, contrasena } = await validatedFields.data;
   const response = await fetch('http://localhost:3000/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      username,
-      password
+      usuario,
+      contrasena
     }),
 
   })
@@ -94,7 +95,7 @@ export async function signIn(formData: any) {
     const role = userInfo.es_admin === 1 ? 'admin' : 'student';
 
     console.log('role', role);
-    const match = bcrypt.compare(password, userPsw);
+    const match = bcrypt.compare(contrasena, userPsw);
     const matchRes = match.then((match: any) => {
       const username = userInfo.usuario;
       if (match) {

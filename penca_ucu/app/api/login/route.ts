@@ -5,9 +5,9 @@ import { connection } from '../../lib/dbConnection'
 
 export async function POST(req: any, res: any) {
     const body = await req.json()
-    const { username, password } = body;
+    const { usuario, contrasena } = body;
     try {
-        const QUERY = `SELECT * FROM Usuario WHERE usuario = '${username}'`;
+        const QUERY = `SELECT * FROM Usuario WHERE usuario = '${usuario}'`;
 
         const res = await getUser(QUERY) as object[];
         console.log("user from db", res);

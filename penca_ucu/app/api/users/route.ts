@@ -28,18 +28,18 @@ export async function POST(req:any,res:any) {
     }
     catch(err){
         return new Response(
-            JSON.stringify({message: 'Error creating the user'}),
+            JSON.stringify({message: err}),
             {status: 500}
         );
     }
 }
 
 const postUser =  (userData:any): Promise<string> => {
-    const {username, name, lastname, email, firstPlace, secondPlace,career, password,admin} = userData;
+    const {usuario, nombres, apellidos, email, primerLugar, segundoLugar,carrera, contrasena,admin} = userData;
 
     const score = 0;
-    const QUERY = admin === true?`INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin) VALUES ('${username}','${name}','${lastname}','${email}','${password}',${admin});`
-    :`INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES ('${username}','${name}','${lastname}','${email}','${password}',${admin},${score},'${career}','${firstPlace}','${secondPlace}');`
+    const QUERY = admin === true?`INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin) VALUES ('${usuario}','${nombres}','${apellidos}','${email}','${contrasena}',${admin});`
+    :`INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES ('${usuario}','${nombres}','${apellidos}','${email}','${contrasena}',${admin},${score},'${carrera}','${primerLugar}','${segundoLugar}');`
     return new Promise((resolve, reject) => {
         connection.query(QUERY, (err, results) => {
             if (err) {
