@@ -23,10 +23,10 @@ export const SignUpFormSchema: any = z.object({
         .string(),
 }).refine(data => data.contrasena === data.confirmarContrasena, {
     message: "Las contraseñas deben coincidir.",
-    path: ["confirmPassword"],
+    path: ["confirmarContrasena"],
 }).refine(data => data.primerLugar !== data.segundoLugar, {
     message: "Los equipos deben ser distintos.",
-    path: ["secondPlace"],
+    path: ["segundoLugar"],
 });
 
 export const SignInFormSchema: any = z.object({
@@ -40,13 +40,24 @@ export const SignInFormSchema: any = z.object({
         .trim(),
 });
 
-export type FormState = {
+export type SignUpFormState = {
     errors?: {
+        usuario?: string[];
         nombres?: string[];
         apellidos?: string[];
         email?: string[];
+        primerLugar?: string[];
+        segundoLugar?: string[];
         contrasena?: string[];
         confirmarContrasena?: string[];
+    };
+    message?: string;
+} | undefined;
+
+export type SignInFormState = {
+    errors?: {
+        usuario?: string[];
+        contrasena?: string[];
     };
     message?: string;
 } | undefined;
