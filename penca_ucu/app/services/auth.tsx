@@ -70,6 +70,7 @@ export async function signIn(formData: any) {
             errors: validatedFields.error.flatten().fieldErrors,
         };
     }
+
     // Call the provider or db to validate the user
     const { usuario, contrasena } = await validatedFields.data;
     const response = await fetch('http://localhost:3000/api/login', {
@@ -80,9 +81,9 @@ export async function signIn(formData: any) {
         body: JSON.stringify({
             usuario,
             contrasena
-        }),
-
+        })
     });
+
     if (response.status != 200) {
         return response.json();
     }
@@ -99,11 +100,9 @@ export async function signIn(formData: any) {
         const matchRes = match.then((match: any) => {
             const username = userInfo.usuario;
             if (match) {
-
                 const token = jwt.sign({ username, role }, 'secret', { expiresIn: '1h' });
                 return { token: token };
-            }
-            else {
+            } else {
                 return { message: 'Invalid username or password' };
             }
         });
