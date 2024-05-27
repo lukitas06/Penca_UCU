@@ -95,3 +95,6 @@ INSERT INTO Partido(id, equipo1, equipo2, equipo1_goles, equipo2_goles, etapa, f
     ('4', 'México',         'Jamaica',   0, 0, 'GRUPOS', '2024-06-22 22:00:00', false),
     ('5', 'Estados Unidos', 'Bolivia',   0, 0, 'GRUPOS', '2024-06-23 19:00:00', false),
     ('6', 'Uruguay',        'Panamá',    0, 0, 'GRUPOS', '2024-06-23 22:00:00', false);
+
+INSERT INTO Usuario(usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES
+    ('admin', 'admin', 'admin', 'correo@correo.com', 'admin', true, NULL, NULL, NULL, NULL);

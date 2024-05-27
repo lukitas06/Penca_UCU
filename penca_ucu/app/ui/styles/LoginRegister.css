@@ -85,10 +85,12 @@ form {
     align-items: center;
     margin-right: 0px;
 }
-form select{
+
+form select {
     width: fit-content;
 }
-.input-error-msg{
+
+.input-error-msg {
     color: red;
     font-size: small;
     margin: 0;
