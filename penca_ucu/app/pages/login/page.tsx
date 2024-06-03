@@ -1,14 +1,14 @@
 'use server'
-import LoginRegisterCard  from "../../ui/components/LoginRegisterCard"
+import LoginRegisterCard from "../../ui/components/LoginRegisterCard"
 
 
 export default async function Login() {
 
     const teamsData = await fetchTeams()
 
-    return(
-        <LoginRegisterCard teams= {teamsData} />
-    )    
+    return (
+        <LoginRegisterCard teams={teamsData} />
+    )
 }
 const fetchTeams = async () => {
 

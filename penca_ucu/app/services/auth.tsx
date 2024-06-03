@@ -1,9 +1,9 @@
 'use server'
-import { cookies } from 'next/headers'
-import { SignUpFormSchema, SignInFormSchema, SignInFormState,SignUpFormState } from '../lib/definitions'
+import { SignUpFormSchema, SignInFormSchema, SignInFormState, SignUpFormState } from '../lib/definitions'
 import bcrypt from 'bcryptjs'
 import { signToken } from './tokenService'
-import jwt from 'jsonwebtoken'
+import { UserResponse } from '../lib/user'
+import { cookies } from 'next/headers'
 
 export async function signUp(formData: any) {
   // Validate form fields
@@ -86,29 +86,25 @@ export async function signIn(formData: any) {
   if (response.status != 200) {
     return response.json();
   }
-  const jsonResponse = response.json();
 
-  const clientResponse = jsonResponse.then((data: any) => {
+  const userResponse = await response.json();
+  const user: UserResponse = userResponse.user;
 
-    const userInfo = data.user;
-    const userPsw = userInfo.contrasena;
-    const role = userInfo.es_admin === 1 ? 'admin' : 'student';
+  const contrasenaFromDb = user.contrasena;
+  const rol = user.es_admin === 1 ? 'admin' : 'student';
 
-    console.log('role', role);
-    const match = bcrypt.compare(contrasena, userPsw);
-    const matchRes = match.then((match: any) => {
-      const username = userInfo.usuario;
-      if (match) {
+  const match = await bcrypt.compare(contrasena, contrasenaFromDb);
+  if (match) {
+    const token = await signToken(usuario, rol);
 
-        const token = jwt.sign({ username, role }, 'secret', { expiresIn: '1h' });
-        return { token: token }
-      }
-      else {
-        return { message: 'Invalid username or password' }
-      }
+    const expiration = new Date(Date.now() + 10 * 1000 * 60);
+    cookies().set('token', token, {
+      expires: expiration,
+      httpOnly: true,
+      path: '/'
     })
-    return matchRes;
-  })
-  return clientResponse;
+    return { message: 'User logged in successfully' }
+  }
+  return { message: 'Invalid credentials' };
 }
 
