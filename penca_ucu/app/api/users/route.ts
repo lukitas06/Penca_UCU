@@ -1,7 +1,5 @@
-'use server'
-import { use } from 'react';
-import { connection } from '../../lib/dbConnection'
-import { NextRequest } from 'next/server';
+'use server';
+import { connection } from '../../lib/dbConnection';
 
 export async function GET(req: NextRequest, res: any) {
     //call the provider or db to get the teams
@@ -44,11 +42,13 @@ export async function POST(req: any, res: any) {
 }
 
 const postUser = (userData: any): Promise<string> => {
+
     const { usuario, nombres, apellidos, email, primerLugar, segundoLugar, carrera, contrasena, admin } = userData;
 
     const score = 0;
     const QUERY = admin === true ? `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin) VALUES ('${usuario}','${nombres}','${apellidos}','${email}','${contrasena}',${admin});`
         : `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES ('${usuario}','${nombres}','${apellidos}','${email}','${contrasena}',${admin},${score},'${carrera}','${primerLugar}','${segundoLugar}');`
+
     return new Promise((resolve, reject) => {
         connection.query(QUERY, (err, results) => {
             if (err) {
@@ -58,8 +58,8 @@ const postUser = (userData: any): Promise<string> => {
             console.log("results", results);
             resolve("User created successfully");
         });
-    })
-}
+    });
+};
 
 const getUsers = () => {
     const QUERY = `SELECT * FROM Usuario`;

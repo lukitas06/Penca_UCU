@@ -1,12 +1,12 @@
-'use server'
+'use server';
 
 export default function loginService() {
     return {
         async GET() {
-            return { message: 'GET /login' }
+            return { message: 'GET /login' };
         },
         async POST() {
-            return { message: 'POST /login' }
+            return { message: 'POST /login' };
         }
-    }
+    };
 }

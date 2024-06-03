@@ -5,15 +5,17 @@ import '../styles/LoginRegister.css';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom'
 import { useRouter } from 'next/navigation'
+
 import { SignUpFormState, SignInFormState } from '../../lib/definitions';
 
 
-export default function LoginRegisterCard({ teams }: { teams: any }) {
+export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
     const router = useRouter();
     const divElementClassname = 'col-8 form-element-div';
 
     const [signupState, setSignupState] = useState<SignUpFormState>({})
+
 
     const [signinState, setSigninState] = useState<SignInFormState>({});
 
@@ -28,16 +30,15 @@ export default function LoginRegisterCard({ teams }: { teams: any }) {
     };
 
     const signupValidation = (formData: any) => {
-        signUp(formData)
-            .then((response) => {
-                console.log(response);
-                setSignupState({ errors: response?.errors, message: response?.errors?.message });
+        signUp(formData).then((response) => {
+            console.log(response);
+            setSignupState({ errors: response?.errors, message: response?.errors?.message });
 
-                if (response?.message === 'User created successfully') {
-                    setRegister(false);
-                }
-            })
-    }
+            if (response?.message === 'User created successfully') {
+                setRegister(false);
+            }
+        });
+    };
 
     const signinValidation = async (formData: any) => {
 
@@ -98,6 +99,7 @@ export default function LoginRegisterCard({ teams }: { teams: any }) {
                         </select>
                         <div className='input-error-msg'>
                             {signupState?.errors?.segundoLugar && <p>{signupState.errors.segundoLugar}</p>}
+
                         </div>
 
                         <InputForm classname={divElementClassname} id='floatingPassword' type='password' name='password' label='Password' />
@@ -166,6 +168,7 @@ export default function LoginRegisterCard({ teams }: { teams: any }) {
                 </div>
             </div>
         )
+
     }
 }
 

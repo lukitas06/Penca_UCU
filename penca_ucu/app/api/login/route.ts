@@ -1,11 +1,12 @@
+
 'use server'
 import { connection } from '../../lib/dbConnection'
 import { UserResponse } from '@//lib/user';
 
 
 export async function POST(req: any, res: any) {
-    const body = await req.json()
-    const { usuario, contrasena } = body;
+    const body = await req.json();
+    const { usuario } = body;
     try {
         const QUERY = `SELECT * FROM Usuario WHERE usuario = '${usuario}'`;
 
@@ -15,33 +16,29 @@ export async function POST(req: any, res: any) {
             return new Response(
                 JSON.stringify({ message: 'User not found' }),
                 { status: 404 }
-            )
-        }
-        else {
+            );
+        } else {
             return new Response(
                 JSON.stringify({ user: dbResponse[0] }),
                 { status: 200 }
-            )
+            );
         }
-
-    }
-    catch {
+    } catch {
         return new Response(
             JSON.stringify({ message: 'Internal server error' }),
             { status: 500 }
-        )
+        );
     }
 }
-
 
 const getUser = (query: string) => {
     return new Promise((resolve, reject) => {
         connection.query(query, (err, results) => {
             if (err) {
-                reject(err)
+                reject(err);
                 return;
             }
             resolve(results);
         });
-    })
-}
+    });
+};

@@ -12,6 +12,7 @@ export async function signToken(username: string, rol: string) {
         .setProtectedHeader({ alg: 'HS256' })
         .setExpirationTime('1h')
         .sign(secretKey);
+
     return token;
 
 }
