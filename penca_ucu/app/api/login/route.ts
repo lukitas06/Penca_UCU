@@ -1,5 +1,8 @@
-'use server';
-import { connection } from '../../lib/dbConnection';
+
+'use server'
+import { connection } from '../../lib/dbConnection'
+import { UserResponse } from '@//lib/user';
+
 
 export async function POST(req: any, res: any) {
     const body = await req.json();
@@ -7,16 +10,16 @@ export async function POST(req: any, res: any) {
     try {
         const QUERY = `SELECT * FROM Usuario WHERE usuario = '${usuario}'`;
 
-        const res = await getUser(QUERY) as object[];
-        console.log("user from db", res);
-        if (res.length === 0) {
+        const dbResponse = await getUser(QUERY) as UserResponse[];
+        console.log("user from db", dbResponse);
+        if (dbResponse.length === 0) {
             return new Response(
                 JSON.stringify({ message: 'User not found' }),
                 { status: 404 }
             );
         } else {
             return new Response(
-                JSON.stringify({ user: res[0] }),
+                JSON.stringify({ user: dbResponse[0] }),
                 { status: 200 }
             );
         }
