@@ -5,10 +5,11 @@ import { UserResponse } from '@//lib/user';
 
 
 export async function POST(req: any, res: any) {
-    const body = await req.json();
-    const { usuario } = body;
     try {
+        const body = await req.json()
+        const { usuario } = body;
         const QUERY = `SELECT * FROM Usuario WHERE usuario = '${usuario}'`;
+
 
         const dbResponse = await getUser(QUERY) as UserResponse[];
         console.log("user from db", dbResponse);

@@ -17,8 +17,10 @@ const fetchTeams = async () => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
-    } catch (error) {
+
+        return JSON.stringify(response);
+    }
+    catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
     }
 };
