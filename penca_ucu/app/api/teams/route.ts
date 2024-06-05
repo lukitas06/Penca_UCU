@@ -33,16 +33,14 @@ export async function POST() {
 }
 
 const getTeams = () => {
-    const getTeams = () => {
 
-        return new Promise((resolve, reject) => {
-            connection.query('SELECT * FROM Equipo', (err, results) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-                resolve(results);
-            });
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM Equipo', (err, results) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(results);
         });
-    };
-}
+    });
+};

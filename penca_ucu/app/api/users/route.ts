@@ -1,5 +1,6 @@
 'use server';
 import { connection } from '../../lib/dbConnection';
+import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
     //call the provider or db to get the teams
