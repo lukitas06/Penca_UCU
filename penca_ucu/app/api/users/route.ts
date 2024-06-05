@@ -3,22 +3,26 @@ import { use } from 'react';
 import { connection } from '../../lib/dbConnection'
 import { NextRequest } from 'next/server';
 
-export async function GET(req: NextRequest, res: any) {
+export async function GET(req: NextRequest) {
     //call the provider or db to get the teams
 
     try {
         const cookies = req.cookies;
-        console.log("cookies", cookies);
-        const cookie = cookies.get('rol') || "";
+        const cookie = cookies.get('token') || "";
 
         if (cookie !== "") {
-            console.log("cookie", cookie);
+            const res = await getUsers();
+
+            return Response.json(res);
+        }
+        else {
+            return new Response(
+                JSON.stringify({ message: 'Unauthorized' }),
+                { status: 401 }
+            );
         }
 
 
-        const res = await getUsers();
-
-        return Response.json(res);
     }
     catch (err) {
         return new Response(
