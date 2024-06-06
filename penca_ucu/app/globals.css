@@ -44,7 +44,9 @@ a {
     align-items: center;
     background-color: inherit;
 }
-
+.matchCard-container{
+    margin-top: 20px;
+}
 @media (prefers-color-scheme: dark) {
     html {
         color-scheme: dark;

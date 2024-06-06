@@ -10,7 +10,8 @@ import { SignUpFormState, SignInFormState } from '../../lib/definitions';
 
 
 export default function LoginRegisterCard({ teams }: { teams: any; }) {
-
+    console.log("teams", teams)
+    console.log("teams lenght", teams.length)
     const router = useRouter();
     const divElementClassname = 'col-8 form-element-div';
 

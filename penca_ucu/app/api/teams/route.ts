@@ -6,19 +6,9 @@ export async function GET(req: NextRequest) {
     //call the provider or db to get the teams
 
     try {
-        const cookies = req.cookies;
-        const cookie = cookies.get('token') || "";
-
-        if (cookie !== "") {
-            const res = await getTeams();
-            return Response.json(res);
-        }
-        else {
-            return new Response(
-                JSON.stringify({ message: 'Unauthorized' }),
-                { status: 401 }
-            );
-        }
+        const res = await getTeams();
+        console.log("res api", res);
+        return new Response(JSON.stringify(res))
 
     } catch (err) {
         return new Response(
@@ -33,8 +23,8 @@ export async function POST() {
 }
 
 const getTeams = () => {
-
     return new Promise((resolve, reject) => {
+
         connection.query('SELECT * FROM Equipo', (err, results) => {
             if (err) {
                 reject(err);
