@@ -53,6 +53,6 @@ const mockMatches: matchResponse[] = [
 
 const getUsersOrderedByPoints = async () => {
 
-    const users = await fetch("http://localhost:3000/api/users")
+    const users = await fetch("http://localhost:3000/api/users/ranking")
     return users.json()
 }
