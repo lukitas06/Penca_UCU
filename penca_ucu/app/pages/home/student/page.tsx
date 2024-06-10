@@ -1,25 +1,19 @@
 'use server'
 
 import React from "react"
-import NavBar from "@//ui/components/NavBar"
-import MatchCard from "@//ui/components/MatchCard"
 import { matchResponse } from "@//lib/match"
+import { RankingResponse } from "@//lib/user";
+import LandingComponent from "@//ui/components/LandingComponent";
+import Header from "@//ui/components/Header";
 
+export default async function LandingPage() {
 
-export default async function Landing() {
+    const usersFromDb: RankingResponse[] = await getUsersOrderedByPoints()
+
     return (
         <div>
-            {/* Especie de header. Despues crear un componente para esto */}
-            <div id="primary-header">
-                <h1>Penca UCU Landing</h1>
-            </div>
-            <NavBar />
-            <div className="matchCard-container">
-                {mockMatches.map((match) =>
-                    <MatchCard matchInfo={match} />
-                )}
-
-            </div>
+            <Header />
+            <LandingComponent matches={mockMatches} users={usersFromDb} />
         </div>
     )
 }
@@ -56,3 +50,9 @@ const mockMatches: matchResponse[] = [
         finalizado: false
     }
 ]
+
+const getUsersOrderedByPoints = async () => {
+
+    const users = await fetch("http://localhost:3000/api/users")
+    return users.json()
+}

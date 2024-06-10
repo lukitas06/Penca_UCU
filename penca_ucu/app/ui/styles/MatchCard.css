@@ -1,0 +1,30 @@
+.card{
+    min-width: 300px;
+    min-height: 200px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(117, 117, 117, 0.292);
+}
+.card-header{
+    display: flex;
+    gap: 10%;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    background-color: inherit;
+}
+.card-footer{
+    border: none;
+    color: white;
+}
+.predict-btn{
+    height: fit-content;
+    width: fit-content;
+    padding: 2%;
+}
+
+.card-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10%;
+}

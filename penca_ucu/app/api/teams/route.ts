@@ -7,7 +7,6 @@ export async function GET(req: NextRequest) {
 
     try {
         const res = await getTeams();
-        console.log("res api", res);
         return new Response(JSON.stringify(res))
 
     } catch (err) {

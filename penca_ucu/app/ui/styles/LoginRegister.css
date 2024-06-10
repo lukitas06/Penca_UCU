@@ -1,5 +1,5 @@
 .card {
-    margin-top: 50px;
+    margin-top: 150px;
     margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -7,9 +7,12 @@
     border-radius: 10px;
     max-width: 600px;
     max-height: fit-content;
-    background-color: #262626;
-
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    background-color: rgba(79, 79, 79, 0.3);
+    color:white;
 }
+
 
 .card-header {
     background-color: #f8f9fa;
@@ -41,7 +44,7 @@
     transition: top 0.3s, font-size 0.3s;
     pointer-events: none;
     width: max-content;
-    color: rgb(193, 193, 193);
+    color: rgb(144, 144, 144);
     font-weight: bold;
     font-size: small;
 }
@@ -50,10 +53,8 @@
     display: flex;
     width: 80%;
 }
-
 input:focus {
     outline: none;
-
 }
 
 .focused+label,
@@ -62,11 +63,13 @@ input:focus+label {
     font-size: 12px;
     border: none;
     outline: none;
+    color: white;
 }
 
 .input-wrapper {
     position: relative;
     margin-bottom: 10px;
+    color: white;
 }
 
 .label {
@@ -121,7 +124,7 @@ form select {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #e9ecef;
+    /* color: rgb(144,144,144); */
     padding: 0 10px 0 10px;
     min-width: fit-content;
     border-radius: 10px;
@@ -140,11 +143,12 @@ form select {
     text-decoration-line: underline;
 }
 
-form .submit-btn {
+form .form-submit {
     max-width: fit-content;
     border: none;
     padding: 10px;
     border-radius: 10px;
+    margin-top: 15px;
 }
 
 form .submit-btn:hover {

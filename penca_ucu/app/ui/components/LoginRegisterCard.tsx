@@ -64,6 +64,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
             <div className="col col-10 card">
 
                 <div className='card-content form-container register-container'>
+                    <h1 className='card-title'>Register</h1>
                     <form className='row ' action={signupValidation}>
                         <InputForm classname={divElementClassname} id='floatingUsername' type='text' name='username' label='Username' />
                         <div className='input-error-msg'>
@@ -114,7 +115,6 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                         </div>
                         <InputForm classname={divElementClassname} id='floatingCareer' type='text' name='career' label='Career name' />
 
-                        <InputForm classname={divElementClassname} id='floatingRole' type='checkbox' name='admin' label='Admin' />
                         <div className='col-8'>
                             <SignupButton />
 
@@ -133,7 +133,9 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
         return (
             <div className="col col-10 card">
 
-                <div className='card-content form-container login-container'>
+                <div className='card-body form-container login-container'>
+                    <h1 className="card-title">Login</h1>
+
                     <form className='row' action={signinValidation}>
 
                         <InputForm
@@ -179,7 +181,7 @@ export function SignupButton() {
     const { pending } = useFormStatus();
 
     return (
-        <button className='btn btn-primary' type="submit">
+        <button className='btn btn-primary form-submit' type="submit">
             {pending ? 'Submitting...' : 'Sign up'}
         </button>
     );
@@ -189,7 +191,7 @@ export function SigninButton() {
     const { pending } = useFormStatus();
 
     return (
-        <button className='btn btn-primary' type="submit">
+        <button className='btn btn-primary form-submit' type="submit">
             {pending ? 'Submitting' : 'Sign in'}
         </button>
     );

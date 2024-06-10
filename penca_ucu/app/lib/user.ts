@@ -11,3 +11,8 @@ export type UserResponse = {
     primerLugar: string;
     segundoLugar: string;
 }
+
+export type RankingResponse = {
+    usuario: string;
+    puntaje: number;
+}

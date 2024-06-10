@@ -2,16 +2,16 @@
 
 import React from "react"
 import "../styles/NavBar.css"
-import { set } from "zod"
 
-export default function NavBar() {
 
-    const [view, setView] = React.useState("")
+export default function NavBar({ changeView }: { changeView: (view: string) => void }) {
 
-    const handleClick = (viewParam: string) => {
+    const [view, setView] = React.useState("proximos")
 
-        setView(viewParam)
+    const handleClick = (viewToSet: string) => {
 
+        setView(viewToSet)
+        changeView(viewToSet)
 
     }
 

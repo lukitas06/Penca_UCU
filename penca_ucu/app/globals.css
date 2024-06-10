@@ -1,12 +1,25 @@
 :root {
     body {
-        background-color: black;
-        display: flex;
+        background-color: rgb(26, 26, 26);
+        /* display: flex; */
         justify-content: center;
         flex-wrap: wrap;
-        color: white;
+        color: rgb(255, 255, 255);
         align-items: center;
         font-family: system-ui, -apple-system;
+        /* background: no-repeat center/80% url('../public/logoCopaAmerica.png'); */
+    }
+    .card{
+        margin-top: 10px;
+        color: white;
+    }
+    #header-container{
+        height:50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: inherit;
+
     }
 
     #appContainer {
@@ -27,6 +40,33 @@
         color: white;
         margin-bottom: 0;
     }
+
+    .matchCard-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap:nowrap;
+        margin-top: 20px;
+        gap: 20px;
+        flex-direction: column;
+        width: 100%;
+    }
+    .landing-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap:nowrap;
+        margin-top: 20px;
+        gap: 20px;
+        flex-direction: column;
+    }
+    .ranking-row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+    }
     h1{
         display: flex;
         justify-content: center
@@ -44,11 +84,52 @@ a {
     align-items: center;
     background-color: inherit;
 }
+
 .matchCard-container{
     margin-top: 20px;
+}
+.prediction-info-div{
+    display: flex;
+    width: 100%;
+    height: 200px;
+    background-color: black;
+    flex-direction: column;
+    padding: 0 10px 0 10px;
+}   
+.team-info-div{
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    width: 50px;
+}
+.prediction-info-img{
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    opacity: 0.7;
+    object-fit: cover;
+}
+.header-info{
+    width: 100%;
+    height: 30px;
+    color: rgb(255, 255, 255);
+    background-color: black;
+
+}
+.teams-info-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 170px;
+    background-color: black;
 }
 @media (prefers-color-scheme: dark) {
     html {
         color-scheme: dark;
     }
 }
+
+
+

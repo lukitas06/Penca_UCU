@@ -6,20 +6,21 @@ export async function GET(req: NextRequest) {
     //call the provider or db to get the teams
 
     try {
+
         const cookies = req.cookies;
         const cookie = cookies.get('token') || "";
 
-        if (cookie !== "") {
-            const res = await getUsers();
+        //if (cookie !== "") {
+        const res = await getUsers();
 
-            return Response.json(res);
-        }
-        else {
-            return new Response(
-                JSON.stringify({ message: 'Unauthorized' }),
-                { status: 401 }
-            );
-        }
+        return Response.json(res);
+        //}
+        // else {
+        //     return new Response(
+        //         JSON.stringify({ message: 'Unauthorized' }),
+        //         { status: 401 }
+        //     );
+        // }
 
 
     }
@@ -67,7 +68,7 @@ const postUser = (userData: any): Promise<string> => {
 };
 
 const getUsers = () => {
-    const QUERY = `SELECT * FROM Usuario`;
+    const QUERY = `SELECT usuario,puntaje FROM Usuario ORDER BY puntaje DESC`;
 
     return new Promise((resolve, reject) => {
         connection.query(QUERY, (err, results) => {
