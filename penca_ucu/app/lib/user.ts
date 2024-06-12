@@ -8,11 +8,11 @@ export type UserResponse = {
     es_admin: number;
     puntaje: number;
     carrera: string;
-    primerLugar: string;
-    segundoLugar: string;
-}
+    primer_lugar: string;
+    segundo_lugar: string;
+};
 
 export type RankingResponse = {
     usuario: string;
     puntaje: number;
-}
+};
