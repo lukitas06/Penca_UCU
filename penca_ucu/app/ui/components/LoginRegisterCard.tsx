@@ -3,19 +3,19 @@ import InputForm from './InputForm';
 import { signUp, signIn } from '../../services/auth';
 import '../styles/LoginRegister.css';
 import { useState } from 'react';
-import { useFormStatus } from 'react-dom'
-import { useRouter } from 'next/navigation'
+import { useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
 
 import { SignUpFormState, SignInFormState } from '../../lib/definitions';
 
 
 export default function LoginRegisterCard({ teams }: { teams: any; }) {
-    console.log("teams", teams)
-    console.log("teams lenght", teams.length)
+    console.log("teams", teams);
+    console.log("teams lenght", teams.length);
     const router = useRouter();
     const divElementClassname = 'col-8 form-element-div';
 
-    const [signupState, setSignupState] = useState<SignUpFormState>({})
+    const [signupState, setSignupState] = useState<SignUpFormState>({});
 
 
     const [signinState, setSigninState] = useState<SignInFormState>({});
@@ -46,7 +46,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
         signIn(formData)
             .then((response) => {
                 console.log(response);
-                setSigninState({ errors: response?.errors, message: response?.errors?.message })
+                setSigninState({ errors: response?.errors, message: response?.errors?.message });
 
                 if (response?.errors == undefined) {
                     alert(response?.message);
@@ -54,8 +54,8 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                 if (response.message === 'User logged in successfully') {
                     router.push('/pages/home');
                 }
-            })
-    }
+            });
+    };
 
 
     if (register) {
@@ -100,7 +100,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                             ))}
                         </select>
                         <div className='input-error-msg'>
-                            {signupState?.errors?.segundoLugar && <p>{signupState.errors.segundoLugar}</p>}
+                            {signupState?.errors?.segundo_lugar && <p>{signupState.errors.segundo_lugar}</p>}
 
                         </div>
 
@@ -127,7 +127,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
                 </div>
             </div>
-        )
+        );
     }
     else {
         return (
@@ -170,7 +170,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                     </div>
                 </div>
             </div>
-        )
+        );
 
     }
 }

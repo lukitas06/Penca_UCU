@@ -9,8 +9,8 @@ export const SignUpFormSchema: any = z.object({
         .trim(),
     apellidos: z.string().min(2, "El apellido debe tener al menos 2 caracteres").trim(),
     email: z.string().email({ message: 'Por favor ingresar un email válido.' }).trim(),
-    primerLugar: z.string().trim(),
-    segundoLugar: z.string().trim(),
+    primer_lugar: z.string().trim(),
+    segundo_lugar: z.string().trim(),
     contrasena: z
         .string()
         .min(6, "La contraseña debe tener al menos 6 caracteres")
@@ -25,7 +25,7 @@ export const SignUpFormSchema: any = z.object({
 }).refine(data => data.contrasena === data.confirmarContrasena, {
     message: "Las contraseñas deben coincidir.",
     path: ["confirmarContrasena"],
-}).refine(data => data.primerLugar !== data.segundoLugar, {
+}).refine(data => data.primer_lugar !== data.segundo_lugar, {
     message: "Los equipos deben ser distintos.",
     path: ["segundoLugar"],
 });
@@ -47,8 +47,8 @@ export type SignUpFormState = {
         nombres?: string[];
         apellidos?: string[];
         email?: string[];
-        primerLugar?: string[];
-        segundoLugar?: string[];
+        primer_lugar?: string[];
+        segundo_lugar?: string[];
         contrasena?: string[];
         confirmarContrasena?: string[];
     };

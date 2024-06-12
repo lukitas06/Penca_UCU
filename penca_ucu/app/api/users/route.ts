@@ -33,13 +33,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: any, res: any) {
-
     const body = await req.json();
+    const { usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar } = body;
+    const query = `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES (?, ?, ?, ?, ?, FALSE, 0, ?, ?);`;
     try {
-        const res = await postUser(body);
+        const res = await postUser(query, [usuario, nombres, apellidos, email, contrasena, primer_lugar, segundo_lugar, carrera]);
         return Response.json({ message: res });
-    }
-    catch (err) {
+    } catch (err) {
         return new Response(
             JSON.stringify({ message: err }),
             { status: 500 }
@@ -47,16 +47,9 @@ export async function POST(req: any, res: any) {
     }
 }
 
-const postUser = (userData: any): Promise<string> => {
-
-    const { usuario, nombres, apellidos, email, primerLugar, segundoLugar, carrera, contrasena, admin } = userData;
-
-    const score = 0;
-    const QUERY = admin === true ? `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin) VALUES ('${usuario}','${nombres}','${apellidos}','${email}','${contrasena}',${admin});`
-        : `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES ('${usuario}','${nombres}','${apellidos}','${email}','${contrasena}',${admin},${score},'${carrera}','${primerLugar}','${segundoLugar}');`
-
+const postUser = (query: any, params: any[]): Promise<string> => {
     return new Promise((resolve, reject) => {
-        connection.query(QUERY, (err, results) => {
+        connection.query(query, params, (err, results) => {
             if (err) {
                 reject(err);
                 return;
@@ -68,16 +61,15 @@ const postUser = (userData: any): Promise<string> => {
 };
 
 const getUsers = () => {
-    const QUERY = `SELECT * FROM Usuario`;
-
+    const QUERY = `SELECT usuario, puntaje FROM Usuario ORDER BY puntaje DESC`;
     return new Promise((resolve, reject) => {
         connection.query(QUERY, (err, results) => {
             if (err) {
-                reject(err)
+                reject(err);
                 return;
             }
-            resolve(results)
-        })
+            resolve(results);
+        });
     }
-    )
-}
+    );
+};
