@@ -62,7 +62,6 @@ const postUser = (query: any, params: any[]): Promise<string> => {
 
 const getUsers = () => {
     const QUERY = `SELECT usuario, puntaje FROM Usuario ORDER BY puntaje DESC`;
-
     return new Promise((resolve, reject) => {
         connection.query(QUERY, (err, results) => {
             if (err) {
