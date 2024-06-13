@@ -11,3 +11,10 @@ export type matchResponse = {
     fecha: string;
     finalizado: boolean;
 }
+
+export function parseDate(dateParam: string) {
+    const date = dateParam.split('T')[0]
+    const time = dateParam.split('T')[1].split('.')[0]
+
+    return { date, time }
+}

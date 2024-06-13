@@ -9,11 +9,12 @@ import Header from "@//ui/components/Header";
 export default async function LandingPage() {
 
     const usersFromDb: RankingResponse[] = await getUsersOrderedByPoints()
+    const matchesFromDb: matchResponse[] = await getMaches()
 
     return (
         <div>
             <Header />
-            <LandingComponent matches={mockMatches} users={usersFromDb} />
+            <LandingComponent matches={matchesFromDb} users={usersFromDb} />
         </div>
     )
 }
@@ -62,4 +63,10 @@ const getUsersOrderedByPoints = async () => {
         credentials: 'include'
     })
     return users.json()
+}
+
+const getMaches = async () => {
+
+    const matches = await fetch("http://localhost:3000/api/matches")
+    return matches.json()
 }
