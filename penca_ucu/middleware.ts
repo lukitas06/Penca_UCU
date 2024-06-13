@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
 import { verifyToken } from './app/services/tokenService'
 
+
 export async function middleware(request: NextRequest) {
 
     const token = cookies().get('token')
@@ -15,11 +16,11 @@ export async function middleware(request: NextRequest) {
 
         const tokenItself = token.value
         const payload = await verifyToken(tokenItself)
-        console.log("console.log : payload", payload)
 
         if (payload !== false) {
 
             const rol = payload.rol
+            const username = payload.username
 
             if (request.nextUrl.pathname === '/pages/login') {
                 return NextResponse.redirect(new URL('/pages/home', request.url))
@@ -53,4 +54,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+    //matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }

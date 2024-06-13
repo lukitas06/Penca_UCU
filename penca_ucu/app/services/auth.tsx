@@ -76,6 +76,7 @@ export async function signIn(formData: any) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
         },
         body: JSON.stringify({
             usuario,

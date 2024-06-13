@@ -16,11 +16,14 @@ export async function signToken(username: string, rol: string) {
     return token;
 
 }
-
+type Payload = {
+    rol: string,
+    username: string
+}
 export async function verifyToken(token: any) {
 
     try {
-        const { payload } = await jwtVerify(token, secretKey, {
+        const { payload } = await jwtVerify<Payload>(token, secretKey, {
             algorithms: ['HS256']
         })
         return payload

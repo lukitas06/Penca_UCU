@@ -10,8 +10,7 @@ import { SignUpFormState, SignInFormState } from '../../lib/definitions';
 
 
 export default function LoginRegisterCard({ teams }: { teams: any; }) {
-    console.log("teams", teams)
-    console.log("teams lenght", teams.length)
+
     const router = useRouter();
     const divElementClassname = 'col-8 form-element-div';
 
@@ -32,7 +31,6 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
     const signupValidation = (formData: any) => {
         signUp(formData).then((response) => {
-            console.log(response);
             setSignupState({ errors: response?.errors, message: response?.errors?.message });
 
             if (response?.message === 'User created successfully') {
@@ -45,7 +43,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
         signIn(formData)
             .then((response) => {
-                console.log(response);
+                console.log("responselogin", response);
                 setSigninState({ errors: response?.errors, message: response?.errors?.message })
 
                 if (response?.errors == undefined) {
