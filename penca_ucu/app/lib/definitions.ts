@@ -22,6 +22,7 @@ export const SignUpFormSchema: any = z.object({
         .trim(),
     confirmarContrasena: z
         .string(),
+    carrera: z.string().trim(),
 }).refine(data => data.contrasena === data.confirmarContrasena, {
     message: "Las contraseñas deben coincidir.",
     path: ["confirmarContrasena"],
@@ -51,6 +52,7 @@ export type SignUpFormState = {
         segundo_lugar?: string[];
         contrasena?: string[];
         confirmarContrasena?: string[];
+        carrera?: string[];
     };
     message?: string;
 } | undefined;
