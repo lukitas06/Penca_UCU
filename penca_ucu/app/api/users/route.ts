@@ -35,9 +35,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: any, res: any) {
     const body = await req.json();
     const { usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar } = body;
-    const query = `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES (?, ?, ?, ?, ?, FALSE, 0, ?, ?);`;
+    const query = `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES (?, ?, ?, ?, ?, FALSE, 0, ?, ?, ?);`;
     try {
-        const res = await postUser(query, [usuario, nombres, apellidos, email, contrasena, primer_lugar, segundo_lugar, carrera]);
+        const res = await postUser(query, [usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar]);
         return Response.json({ message: res });
     } catch (err) {
         return new Response(

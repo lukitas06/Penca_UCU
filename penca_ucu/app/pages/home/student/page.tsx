@@ -13,7 +13,7 @@ export default async function LandingPage() {
     const username = await getUser()
     const usersFromDb: RankingResponse[] = await getUsersOrderedByPoints()
     const matchesFromDb: matchResponse[] = await getMatches()
-
+    console.log("matches", matchesFromDb)
     return (
         <div>
             <Header />

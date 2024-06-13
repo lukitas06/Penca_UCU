@@ -27,9 +27,8 @@ export async function signUp(formData: any) {
         };
     }
     //Fields to create a user in the db
-    const admin = formData.get('admin') === 'on' ? true : false;
     console.log('data', validatedFields.data);
-    const { usuario, nombres, apellidos, email, contrasena, puntaje, carrera, primer_lugar, segundo_lugar } = await validatedFields.data;
+    const { usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar } = await validatedFields.data;
     // crypto password
     const cryptedPassword = await bcrypt.hash(contrasena, 10);
 
@@ -45,7 +44,6 @@ export async function signUp(formData: any) {
             apellidos,
             email,
             contrasena: cryptedPassword,
-            puntaje,
             carrera,
             primer_lugar,
             segundo_lugar
