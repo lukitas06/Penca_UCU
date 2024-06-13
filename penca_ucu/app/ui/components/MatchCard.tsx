@@ -7,7 +7,7 @@ import "../styles/MatchCard.css"
 export default function MatchCard({ matchInfo }: { matchInfo: matchResponse }) {
     const { id, equipo1, equipo2, equipo1_goles, equipo2_goles, etapa, fecha, finalizado } = matchInfo
     const [predicted, setPredicted] = useState(false)
-
+    console.log("matchid MatchCard", id)
     if (!predicted && !finalizado) {
         return (
 
@@ -60,7 +60,7 @@ export function PredictButton({ matchId }: { matchId: string }) {
     const router = useRouter()
 
     const goPredict = (matchId: string) => {
-        router.push(`/pages/home/student/prediction/${matchId}'`)
+        router.push(`/pages/home/student/prediction/${matchId}`)
     }
 
     return (

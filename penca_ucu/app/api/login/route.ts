@@ -20,7 +20,12 @@ export async function POST(req: any, res: any) {
         } else {
             return new Response(
                 JSON.stringify({ user: dbResponse[0] }),
-                { status: 200 }
+                {
+                    headers: {
+                        'Set-Cookie': `user=${usuario}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
             );
         }
     } catch {

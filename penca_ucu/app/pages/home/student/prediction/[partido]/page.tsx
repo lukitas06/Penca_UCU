@@ -2,41 +2,79 @@
 import React from 'react'
 import Header from '@//ui/components/Header'
 import { predictionResponse } from '@//lib/prediction'
+import { matchResponse, parseDate } from '@//lib/match'
+import MakePrediction from '@//ui/components/MakePrediction'
 
 export default async function PredictionPage({ params }: { params: { partido: string } }) {
 
     const totalPredictions = mockPredicts.filter(p => p.id_partido === params.partido)
-    const partido = totalPredictions[0]
+    const partidoFromDb: matchResponse[] = await getMatch(params.partido)
+    const partido = partidoFromDb[0]
+
+    const date = parseDate(partido.fecha)
+
     return (
-        <div>
+        <div className='landing-container'>
             <Header />
             <div className='col col-12 prediction-info-div'>
                 <div className='row header-info'>
-                    <h1>Fecha</h1>
+                    <h1>{date.date}</h1>
                 </div>
                 <div className='row '>
                     <div className='teams-info-div'>
-                        <div className='team-info-div'>
-                            <p>Equipo1</p>
+                        <div className='prediction-column-div'>
+                            <p>{partido.equipo1}</p>
                         </div>
-                        <h1>VS</h1>
-
-                        <div className='team-info-div'>
-                            <p>Equipo2</p>
+                        <div className='prediction-column-div'>
+                            <h1>VS</h1>
+                            <p>{date.time}</p>
+                        </div>
+                        <div className='prediction-column-div'>
+                            <p>{partido.equipo2}</p>
                         </div>
 
                     </div>
                 </div>
+                <img className='prediction-info-img' src="/prediction-background.jpg" alt="" />
             </div>
-            <div className='card make-prediction-card'>
+            <div className='col col-10 prediction-statistics-div'>
+                <div className='card prediction-statistics-card'>
+                    <div className='card-header'>
+                        <h3>Predicciones del partido</h3>
+                    </div>
+                    <div className='card-body'>
+                        <div className='card-body-header'>
+                            <h4>¿Quien ganará?</h4>
+                            <p>Votos totales: 3453</p>
+                        </div>
+                        <div className='teams-prediction-porcentaje'>
+                            <div className='porcentaje-div'>
+                                <h6>{partido.equipo1}</h6>
+                                <p>50%</p>
+                            </div>
+                            <div className='porcentaje-div'>
+                                <h6>{partido.equipo2}</h6>
+                                <p>50%</p>
+                            </div>
+                            <div className='porcentaje-div'>
+                                <h6>{partido.equipo2}</h6>
+                                <p>50%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
+            <MakePrediction partido={partido} />
 
         </div>
     )
 }
 
-
+const getMatch = async (matchId: string) => {
+    const dbResponse = await fetch(`http://localhost:3000/api/matches/${matchId}`)
+    return dbResponse.json()
+}
 
 const mockPredicts: predictionResponse[] = [
     {
