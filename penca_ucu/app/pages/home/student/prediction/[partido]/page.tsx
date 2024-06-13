@@ -4,10 +4,13 @@ import Header from '@//ui/components/Header'
 import { predictionResponse } from '@//lib/prediction'
 import { matchResponse, parseDate } from '@//lib/match'
 import MakePrediction from '@//ui/components/MakePrediction'
+import { cookies } from 'next/headers'
+import { verifyToken } from '@//services/tokenService'
+
 
 export default async function PredictionPage({ params }: { params: { partido: string } }) {
 
-    const totalPredictions = mockPredicts.filter(p => p.id_partido === params.partido)
+    const username = await getUser()
     const partidoFromDb: matchResponse[] = await getMatch(params.partido)
     const partido = partidoFromDb[0]
 
@@ -15,7 +18,7 @@ export default async function PredictionPage({ params }: { params: { partido: st
 
     return (
         <div className='landing-container'>
-            <Header />
+            <Header />s
             <div className='col col-12 prediction-info-div'>
                 <div className='row header-info'>
                     <h1>{date.date}</h1>
@@ -65,7 +68,7 @@ export default async function PredictionPage({ params }: { params: { partido: st
                 </div>
 
             </div>
-            <MakePrediction partido={partido} />
+            <MakePrediction partido={partido} user={username} />
 
         </div>
     )
@@ -74,6 +77,19 @@ export default async function PredictionPage({ params }: { params: { partido: st
 const getMatch = async (matchId: string) => {
     const dbResponse = await fetch(`http://localhost:3000/api/matches/${matchId}`)
     return dbResponse.json()
+}
+
+const getUser = async () => {
+    const token = cookies().get('token')
+    if (token !== undefined) {
+        const tokenItself = token.value
+        const payload = await verifyToken(tokenItself)
+        if (payload !== false) {
+            return payload.username
+        }
+        return ""
+    }
+    return ""
 }
 
 const mockPredicts: predictionResponse[] = [

@@ -5,6 +5,7 @@
     background-color: rgba(117, 117, 117, 0.292);
 }
 .card-header{
+    height: 55px;
     display: flex;
     gap: 10%;
     justify-content: space-between;
@@ -15,6 +16,8 @@
 .card-footer{
     border: none;
     color: white;
+    display: flex;
+    justify-content: space-around;
 }
 .predict-btn{
     height: fit-content;
@@ -27,4 +30,11 @@
     justify-content: space-between;
     align-items: center;
     gap: 10%;
+}
+.goals-card-column{
+    display: flex;
+    flex-direction: row;
+}
+.teamInfo p{
+    width: min-content;
 }

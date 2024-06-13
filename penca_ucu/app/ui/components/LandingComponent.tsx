@@ -1,19 +1,17 @@
 'use client'
-import React, { useReducer } from "react"
+import React, { use } from "react"
 import NavBar from "@//ui/components/NavBar"
 import MatchCard from "@//ui/components/MatchCard"
 import RankingCard from "./RankingCard"
 import { matchResponse } from "@//lib/match"
 import { RankingResponse } from "@//lib/user"
 
-export default function LandingComponent({ matches, users }: { matches: matchResponse[], users: RankingResponse[] }) {
+export default function LandingComponent({ matches, users, user }: { matches: matchResponse[], users: RankingResponse[], user: string }) {
 
-    console.log("users", users)
     const [view, setView] = React.useState("proximos")
 
     const handleViewChange = (viewParam: string) => {
         setView(viewParam)
-        console.log("viewSetted", viewParam)
     }
 
     if (view == "jugados") {
@@ -22,7 +20,7 @@ export default function LandingComponent({ matches, users }: { matches: matchRes
                 <NavBar changeView={handleViewChange} />
                 <div className="matchCard-container">
                     {matches.filter(match => match.finalizado).map(match =>
-                        <MatchCard matchInfo={match} />)}
+                        <MatchCard matchInfo={match} user={user} />)}
                 </div>
             </div>
         )
@@ -33,7 +31,7 @@ export default function LandingComponent({ matches, users }: { matches: matchRes
                 <NavBar changeView={handleViewChange} />
                 <div className="matchCard-container">
                     {matches.filter(match => !match.finalizado).map(match =>
-                        <MatchCard matchInfo={match} />)}
+                        <MatchCard matchInfo={match} user={user} />)}
                 </div>
             </div>
         )

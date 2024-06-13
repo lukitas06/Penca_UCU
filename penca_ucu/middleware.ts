@@ -17,6 +17,7 @@ export async function middleware(request: NextRequest) {
         const tokenItself = token.value
         const payload = await verifyToken(tokenItself)
 
+        console.log(payload)
         if (payload !== false) {
 
             const rol = payload.rol
@@ -44,10 +45,9 @@ export async function middleware(request: NextRequest) {
             }
 
         }
-
-        // if(request.nextUrl.pathname.startsWith( '/pages/home')) {
-
-        //     return NextResponse.redirect(new URL('pages/home/alumno', request.url))
+        // else {
+        //     cookies().delete('token')
+        //     return NextResponse.redirect(new URL('/pages/login', request.url))
         // }
     }
 }

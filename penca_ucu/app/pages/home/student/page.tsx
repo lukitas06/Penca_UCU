@@ -5,52 +5,23 @@ import { matchResponse } from "@//lib/match"
 import { RankingResponse } from "@//lib/user";
 import LandingComponent from "@//ui/components/LandingComponent";
 import Header from "@//ui/components/Header";
+import { cookies } from 'next/headers'
+import { verifyToken } from '@//services/tokenService'
 
 export default async function LandingPage() {
 
+    const username = await getUser()
     const usersFromDb: RankingResponse[] = await getUsersOrderedByPoints()
-    const matchesFromDb: matchResponse[] = await getMaches()
+    const matchesFromDb: matchResponse[] = await getMatches()
 
     return (
         <div>
             <Header />
-            <LandingComponent matches={matchesFromDb} users={usersFromDb} />
+            <LandingComponent matches={matchesFromDb} users={usersFromDb} user={username} />
         </div>
     )
 }
 
-const mockMatches: matchResponse[] = [
-    {
-        id: "1",
-        equipo1: "Equipo 1",
-        equipo2: "Equipo 2",
-        equipo1_goles: 1,
-        equipo2_goles: 2,
-        etapa: "Grupos",
-        fecha: "01/01/2021",
-        finalizado: false
-    },
-    {
-        id: "2",
-        equipo1: "Equipo 3",
-        equipo2: "Equipo 4",
-        equipo1_goles: 2,
-        equipo2_goles: 2,
-        etapa: "Grupos",
-        fecha: "02/01/2021",
-        finalizado: true
-    },
-    {
-        id: "3",
-        equipo1: "Equipo 5",
-        equipo2: "Equipo 6",
-        equipo1_goles: 3,
-        equipo2_goles: 1,
-        etapa: "Grupos",
-        fecha: "03/01/2021",
-        finalizado: false
-    }
-]
 
 const getUsersOrderedByPoints = async () => {
 
@@ -65,8 +36,21 @@ const getUsersOrderedByPoints = async () => {
     return users.json()
 }
 
-const getMaches = async () => {
+const getMatches = async () => {
 
     const matches = await fetch("http://localhost:3000/api/matches")
     return matches.json()
+}
+
+const getUser = async () => {
+    const token = cookies().get('token')
+    if (token !== undefined) {
+        const tokenItself = token.value
+        const payload = await verifyToken(tokenItself)
+        if (payload !== false) {
+            return payload.username
+        }
+        return ""
+    }
+    return ""
 }

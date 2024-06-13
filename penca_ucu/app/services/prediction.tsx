@@ -1,19 +1,28 @@
 'use server'
 
-export function validateGoals(formData: any) {
+export async function makePrediction(formData: any, usuario: string, id_partido: string) {
 
     try {
-        const team1Goals = formData.get("team1-goals")
-        const team2Goals = formData.get("team2-goals")
+        const equipo1_goles = formData.get("equipo1_goles")
+        const equipo2_goles = formData.get("equipo2_goles")
 
-        if (team1Goals === null || team2Goals === null) {
-            throw new Error("Invalid data")
+        if (equipo1_goles === null || equipo2_goles === null) {
+            return { message: 'Faltan parámetros' }
         }
         else {
-
+            const url = "http://localhost:3000/api/prediction";
+            const data = { equipo1_goles, equipo2_goles, usuario, id_partido }
+            const response = fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            return (await response).json()
         }
     }
     catch (error) {
-
+        console.log(error)
     }
 }

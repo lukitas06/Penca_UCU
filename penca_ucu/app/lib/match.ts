@@ -9,7 +9,7 @@ export type matchResponse = {
     equipo2_goles: number;
     etapa: string;
     fecha: string;
-    finalizado: boolean;
+    finalizado: number;
 }
 
 export function parseDate(dateParam: string) {
