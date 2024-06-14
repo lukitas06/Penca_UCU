@@ -3,6 +3,7 @@
     min-height: 200px;
     backdrop-filter: blur(10px);
     background-color: rgba(117, 117, 117, 0.292);
+    padding: 0;
 }
 .card-header{
     height: 55px;
@@ -30,6 +31,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 10%;
+    padding: 5px 30px 5px 30px;
 }
 .goals-card-column{
     display: flex;

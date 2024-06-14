@@ -22,6 +22,9 @@
         backdrop-filter: blur(10px);
         background-color: rgba(117, 117, 117, 0.292);
     }
+    .card-container:hover{
+        transform:scale(1.1);
+    }
     #header-container{
         height:70px;
         display: flex;
@@ -58,8 +61,21 @@
         margin-top: 20px;
         gap: 20px;
         width: 100%;
-        margin-top: 20px;
+        margin-top: 40px;
 
+    }
+    .matchCard-container .card{
+        /* max-width: fit-content; */
+
+    }
+    .match-group-container{
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        /* border-bottom: 0.5px solid rgba(193, 193, 193, 0.405); */
+        box-shadow: 0px 0px 4px 0px rgba(193, 193, 193, 0.371);
     }
     .landing-container{
         display: flex;

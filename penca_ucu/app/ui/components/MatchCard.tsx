@@ -32,7 +32,7 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
 
     if (!predicted && !parsedFinalizado) {
         return (
-            <div className="card text-center">
+            <div className="col-8 col-md-3 card card-container text-center">
                 {loading && <div>Loading...</div>}
 
                 <div className="card-header">
