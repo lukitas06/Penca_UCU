@@ -1,10 +1,10 @@
 'use server'
 
-export async function makePrediction(formData: any, usuario: string, id_partido: string) {
+export async function makePrediction(goalsEquipo1: number, goalsEquipo2: number, usuario: string, id_partido: string) {
 
     try {
-        const equipo1_goles = formData.get("equipo1_goles")
-        const equipo2_goles = formData.get("equipo2_goles")
+        const equipo1_goles = goalsEquipo1
+        const equipo2_goles = goalsEquipo2
 
         if (equipo1_goles === null || equipo2_goles === null) {
             return { message: 'Faltan parámetros' }

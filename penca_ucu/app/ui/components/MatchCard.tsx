@@ -62,7 +62,7 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
     }
     else if (predicted && !parsedFinalizado) {
         return (
-            <div className="card text-center">
+            <div className="col-8 col-md-3 card text-center">
                 {loading && <div>Loading...</div>}
 
                 <div className="card-header">
@@ -72,6 +72,8 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
                 </div>
                 <div className="card-body">
                     <div className="teamInfo">
+                        <img className="flag-img" src={imgUrlEquipo1} alt="" />
+
                         <p>{equipo1}</p>
                     </div>
                     <div className="goals-card-column">
@@ -80,6 +82,8 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
                         <h3>{predictedMatch.equipo2_goles}</h3>
                     </div>
                     <div className="teamInfo">
+                        <img className="flag-img" src={imgUrlEquipo2} alt="" />
+
                         <p>{equipo2}</p>
                     </div>
                 </div>
@@ -93,7 +97,7 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
     }
     else if (parsedFinalizado) {
         return (
-            <div className="card text-center match-card">
+            <div className="col-8 col-md-3 card text-center match-card">
                 <div className="card-header">Resultado final
 
                 </div>

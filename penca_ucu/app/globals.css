@@ -12,6 +12,7 @@
     }
     p{
         width: fit-content;
+        margin: 0
     };
     form{
         display: flex;
@@ -114,7 +115,7 @@
         align-items: center;
         flex-direction: row;
         width: 100%;
-        gap: 10px;
+        gap: 15px;
     }
     .makePrediction-column{
         display: flex;
@@ -237,6 +238,16 @@ a {
     align-items: center;
     width: auto;
     height: fit-content;
+}
+.setPrediction-goals-div{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.setPrediction-goals-div button{
+    border-radius: 5px;
+    border: none;
+
 }
 
 @media (prefers-color-scheme: dark) {
