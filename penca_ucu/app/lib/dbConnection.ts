@@ -7,6 +7,7 @@ const connection = mysql2.createConnection({
     database: 'penca_ucu',
     user: 'root',
     password: 'obligatorio',
+    charset: 'utf8mb4',
 });
 
 connection.connect((err) => {

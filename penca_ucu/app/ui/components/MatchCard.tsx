@@ -15,6 +15,9 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
     const parsedFinalizado = finalizado === 1 ? true : false
     const parsedFecha = parseDate(fecha)
 
+    const imgUrlEquipo1 = `/countries/${equipo1}-flag.gif`
+    const imgUrlEquipo2 = `/countries/${equipo2}-flag.gif`
+
     console.log("matchcard", equipo1, equipo2, predicted, parsedFinalizado)
     useEffect(() => {
         setLoading(true)
@@ -42,10 +45,12 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
                 </div>
                 <div className="card-body">
                     <div className="teamInfo">
+                        <img className="flag-img" src={imgUrlEquipo1} alt="" />
                         <p>{equipo1}</p>
                     </div>
                     <PredictButton matchId={id} />
                     <div className="teamInfo">
+                        <img className="flag-img" src={imgUrlEquipo2} alt="" />
                         <p>{equipo2}</p>
                     </div>
                 </div>

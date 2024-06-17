@@ -5,6 +5,7 @@ export async function GET() {
 
     try {
         const matches = await getMatches()
+        console.log("from api ", matches)
         return new Response(
             JSON.stringify(matches),
             { status: 200 }

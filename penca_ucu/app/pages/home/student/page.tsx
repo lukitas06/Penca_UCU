@@ -13,7 +13,7 @@ export default async function LandingPage() {
     const username = await getUser()
     const usersFromDb: RankingResponse[] = await getUsersOrderedByPoints()
     const matchesFromDb: matchResponse[] = await getMatches()
-    console.log("matches", matchesFromDb)
+    console.log(matchesFromDb)
     return (
         <div>
             <Header />
@@ -38,7 +38,14 @@ const getUsersOrderedByPoints = async () => {
 
 const getMatches = async () => {
 
-    const matches = await fetch("http://localhost:3000/api/matches")
+    const matches = await fetch("http://localhost:3000/api/matches", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Accept': 'application/json',
+        },
+
+    })
     return matches.json()
 }
 
