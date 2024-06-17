@@ -1,6 +1,19 @@
-version: '3.1'
-
 services:
+  app:
+    build:
+      context: ./penca_ucu
+      dockerfile: Dockerfile
+    container_name: obligatorio_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - db
+    networks:
+      - default
+
   db:
     image: mysql:latest
     container_name: obligatorio_bd2
@@ -18,3 +31,9 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
