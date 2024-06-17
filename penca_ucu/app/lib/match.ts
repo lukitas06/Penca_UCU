@@ -10,6 +10,7 @@ export type matchResponse = {
     etapa: string;
     fecha: string;
     finalizado: number;
+    grupo: string;
 }
 
 export function parseDate(dateParam: string) {

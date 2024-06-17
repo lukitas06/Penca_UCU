@@ -17,7 +17,6 @@ export async function middleware(request: NextRequest) {
         const tokenItself = token.value
         const payload = await verifyToken(tokenItself)
 
-        console.log(payload)
         if (payload !== false) {
 
             const rol = payload.rol
