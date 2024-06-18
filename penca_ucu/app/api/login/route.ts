@@ -11,7 +11,6 @@ export async function POST(req: any, res: any) {
         const query = `SELECT * FROM Usuario WHERE usuario = ?`;
 
         const dbResponse = await getUser(query, [usuario]) as UserResponse[];
-        console.log("user from db", dbResponse);
         if (dbResponse.length === 0) {
             return new Response(
                 JSON.stringify({ message: 'User not found' }),

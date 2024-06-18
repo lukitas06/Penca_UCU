@@ -1,16 +1,15 @@
 'use server'
 import React from 'react'
 import Header from '@//ui/components/Header'
-import { predictionResponse } from '@//lib/prediction'
 import { matchResponse, parseDate } from '@//lib/match'
+import { getMatch } from '@//services/match'
 import MakePrediction from '@//ui/components/MakePrediction'
-import { cookies } from 'next/headers'
-import { verifyToken } from '@//services/tokenService'
+import { getUserToken } from '@//services/tokenService'
 
 
 export default async function PredictionPage({ params }: { params: { partido: string } }) {
 
-    const username = await getUser()
+    const username = await getUserToken()
     const partidoFromDb: matchResponse[] = await getMatch(params.partido)
     const partido = partidoFromDb[0]
 
@@ -77,53 +76,3 @@ export default async function PredictionPage({ params }: { params: { partido: st
         </div>
     )
 }
-
-const getMatch = async (matchId: string) => {
-    const dbResponse = await fetch(`http://localhost:3001/api/matches/${matchId}`)
-    return dbResponse.json()
-}
-
-const getUser = async () => {
-    const token = cookies().get('token')
-    if (token !== undefined) {
-        const tokenItself = token.value
-        const payload = await verifyToken(tokenItself)
-        if (payload !== false) {
-            return payload.username
-        }
-        return ""
-    }
-    return ""
-}
-
-const mockPredicts: predictionResponse[] = [
-    {
-        usuario: "usuario1",
-        id_partido: "1",
-        equipo1_goles: 1,
-        equipo2_goles: 2,
-        puntaje: 0
-    },
-    {
-        usuario: "usuario2",
-        id_partido: "2",
-        equipo1_goles: 2,
-        equipo2_goles: 2,
-        puntaje: 0
-    },
-    {
-        usuario: "usuario3",
-        id_partido: "2",
-        equipo1_goles: 3,
-        equipo2_goles: 1,
-        puntaje: 0
-    },
-    {
-        usuario: "usuario4",
-        id_partido: "1",
-        equipo1_goles: 1,
-        equipo2_goles: 1,
-        puntaje: 0
-    }
-
-]

@@ -10,19 +10,9 @@ export async function GET(req: NextRequest) {
         const cookies = req.cookies;
         const cookie = cookies.get('token') || "";
 
-        //if (cookie !== "") {
         const res = await getUsers();
 
         return Response.json(res);
-        //}
-        // else {
-        //     return new Response(
-        //         JSON.stringify({ message: 'Unauthorized' }),
-        //         { status: 401 }
-        //     );
-        // }
-
-
     }
     catch (err) {
         return new Response(
@@ -54,7 +44,6 @@ const postUser = (query: any, params: any[]): Promise<string> => {
                 reject(err);
                 return;
             }
-            console.log("results", results);
             resolve("User created successfully");
         });
     });

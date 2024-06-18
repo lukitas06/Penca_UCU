@@ -3,7 +3,6 @@ import { RankingResponse } from "@//lib/user"
 
 export default function RankingCard({ header, users }: { header: string[], users: RankingResponse[] }) {
 
-    console.log("users", users)
     return (
         <div className="card text-center">
             <div className="card-header">

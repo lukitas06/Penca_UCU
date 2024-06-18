@@ -18,7 +18,6 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
     const imgUrlEquipo1 = `/countries/${equipo1}-flag.gif`
     const imgUrlEquipo2 = `/countries/${equipo2}-flag.gif`
 
-    console.log("matchcard", equipo1, equipo2, predicted, parsedFinalizado)
     useEffect(() => {
         setLoading(true)
         checkPredicted(id, user).

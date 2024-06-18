@@ -4,7 +4,6 @@ import { connection } from '../../lib/dbConnection';
 
 export async function GET(req: NextRequest) {
     //call the provider or db to get the teams
-    console.log('req cookies', req.cookies.get('user'));
 
     try {
         const teams = await getTeams();

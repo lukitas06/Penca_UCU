@@ -5,16 +5,6 @@ import { connection } from '@//lib/dbConnection';
 
 export async function GET(req: Request, { params }: { params: { idPartido: string, usuario: string } }) {
 
-    // const { searchParams } = new URL(req.url);
-    // const idPartido = searchParams.get('idPartido');
-    // const usuario = searchParams.get('usuario');
-    // console.log("reconocio ruta", idPartido, usuario);
-    // if (!idPartido || !usuario) {
-    //     return new Response(
-    //         JSON.stringify({ message: 'Faltan parámetros' }),
-    //         { status: 400 }
-    //     );
-    // }
     try {
 
         const { idPartido, usuario } = params;
@@ -33,7 +23,10 @@ export async function GET(req: Request, { params }: { params: { idPartido: strin
         )
     }
     catch (error) {
-        console.log("error", error);
+        return new Response(
+            JSON.stringify({ message: error }),
+            { status: 500 }
+        )
     }
 
 }

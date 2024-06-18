@@ -23,6 +23,6 @@ export async function makePrediction(goalsEquipo1: number, goalsEquipo2: number,
         }
     }
     catch (error) {
-        console.log(error)
+        return { message: error }
     }
 }

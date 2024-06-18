@@ -13,7 +13,6 @@ export default function MakePrediction({ partido, user }: { partido: matchRespon
 
     const predictionValidation = async (formData: any) => {
         const response = await makePrediction(goalsEquipo1, goalsEquipo2, user, id_partido);
-        console.log(response)
         if (response.message === 'Prediction created successfully' || response.message === 'Prediction updated successfully') {
             alert('Prediccion creada correctamente')
             router.push('/pages/home')

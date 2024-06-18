@@ -43,9 +43,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
         signIn(formData)
             .then((response) => {
-                console.log(response);
                 setSigninState({ errors: response?.errors, message: response?.errors?.message });
-                console.log("responselogin", response);
                 setSigninState({ errors: response?.errors, message: response?.errors?.message })
 
                 if (response?.errors == undefined) {

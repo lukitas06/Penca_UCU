@@ -8,7 +8,6 @@ export async function middleware(request: NextRequest) {
 
     const token = cookies().get('token')
     const url = request.nextUrl.pathname;
-    console.log("url", url)
     if (token === undefined && url !== '/pages/login') {
         return NextResponse.redirect(new URL('/pages/login', request.url))
     }
@@ -21,7 +20,6 @@ export async function middleware(request: NextRequest) {
 
             const rol = payload.rol
             const username = payload.username
-            console.log("rol", rol)
 
             if (request.nextUrl.pathname === '/pages/login') {
                 return NextResponse.redirect(new URL('/pages/home', request.url))

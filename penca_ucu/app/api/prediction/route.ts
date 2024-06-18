@@ -5,7 +5,6 @@ import { UserResponse } from '@//lib/user';
 export async function POST(req: any, res: any) {
     try {
         const body = await req.json();
-        console.log("req body post prediction", body);
         const { usuario, id_partido } = body;
 
         if (!usuario || !id_partido) {
@@ -18,7 +17,6 @@ export async function POST(req: any, res: any) {
         const query = `SELECT * FROM Prediccion WHERE usuario = ? AND id_partido = ?`;
 
         const dbResponse = await checkPrediction(query, [usuario, id_partido]) as UserResponse[];
-        console.log("user from db", dbResponse);
 
         if (dbResponse.length === 0) {
             try {
@@ -60,7 +58,6 @@ export async function GET(req: any, res: any) {
         const { searchParams } = new URL(req.url);
         const usuario = searchParams.get('usuario');
         const id_partido = searchParams.get('id_partido');
-        console.log("reconocio ruta", usuario, id_partido);
         if (!usuario || !id_partido) {
             return new Response(
                 JSON.stringify({ message: 'Faltan parámetros' }),
@@ -97,11 +94,9 @@ const createPrediction = (predictionData: any): Promise<string> => {
     return new Promise((resolve, reject) => {
         connection.query(QUERY, [usuario, id_partido, equipo1_goles, equipo2_goles], (err, results) => {
             if (err) {
-                console.log("error", err);
                 reject(err);
                 return;
             }
-            console.log("results", results);
             resolve("Prediction created successfully");
         });
     });
@@ -117,7 +112,6 @@ const updatePrediction = (predictionData: any): Promise<string> => {
                 reject(err);
                 return;
             }
-            console.log("results", results);
             resolve("Prediction updated successfully");
         });
     });

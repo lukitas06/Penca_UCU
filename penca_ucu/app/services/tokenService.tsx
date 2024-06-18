@@ -1,6 +1,7 @@
 'use server'
 import jwt from 'jsonwebtoken'
 import { jwtVerify, SignJWT } from 'jose'
+import { cookies } from 'next/headers'
 
 
 //const jwtSecret = process.env.JWT_SECRET || "";
@@ -33,4 +34,17 @@ export async function verifyToken(token: any) {
         return false
     }
 
+}
+
+export async function getUserToken() {
+    const token = cookies().get('token')
+    if (token !== undefined) {
+        const tokenItself = token.value
+        const payload = await verifyToken(tokenItself)
+        if (payload !== false) {
+            return payload.username
+        }
+        return ""
+    }
+    return ""
 }
