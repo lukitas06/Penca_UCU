@@ -10,7 +10,7 @@ export async function makePrediction(goalsEquipo1: number, goalsEquipo2: number,
             return { message: 'Faltan parámetros' }
         }
         else {
-            const url = "http://localhost:3000/api/prediction";
+            const url = "http://localhost:3001/api/prediction";
             const data = { equipo1_goles, equipo2_goles, usuario, id_partido }
             const response = fetch(url, {
                 method: 'POST',

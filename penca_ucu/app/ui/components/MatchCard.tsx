@@ -147,7 +147,7 @@ export function EditPredict({ matchId }: { matchId: string }) {
 }
 
 const checkPredicted = async (id: string, user: string) => {
-    const url = `http://localhost:3000/api/prediction/${id}/${user}`
+    const url = `http://localhost:3001/api/prediction/${id}/${user}`
     const response = await fetch(url, {
         method: 'GET',
         headers: {

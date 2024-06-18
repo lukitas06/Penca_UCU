@@ -79,7 +79,7 @@ export default async function PredictionPage({ params }: { params: { partido: st
 }
 
 const getMatch = async (matchId: string) => {
-    const dbResponse = await fetch(`http://localhost:3000/api/matches/${matchId}`)
+    const dbResponse = await fetch(`http://localhost:3001/api/matches/${matchId}`)
     return dbResponse.json()
 }
 

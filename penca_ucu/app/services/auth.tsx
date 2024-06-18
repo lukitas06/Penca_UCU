@@ -33,7 +33,7 @@ export async function signUp(formData: any) {
     const cryptedPassword = await bcrypt.hash(contrasena, 10);
 
     //insert user in the db
-    const response = await fetch('http://localhost:3000/api/users', {
+    const response = await fetch('http://localhost:3001/api/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export async function signIn(formData: any) {
     }
     // Call the provider or db to validate the user
     const { usuario, contrasena } = await validatedFields.data;
-    const response = await fetch('http://localhost:3000/api/login', {
+    const response = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

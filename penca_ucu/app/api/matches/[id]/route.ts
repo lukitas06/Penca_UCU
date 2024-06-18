@@ -16,9 +16,8 @@ export async function GET(req: NextApiRequest,
         }
     }
     catch (err) {
-        console.log("err", err)
         return new Response(
-            JSON.stringify({ message: 'Internal server error' }),
+            JSON.stringify({ message: err }),
             { status: 501 }
         )
     }

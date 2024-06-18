@@ -25,7 +25,7 @@ export default async function LandingPage() {
 
 const getUsersOrderedByPoints = async () => {
 
-    const users = await fetch("http://localhost:3000/api/users/ranking", {
+    const users = await fetch("http://localhost:3001/api/users/ranking", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const getUsersOrderedByPoints = async () => {
 
 const getMatches = async () => {
 
-    const matches = await fetch("http://localhost:3000/api/matches", {
+    const matches = await fetch("http://localhost:3001/api/matches", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
