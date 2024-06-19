@@ -11,7 +11,8 @@ export default function MakePrediction({ partido, user }: { partido: matchRespon
     const [goalsEquipo1, setGoalsEquipo1] = useState(0)
     const [goalsEquipo2, setGoalsEquipo2] = useState(0)
 
-    const predictionValidation = async (formData: any) => {
+    const predictionValidation = async () => {
+        console.log("entra a la funcion makePrediction", goalsEquipo1, goalsEquipo2, user, id_partido)
         const response = await makePrediction(goalsEquipo1, goalsEquipo2, user, id_partido);
         if (response.message === 'Prediction created successfully' || response.message === 'Prediction updated successfully') {
             alert('Prediccion creada correctamente')
@@ -22,6 +23,7 @@ export default function MakePrediction({ partido, user }: { partido: matchRespon
         }
     }
     const setGoal = (action: string, equipo: string) => {
+
         if (action === "mas") {
             if (equipo === "equipo1") {
                 setGoalsEquipo1(goalsEquipo1 + 1)
@@ -39,10 +41,12 @@ export default function MakePrediction({ partido, user }: { partido: matchRespon
             }
             else {
                 if (goalsEquipo2 > 0) {
+
                     setGoalsEquipo2(goalsEquipo2 - 1)
                 }
             }
         }
+        console.log("goles equipo 1", goalsEquipo1, "goles equipo 2", goalsEquipo2)
     }
 
 

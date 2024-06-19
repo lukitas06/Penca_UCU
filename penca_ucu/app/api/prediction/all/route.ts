@@ -7,6 +7,8 @@ export async function GET(req: any, res: any) {
         const { searchParams } = new URL(req.url);
         const id_partido = searchParams.get('id_partido');
 
+        console.log("id partido desde ruta", id_partido);
+
         if (!id_partido) {
             return new Response(
                 JSON.stringify({ message: 'Faltan parámetros' }),
@@ -15,17 +17,16 @@ export async function GET(req: any, res: any) {
         }
 
         const query = `SELECT * FROM Prediccion WHERE id_partido = ?`;
-        const dbResponse = await checkPrediction(query, [id_partido]) as UserResponse[];
+        const dbResponse = await checkPrediction(query, id_partido) as UserResponse[];
 
         if (dbResponse.length === 0) {
             return new Response(
-                JSON.stringify({ message: 'Match not found' }),
+                JSON.stringify([]),
                 { status: 404 }
             );
         }
-
         return new Response(
-            JSON.stringify({ prediction: dbResponse[0] }),
+            JSON.stringify(dbResponse),
             { status: 200 }
         );
 
@@ -37,7 +38,7 @@ export async function GET(req: any, res: any) {
     }
 }
 
-const checkPrediction = (query: string, params: any[]): Promise<any> => {
+const checkPrediction = (query: string, params: any): Promise<any> => {
     return new Promise((resolve, reject) => {
         connection.query(query, params, (err, results) => {
             if (err) {

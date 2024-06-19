@@ -13,13 +13,13 @@ export default function Header() {
 
 
 
-    if (route !== '/pages/home/student') {
-        return (
-            <div className={classname} id='header-container'>
-                <button className='btn btn-primary' onClick={goBack}>Go back</button>
-            </div>
-        )
-    }
+    // if (route !== '/pages/home/student') {
+    return (
+        <div className={classname} id='header-container'>
+            <button className='btn btn-primary' onClick={goBack}>Go back</button>
+        </div>
+    )
+    // }
 }
 
 const goBack = () => {

@@ -4,13 +4,13 @@ import { RankingResponse } from "@//lib/user"
 export default function RankingCard({ header, users }: { header: string[], users: RankingResponse[] }) {
 
     return (
-        <div className="card text-center">
-            <div className="card-header">
+        <div className="col col-10 card text-center">
+            <div className="card-header ranking-row">
                 {header.map((headerItem) => {
                     return <p>{headerItem}</p>
                 })}
             </div>
-            <div className="card-body">
+            <div className="card-body ranking-body">
                 {users.map((user) => {
                     return (
                         <div className="ranking-row">
