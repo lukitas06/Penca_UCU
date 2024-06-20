@@ -1,4 +1,5 @@
 'use server';
+import { predictionResponse } from '@//lib/prediction';
 import { connection } from '../../lib/dbConnection';
 import { UserResponse } from '@//lib/user';
 
@@ -16,7 +17,7 @@ export async function POST(req: any, res: any) {
 
         const query = `SELECT * FROM Prediccion WHERE usuario = ? AND id_partido = ?`;
 
-        const dbResponse = await checkPrediction(query, [usuario, id_partido]) as UserResponse[];
+        const dbResponse = await getPredictionFromUser(query, [usuario, id_partido]) as UserResponse[];
 
         if (dbResponse.length === 0) {
             try {
@@ -57,26 +58,25 @@ export async function GET(req: any, res: any) {
     try {
         const { searchParams } = new URL(req.url);
         const usuario = searchParams.get('usuario');
-        const id_partido = searchParams.get('id_partido');
-        if (!usuario || !id_partido) {
+        if (!usuario) {
             return new Response(
                 JSON.stringify({ message: 'Faltan parámetros' }),
                 { status: 400 }
             );
         }
 
-        const query = `SELECT * FROM Prediccion WHERE usuario = ? AND id_partido = ?`;
-        const dbResponse = await checkPrediction(query, [usuario, id_partido]) as UserResponse[];
+        const query = `SELECT * FROM Prediccion WHERE usuario = ?`;
+        const dbResponse = await getPredictionFromUser(query, [usuario]) as predictionResponse[];
 
         if (dbResponse.length === 0) {
             return new Response(
-                JSON.stringify({ message: 'Prediction not found' }),
+                JSON.stringify(dbResponse),
                 { status: 404 }
             );
         }
 
         return new Response(
-            JSON.stringify({ prediction: dbResponse[0] }),
+            JSON.stringify(dbResponse),
             { status: 200 }
         );
     } catch (err) {
@@ -117,7 +117,7 @@ const updatePrediction = (predictionData: any): Promise<string> => {
     });
 };
 
-const checkPrediction = (query: string, params: any[]): Promise<any> => {
+const getPredictionFromUser = (query: string, params: any[]): Promise<any> => {
     return new Promise((resolve, reject) => {
         connection.query(query, params, (err, results) => {
             if (err) {

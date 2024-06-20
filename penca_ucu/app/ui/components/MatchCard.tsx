@@ -3,13 +3,20 @@ import { matchResponse, parseDate } from "@//lib/match"
 import { predictionResponse } from "@//lib/prediction"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { updatePrediction } from "@//services/prediction"
 import "../styles/MatchCard.css"
 
+type predictionHashMap = {
+    id: string,
+    prediction: predictionResponse,
 
-export default function MatchCard({ matchInfo, user }: { matchInfo: matchResponse, user: string }) {
+}
+
+export default function MatchCard({ matchInfo, predicted, prediction }: { matchInfo: matchResponse, predicted: boolean, prediction: predictionHashMap | undefined }) {
     const { id, equipo1, equipo2, equipo1_goles, equipo2_goles, etapa, fecha, finalizado } = matchInfo
-    const [predicted, setPredicted] = useState(false)
-    const [predictedMatch, setPredictedMatch] = useState({} as predictionResponse)
+
+    // console.log("predictionhash", prediction, equipo1, equipo2, " finalizado ", finalizado)
+
     const [loading, setLoading] = useState(false)
 
     const parsedFinalizado = finalizado === 1 ? true : false
@@ -17,19 +24,6 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
 
     const imgUrlEquipo1 = `/countries/${equipo1}-flag.gif`
     const imgUrlEquipo2 = `/countries/${equipo2}-flag.gif`
-
-    useEffect(() => {
-        setLoading(true)
-        checkPredicted(id, user).
-            then((res) => {
-                if (res.length > 0) {
-                    setPredicted(true)
-                    setPredictedMatch(res[0])
-                }
-                setLoading(false)
-            })
-    }, [])
-
 
 
     if (!predicted && !parsedFinalizado) {
@@ -66,8 +60,8 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
 
                 <div className="card-header">
                     Mi predicción
-                    <EditPredict matchId={id} />
-
+                    <EditPredictBtn matchId={id} />
+                    {/* <ChargeResultBtn matchId={id} goles_equipo1={6} goles_equipo2={0} /> */}
                 </div>
                 <div className="card-body">
                     <div className="teamInfo">
@@ -76,9 +70,9 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
                         <p>{equipo1}</p>
                     </div>
                     <div className="goals-card-column">
-                        <h3>{predictedMatch.equipo1_goles}</h3>
+                        <h3>{prediction?.prediction.equipo1_goles}</h3>
                         <h3>-</h3>
-                        <h3>{predictedMatch.equipo2_goles}</h3>
+                        <h3>{prediction?.prediction.equipo2_goles}</h3>
                     </div>
                     <div className="teamInfo">
                         <img className="flag-img" src={imgUrlEquipo2} alt="" />
@@ -94,7 +88,45 @@ export default function MatchCard({ matchInfo, user }: { matchInfo: matchRespons
             </div>
         )
     }
-    else if (parsedFinalizado) {
+    else if (predicted && parsedFinalizado) {
+        return (
+            <div className="col-8 col-md-3 card text-center match-card">
+                <div className="card-header">Partido finalizado
+
+                </div>
+                <div className="card-body card-body-div">
+                    <div className="card-body-row">
+
+                        <div className="teamInfo">
+                            <p>{equipo1}</p>
+                        </div>
+                        <div className="goles-div">
+                            <h2>{equipo1_goles} - {equipo2_goles}</h2>
+                        </div>
+                        <div className="teamInfo">
+                            <p>{equipo2}</p>
+                        </div>
+                    </div>
+                    <p>Mi prediccion:</p>
+                    <div className="card-body-row">
+                        <div className="teamInfo">
+                            <p>{equipo1}</p>
+                        </div>
+                        <div className="goles-div">
+                            <h2>{prediction?.prediction.equipo1_goles} - {prediction?.prediction.equipo2_goles}</h2>
+                        </div>
+                        <div className="teamInfo">
+                            <p>{equipo2}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="card-footer ">
+                    {etapa}
+                </div>
+            </div>
+        )
+    }
+    else {
         return (
             <div className="col-8 col-md-3 card text-center match-card">
                 <div className="card-header">Resultado final
@@ -133,7 +165,7 @@ export function PredictButton({ matchId }: { matchId: string }) {
     )
 }
 
-export function EditPredict({ matchId }: { matchId: string }) {
+export function EditPredictBtn({ matchId }: { matchId: string }) {
 
     const router = useRouter()
 
@@ -145,17 +177,17 @@ export function EditPredict({ matchId }: { matchId: string }) {
     )
 }
 
-const checkPredicted = async (id: string, user: string) => {
-    const url = `http://localhost:3001/api/prediction/${id}/${user}`
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-    })
-    const data = await response.json()
-    return data;
+export function ChargeResultBtn({ matchId, goles_equipo1, goles_equipo2 }: { matchId: string, goles_equipo1: number, goles_equipo2: number }) {
+
+    return (
+        <button className="btn btn-primary" onClick={() => goChargeResult(matchId, goles_equipo1, goles_equipo2)}>Cargar</button>
+    )
+}
+
+const goChargeResult = async (matchId: string, goles_equipo1: number, goles_equipo2: number) => {
+    console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2)
+    const response = await updatePrediction(matchId, goles_equipo1, goles_equipo2);
+    console.log("Respuesta matchcard cargarResultado", response)
 }
 
 
