@@ -20,7 +20,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: obligatorio
-      MYSQL_DATABASE: penca_db
+      MYSQL_DATABASE: penca_ucu
       MYSQL_USER: penca
       MYSQL_PASSWORD: penca2024
       LC_ALL: en_US.UTF-8
