@@ -26,7 +26,6 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
     const imgUrlEquipo1 = `/countries/${equipo1}-flag.gif`;
     const imgUrlEquipo2 = `/countries/${equipo2}-flag.gif`;
 
-
     if (!predicted && !parsedFinalizado) {
         return (
             <div className="col-8 col-md-3 card card-container text-center">
@@ -67,7 +66,6 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
                 <div className="card-body">
                     <div className="teamInfo">
                         <img className="flag-img" src={imgUrlEquipo1} alt="" />
-
                         <p>{equipo1}</p>
                     </div>
                     <div className="goals-card-column">
@@ -77,14 +75,12 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
                     </div>
                     <div className="teamInfo">
                         <img className="flag-img" src={imgUrlEquipo2} alt="" />
-
                         <p>{equipo2}</p>
                     </div>
                 </div>
                 <div className="card-footer">
                     <div>{parsedFecha.date}</div>
                     <div>{etapa}</div>
-
                 </div>
             </div>
         );
@@ -93,11 +89,9 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
         return (
             <div className="col-8 col-md-3 card text-center match-card">
                 <div className="card-header">Partido finalizado
-
                 </div>
                 <div className="card-body card-body-div">
                     <div className="card-body-row">
-
                         <div className="teamInfo">
                             <p>{equipo1}</p>
                         </div>
@@ -108,7 +102,7 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
                             <p>{equipo2}</p>
                         </div>
                     </div>
-                    <p>Mi prediccion:</p>
+                    <p>Mi predicción:</p>
                     <div className="card-body-row">
                         <div className="teamInfo">
                             <p>{equipo1}</p>
@@ -126,12 +120,10 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
                 </div>
             </div>
         );
-    }
-    else {
+    } else {
         return (
             <div className="col-8 col-md-3 card text-center match-card">
                 <div className="card-header">Resultado final
-
                 </div>
                 <div className="card-body">
                     <div className="teamInfo">

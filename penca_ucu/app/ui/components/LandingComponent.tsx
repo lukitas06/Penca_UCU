@@ -22,7 +22,6 @@ export default function LandingComponent({ matches, users, user }: { matches: ma
     const [predictions, setPreditions] = React.useState<predictionHashMap[]>([]);
     const [predictionsIds, setPreditionsIds] = React.useState<string[]>([]);
 
-
     useEffect(() => {
         getPredictionsByUser(user).then((res) => {
             console.log("predicciones ", res);
@@ -85,7 +84,6 @@ export default function LandingComponent({ matches, users, user }: { matches: ma
                         {partidosGrupoD.filter(match => match.finalizado && !predictionsIds.includes(match.id)).map(match =>
                             <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
                     </div>
-
                 </div>
             </div>
         );

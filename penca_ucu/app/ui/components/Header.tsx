@@ -11,8 +11,6 @@ export default function Header() {
 
     const [classname, setClassname] = useState('col col-12');
 
-
-
     // if (route !== '/pages/home/student') {
     return (
         <div className={classname} id='header-container'>

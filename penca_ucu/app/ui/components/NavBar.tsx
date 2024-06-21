@@ -19,15 +19,14 @@ export default function NavBar({ changeView }: { changeView: (view: string) => v
         <div className="col col-12 navBar-container">
             <div className="row navBar-row" >
                 <div className={`col  navBar-column ${view == 'proximos' ? 'selected' : ''}`} >
-                    <button onClick={() => handleClick('proximos')} >Proximos partidos</button>
+                    <button onClick={() => handleClick('proximos')} >Próximos partidos</button>
                 </div>
                 <div className={`col  navBar-column ${view == 'jugados' ? 'selected' : ''}`}>
-                    <button onClick={() => handleClick('jugados')} >Partidos Jugados</button>
+                    <button onClick={() => handleClick('jugados')} >Partidos jugados</button>
 
                 </div>
                 <div className={`col  navBar-column ${view == 'ranking' ? 'selected' : ''}`}>
                     <button onClick={() => handleClick('ranking')}>Ranking</button>
-
                 </div>
             </div>
         </div>

@@ -6,9 +6,7 @@ import '../styles/LoginRegister.css';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
-
 import { SignUpFormState, SignInFormState } from '../../lib/definitions';
-
 
 export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
@@ -38,26 +36,23 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
     const signinValidation = async (formData: any) => {
 
-        signIn(formData)
-            .then((response) => {
-                setsignInState({ errors: response?.errors, message: response?.errors?.message });
-                setsignInState({ errors: response?.errors, message: response?.errors?.message });
+        signIn(formData).then((response) => {
+            setsignInState({ errors: response?.errors, message: response?.errors?.message });
+            setsignInState({ errors: response?.errors, message: response?.errors?.message });
 
-                if (response?.errors == undefined) {
-                    alert(response?.message);
-                }
-                if (response.message === 'User logged in successfully') {
-                    router.push('/pages/home');
-                }
-            });
+            if (response?.errors == undefined) {
+                alert(response?.message);
+            }
+
+            if (response.message === 'User logged in successfully') {
+                router.push('/pages/home');
+            }
+        });
     };
-
 
     if (register) {
         return (
-
             <div className="col col-10 card">
-
                 <div className='card-content form-container register-container'>
                     <h1 className='card-title'>Register</h1>
                     <form className='row ' action={signupValidation}>
@@ -81,22 +76,21 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                         </div>
 
                         <select className='form-select' name='firstPlace'>
-                            <option selected>Selecciona campeon</option>
+                            <option selected>Selecciona campeón</option>
                             {teams?.map((team: any) => (
                                 <option value={team.pais}>{team.pais}</option>
-
                             ))}
                         </select>
+
                         <select className='form-select' name='secondPlace'>
-                            <option selected>Selecciona subcampeon</option>
+                            <option selected>Selecciona subcampeón</option>
                             {teams.map((team: any) => (
                                 <option value={team.pais}>{team.pais}</option>
-
                             ))}
                         </select>
+
                         <div className='input-error-msg'>
                             {signUpState?.errors?.segundo_lugar && <p>{signUpState.errors.segundo_lugar}</p>}
-
                         </div>
 
                         <InputForm classname={divElementClassname} id='floatingPassword' type='password' name='password' label='Password' />
@@ -108,29 +102,25 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                         <div className='input-error-msg'>
                             {signUpState?.errors?.confirmarContrasena && <p>{signUpState.errors.confirmarContrasena}</p>}
                         </div>
+
                         <InputForm classname={divElementClassname} id='floatingCareer' type='text' name='career' label='Career name' />
 
                         <div className='col-8'>
                             <SignupButton />
-
                         </div>
                     </form>
                     <div className='form-select-other select-login'>
-                        <h3>Ya tienes cuenta?</h3>
-                        <button onClick={toggleLogin}>¡Logueate aqui!</button>
+                        <h3>¿Ya tenés cuenta?</h3>
+                        <button onClick={toggleLogin}>¡Logueate acá!</button>
                     </div>
-
                 </div>
             </div>
         );
-    }
-    else {
+    } else {
         return (
             <div className="col col-10 card">
-
                 <div className='card-body form-container login-container'>
                     <h1 className="card-title">Login</h1>
-
                     <form className='row' action={signinValidation}>
 
                         <InputForm
@@ -140,6 +130,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                             name='username'
                             label='Username'
                         />
+
                         <div className='input-error-msg'>
                             {signInState?.errors?.usuario && <p>{signInState.errors.usuario}</p>}
                         </div>
@@ -151,6 +142,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                             name='password'
                             label='Password'
                         />
+
                         <div className='input-error-msg'>
                             {signInState?.errors?.contrasena && <p>{signInState.errors.contrasena}</p>}
                         </div>
@@ -158,15 +150,15 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                         <div className='col-8'>
                             <SigninButton />
                         </div>
+
                     </form>
                     <div className='form-select-other select-register'>
-                        <h3>¿No tienes cuenta?</h3>
-                        <button onClick={toggleRegister}>¡Registrate aqui!</button>
+                        <h3>¿No tenés cuenta?</h3>
+                        <button onClick={toggleRegister}>¡Registrate acá!</button>
                     </div>
                 </div>
             </div>
         );
-
     }
 }
 

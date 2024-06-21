@@ -73,7 +73,6 @@ export default async function PredictionPage({ params }: { params: { partido: st
 
             </div>
             <MakePrediction partido={partido} user={username} />
-
         </div>
     );
 }
