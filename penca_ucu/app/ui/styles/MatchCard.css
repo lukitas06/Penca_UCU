@@ -1,11 +1,12 @@
-.card{
+.card {
     min-width: 300px;
     min-height: 200px;
     backdrop-filter: blur(10px);
     background-color: rgba(117, 117, 117, 0.292);
     padding: 0;
 }
-.card-header{
+
+.card-header {
     height: 55px;
     display: flex;
     gap: 10%;
@@ -14,33 +15,38 @@
     border: none;
     background-color: inherit;
 }
-.card-footer{
+
+.card-footer {
     border: none;
     color: white;
     display: flex;
     justify-content: space-around;
 }
-.predict-btn{
+
+.predict-btn {
     height: fit-content;
     width: fit-content;
     padding: 2%;
 }
 
-.card-body{
+.card-body {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10%;
     padding: 5px 30px 5px 30px;
 }
-.goals-card-column{
+
+.goals-card-column {
     display: flex;
     flex-direction: row;
 }
-.teamInfo p{
+
+.teamInfo p {
     width: min-content;
 }
-.flag-img{
+
+.flag-img {
     width: 50px;
     /* height: 50px; */
     object-fit: cover;

@@ -1,4 +1,3 @@
-
 export type UserResponse = {
     usuario: string;
     nombres: string;

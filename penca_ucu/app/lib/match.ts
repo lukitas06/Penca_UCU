@@ -1,7 +1,4 @@
-
-
 export type matchResponse = {
-
     id: string;
     equipo1: string;
     equipo2: string;
@@ -11,11 +8,10 @@ export type matchResponse = {
     fecha: string;
     finalizado: number;
     grupo: string;
-}
+};
 
 export function parseDate(dateParam: string) {
-    const date = dateParam.split('T')[0]
-    const time = dateParam.split('T')[1].split('.')[0]
-
-    return { date, time }
+    const date = dateParam.split('T')[0];
+    const time = dateParam.split('T')[1].split('.')[0];
+    return { date, time };
 }

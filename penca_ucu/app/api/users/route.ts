@@ -1,4 +1,5 @@
 'use server';
+
 import { connection } from '@//lib/dbConnection';
 import { NextRequest } from 'next/server';
 
@@ -75,7 +76,7 @@ const updateUser = (query: string, params: any[]): Promise<any> => {
         });
     });
 
-}
+};
 
 const postUser = (query: any, params: any[]): Promise<string> => {
     return new Promise((resolve, reject) => {

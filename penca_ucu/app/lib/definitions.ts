@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-
 export const SignUpFormSchema: any = z.object({
     usuario: z.string().min(2, "El usuario debe tener al menos 2 caracteres").trim(),
     nombres: z

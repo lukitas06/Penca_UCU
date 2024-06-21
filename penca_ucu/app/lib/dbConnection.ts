@@ -1,4 +1,3 @@
-
 import mysql2 from 'mysql2';
 
 const connection = mysql2.createConnection({
@@ -16,7 +15,7 @@ connection.connect((err) => {
         return;
     }
     console.log('Connected to database');
-})
+});
 
 export { connection };
 

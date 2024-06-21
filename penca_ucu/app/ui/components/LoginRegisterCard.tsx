@@ -1,4 +1,5 @@
 'use client';
+
 import InputForm from './InputForm';
 import { signUp, signIn } from '../../services/auth';
 import '../styles/LoginRegister.css';
@@ -44,7 +45,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
         signIn(formData)
             .then((response) => {
                 setSigninState({ errors: response?.errors, message: response?.errors?.message });
-                setSigninState({ errors: response?.errors, message: response?.errors?.message })
+                setSigninState({ errors: response?.errors, message: response?.errors?.message });
 
                 if (response?.errors == undefined) {
                     alert(response?.message);

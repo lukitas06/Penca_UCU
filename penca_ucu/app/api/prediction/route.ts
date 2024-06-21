@@ -1,4 +1,5 @@
 'use server';
+
 import { predictionResponse } from '@//lib/prediction';
 import { connection } from '../../lib/dbConnection';
 import { UserResponse } from '@//lib/user';

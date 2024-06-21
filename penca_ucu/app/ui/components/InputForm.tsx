@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from "react";
 
 export default function InputForm({ classname, id, type, name, label }: { classname: string, id: string, type: string, name: string, label: string; }) {

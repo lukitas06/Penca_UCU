@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import React from "react"
-import "../styles/NavBar.css"
+import React from "react";
+import "../styles/NavBar.css";
 
 
-export default function NavBar({ changeView }: { changeView: (view: string) => void }) {
+export default function NavBar({ changeView }: { changeView: (view: string) => void; }) {
 
-    const [view, setView] = React.useState("proximos")
+    const [view, setView] = React.useState("proximos");
 
     const handleClick = (viewToSet: string) => {
 
-        setView(viewToSet)
-        changeView(viewToSet)
+        setView(viewToSet);
+        changeView(viewToSet);
 
-    }
+    };
 
     return (
         <div className="col col-12 navBar-container">
@@ -31,5 +31,5 @@ export default function NavBar({ changeView }: { changeView: (view: string) => v
                 </div>
             </div>
         </div>
-    )
+    );
 }

@@ -1,29 +1,30 @@
-'use client'
-import { matchResponse, parseDate } from "@//lib/match"
-import { predictionResponse } from "@//lib/prediction"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { updatePrediction } from "@//services/prediction"
-import "../styles/MatchCard.css"
+'use client';
+
+import { matchResponse, parseDate } from "@//lib/match";
+import { predictionResponse } from "@//lib/prediction";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { updatePrediction } from "@//services/prediction";
+import "../styles/MatchCard.css";
 
 type predictionHashMap = {
     id: string,
     prediction: predictionResponse,
 
-}
+};
 
-export default function MatchCard({ matchInfo, predicted, prediction }: { matchInfo: matchResponse, predicted: boolean, prediction: predictionHashMap | undefined }) {
-    const { id, equipo1, equipo2, equipo1_goles, equipo2_goles, etapa, fecha, finalizado } = matchInfo
+export default function MatchCard({ matchInfo, predicted, prediction }: { matchInfo: matchResponse, predicted: boolean, prediction: predictionHashMap | undefined; }) {
+    const { id, equipo1, equipo2, equipo1_goles, equipo2_goles, etapa, fecha, finalizado } = matchInfo;
 
     // console.log("predictionhash", prediction, equipo1, equipo2, " finalizado ", finalizado)
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
-    const parsedFinalizado = finalizado === 1 ? true : false
-    const parsedFecha = parseDate(fecha)
+    const parsedFinalizado = finalizado === 1 ? true : false;
+    const parsedFecha = parseDate(fecha);
 
-    const imgUrlEquipo1 = `/countries/${equipo1}-flag.gif`
-    const imgUrlEquipo2 = `/countries/${equipo2}-flag.gif`
+    const imgUrlEquipo1 = `/countries/${equipo1}-flag.gif`;
+    const imgUrlEquipo2 = `/countries/${equipo2}-flag.gif`;
 
 
     if (!predicted && !parsedFinalizado) {
@@ -51,7 +52,7 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
                     {etapa}
                 </div>
             </div>
-        )
+        );
     }
     else if (predicted && !parsedFinalizado) {
         return (
@@ -86,7 +87,7 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
 
                 </div>
             </div>
-        )
+        );
     }
     else if (predicted && parsedFinalizado) {
         return (
@@ -124,7 +125,7 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
                     {etapa}
                 </div>
             </div>
-        )
+        );
     }
     else {
         return (
@@ -147,47 +148,47 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
                     {etapa}
                 </div>
             </div>
-        )
+        );
 
     }
 }
 
-export function PredictButton({ matchId }: { matchId: string }) {
-    const router = useRouter()
+export function PredictButton({ matchId }: { matchId: string; }) {
+    const router = useRouter();
 
     const goPredict = (matchId: string) => {
-        router.push(`/pages/home/student/prediction/${matchId}`)
-    }
+        router.push(`/pages/home/student/prediction/${matchId}`);
+    };
 
     return (
         <button className="btn btn-primary predict-btn" onClick={() => goPredict(matchId)} >Predecir</button>
 
-    )
+    );
 }
 
-export function EditPredictBtn({ matchId }: { matchId: string }) {
+export function EditPredictBtn({ matchId }: { matchId: string; }) {
 
-    const router = useRouter()
+    const router = useRouter();
 
     const goPredict = (matchId: string) => {
-        router.push(`/pages/home/student/prediction/${matchId}`)
-    }
+        router.push(`/pages/home/student/prediction/${matchId}`);
+    };
     return (
         <button className="btn btn-primary predict-btn" onClick={() => goPredict(matchId)} >Editar</button>
-    )
+    );
 }
 
-export function ChargeResultBtn({ matchId, goles_equipo1, goles_equipo2 }: { matchId: string, goles_equipo1: number, goles_equipo2: number }) {
+export function ChargeResultBtn({ matchId, goles_equipo1, goles_equipo2 }: { matchId: string, goles_equipo1: number, goles_equipo2: number; }) {
 
     return (
         <button className="btn btn-primary" onClick={() => goChargeResult(matchId, goles_equipo1, goles_equipo2)}>Cargar</button>
-    )
+    );
 }
 
 const goChargeResult = async (matchId: string, goles_equipo1: number, goles_equipo2: number) => {
-    console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2)
+    console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2);
     const response = await updatePrediction(matchId, goles_equipo1, goles_equipo2);
-    console.log("Respuesta matchcard cargarResultado", response)
+    console.log("Respuesta matchcard cargarResultado", response);
 }
 
 
