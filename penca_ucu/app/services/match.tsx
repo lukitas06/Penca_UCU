@@ -1,6 +1,6 @@
-'use server'
-import { matchResponse } from "@//lib/match"
+'use server';
 
+import { matchResponse } from "@//lib/match";
 
 export async function getMatches(): Promise<matchResponse[]> {
     const matches = await fetch("http://localhost:3001/api/matches", {
@@ -10,13 +10,13 @@ export async function getMatches(): Promise<matchResponse[]> {
             'Accept': 'application/json',
         },
 
-    })
-    return matches.json()
+    });
+    return matches.json();
 }
 
 export async function getMatch(matchId: string): Promise<matchResponse[]> {
-    const dbResponse = await fetch(`http://localhost:3001/api/matches/${matchId}`)
-    return dbResponse.json()
+    const dbResponse = await fetch(`http://localhost:3001/api/matches/${matchId}`);
+    return dbResponse.json();
 }
 
 export async function updateMatch(matchId: string, equipo1_goles: number, equipo2_goles: number) {
@@ -28,8 +28,8 @@ export async function updateMatch(matchId: string, equipo1_goles: number, equipo
             'Accept': 'application/json',
         },
         body: JSON.stringify({ equipo1_goles, equipo2_goles })
-    })
-    return dbResponse.json()
+    });
+    return dbResponse.json();
 }
 
 export async function createMatch(equipo1: string, equipo2: string, fecha: string, etapa: string) {
@@ -40,6 +40,6 @@ export async function createMatch(equipo1: string, equipo2: string, fecha: strin
             'Accept': 'application/json',
         },
         body: JSON.stringify({ equipo1, equipo2, fecha, etapa })
-    })
-    return dbResponse.json()
+    });
+    return dbResponse.json();
 }

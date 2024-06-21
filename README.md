@@ -21,7 +21,7 @@ Para correr la aplicación localmente sigue los siguientes pasos:
 
 1. Cloná este repositorio en tu máquina.
 2. Navegá hasta la carpeta del proyecto.
-3. Ingresá el comando "docker-compose up -d". Esto creará un contenedor con la base de datos, y ejecutará los scripts SQL ubicados en la carpeta "bd".
+3. Ingresá el comando "docker-compose up --build -d". Esto creará un contenedor con la base de datos, y ejecutará los scripts SQL ubicados en la carpeta "bd".
 4. Ingresá a la carpeta "penca_ucu".
 5. Ejecutá "npm install" para instalar las dependencias.
 6. Ejecutá "npm run dev" para iniciar el servidor de desarrollo.

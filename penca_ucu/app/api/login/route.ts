@@ -1,8 +1,7 @@
-
 'use server';
+
 import { connection } from '../../lib/dbConnection';
 import { UserResponse } from '@//lib/user';
-
 
 export async function POST(req: any, res: any) {
     try {

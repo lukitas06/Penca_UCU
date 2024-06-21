@@ -1,54 +1,54 @@
-'use client'
-import React, { useEffect } from "react"
-import NavBar from "@//ui/components/NavBar"
-import MatchCard from "@//ui/components/MatchCard"
-import RankingCard from "./RankingCard"
-import { matchResponse } from "@//lib/match"
-import { RankingResponse } from "@//lib/user"
-import { predictionResponse } from "@//lib/prediction"
-import { getPredictionsByUser } from "@//services/prediction"
+'use client';
+
+import React, { useEffect } from "react";
+import NavBar from "@//ui/components/NavBar";
+import MatchCard from "@//ui/components/MatchCard";
+import RankingCard from "./RankingCard";
+import { matchResponse } from "@//lib/match";
+import { RankingResponse } from "@//lib/user";
+import { predictionResponse } from "@//lib/prediction";
+import { getPredictionsByUser } from "@//services/prediction";
 
 
 type predictionHashMap = {
     id: string,
     prediction: predictionResponse,
 
-}
+};
 
-export default function LandingComponent({ matches, users, user }: { matches: matchResponse[], users: RankingResponse[], user: string }) {
+export default function LandingComponent({ matches, users, user }: { matches: matchResponse[], users: RankingResponse[], user: string; }) {
 
-    const [view, setView] = React.useState("proximos")
-    const [predictions, setPreditions] = React.useState<predictionHashMap[]>([])
-    const [predictionsIds, setPreditionsIds] = React.useState<string[]>([])
-
+    const [view, setView] = React.useState("proximos");
+    const [predictions, setPreditions] = React.useState<predictionHashMap[]>([]);
+    const [predictionsIds, setPreditionsIds] = React.useState<string[]>([]);
 
     useEffect(() => {
         getPredictionsByUser(user).then((res) => {
-            console.log("predicciones ", res)
-            let idsWithPrediction: predictionHashMap[] = []
-            let ids: string[] = []
+            console.log("predicciones ", res);
+            let idsWithPrediction: predictionHashMap[] = [];
+            let ids: string[] = [];
             res.map((pred: predictionResponse) => {
-                idsWithPrediction.push({ id: pred.id_partido, prediction: pred })
-                ids.push(pred.id_partido)
-            })
-            console.log("id de predicciones ", ids)
-            setPreditions(idsWithPrediction)
-            setPreditionsIds(ids)
-        })
-    }, [])
+                idsWithPrediction.push({ id: pred.id_partido, prediction: pred });
+                ids.push(pred.id_partido);
+            });
+            console.log("id de predicciones ", ids);
+            setPreditions(idsWithPrediction);
+            setPreditionsIds(ids);
+        });
+    }, []);
 
     const handleViewChange = (viewParam: string) => {
-        setView(viewParam)
-    }
+        setView(viewParam);
+    };
 
-    const partidosGrupoA = matches.filter(match => match.grupo === 'A')
-    const partidosGrupoB = matches.filter(match => match.grupo === 'B')
-    const partidosGrupoC = matches.filter(match => match.grupo === 'C')
-    const partidosGrupoD = matches.filter(match => match.grupo === 'D')
+    const partidosGrupoA = matches.filter(match => match.grupo === 'A');
+    const partidosGrupoB = matches.filter(match => match.grupo === 'B');
+    const partidosGrupoC = matches.filter(match => match.grupo === 'C');
+    const partidosGrupoD = matches.filter(match => match.grupo === 'D');
 
     const findPrediction = (id: string) => {
-        return predictions.find(pred => pred.id === id)
-    }
+        return predictions.find(pred => pred.id === id);
+    };
 
     if (view == "jugados") {
         return (
@@ -84,10 +84,9 @@ export default function LandingComponent({ matches, users, user }: { matches: ma
                         {partidosGrupoD.filter(match => match.finalizado && !predictionsIds.includes(match.id)).map(match =>
                             <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
                     </div>
-
                 </div>
             </div>
-        )
+        );
     }
     else if (view == "proximos") {
         return (
@@ -124,7 +123,7 @@ export default function LandingComponent({ matches, users, user }: { matches: ma
                     </div>
                 </div>
             </div>
-        )
+        );
     }
     else {
         return (
@@ -132,7 +131,7 @@ export default function LandingComponent({ matches, users, user }: { matches: ma
                 <NavBar changeView={handleViewChange} />
                 <RankingCard header={["Posicion", "Usuario", "Puntos"]} users={users} />
             </div>
-        )
+        );
 
     }
 

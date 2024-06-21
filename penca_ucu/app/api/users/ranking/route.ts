@@ -1,15 +1,15 @@
+'use server';
 
-'use server'
 import { connection } from '@//lib/dbConnection';
 
 export async function GET() {
 
     try {
-        const dbResponse = await getOrderedUsers()
+        const dbResponse = await getOrderedUsers();
         return new Response(
             JSON.stringify(dbResponse),
             { status: 200 }
-        )
+        );
     }
     catch (err) {
         console.log(err);
@@ -32,4 +32,4 @@ const getOrderedUsers = async () => {
             resolve(results);
         });
     });
-}
+};

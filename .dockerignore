@@ -1,0 +1,10 @@
+# Ignorar la carpeta node_modules para reducir el tamaño del contexto de construcción
+node_modules
+
+# Ignorar otros archivos y carpetas que no son necesarios para la construcción de la imagen
+npm-debug.log
+.git
+.gitignore
+Dockerfile
+docker-compose.yaml
+db

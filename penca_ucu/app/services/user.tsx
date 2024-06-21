@@ -1,7 +1,7 @@
-'use server'
+'use server';
 
 export async function getUsers() {
-    return "not implemented"
+    return "not implemented";
 }
 
 export async function getUsersOrderedByPoints() {
@@ -12,22 +12,22 @@ export async function getUsersOrderedByPoints() {
             'Accept': 'application/json',
         },
         credentials: 'include'
-    })
-    return users.json()
+    });
+    return users.json();
 }
 
 export async function getUser(username: string) {
-    return "not implemented"
+    return "not implemented";
 }
 
 export async function createUser(username: string, password: string) {
-    return "not implemented"
+    return "not implemented";
 }
 
 export async function updateUserScore(username: string, puntaje: number) {
 
-    const url = `http://localhost:3001/api/users?username=${username}`
-    const data = { puntaje }
+    const url = `http://localhost:3001/api/users?username=${username}`;
+    const data = { puntaje };
     const response = await fetch(url, {
         method: 'PUT',
         headers: {
@@ -36,5 +36,5 @@ export async function updateUserScore(username: string, puntaje: number) {
         },
         body: JSON.stringify(data)
     });
-    return response.json()
+    return response.json();
 }

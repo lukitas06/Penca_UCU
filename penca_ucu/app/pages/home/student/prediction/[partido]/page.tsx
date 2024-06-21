@@ -1,21 +1,22 @@
-'use server'
-import React from 'react'
-import Header from '@//ui/components/Header'
-import { matchResponse, parseDate } from '@//lib/match'
-import { getMatch } from '@//services/match'
-import MakePrediction from '@//ui/components/MakePrediction'
-import { getUserToken } from '@//services/tokenService'
+'use server';
+
+import React from 'react';
+import Header from '@//ui/components/Header';
+import { matchResponse, parseDate } from '@//lib/match';
+import { getMatch } from '@//services/match';
+import MakePrediction from '@//ui/components/MakePrediction';
+import { getUserToken } from '@//services/tokenService';
 
 
-export default async function PredictionPage({ params }: { params: { partido: string } }) {
+export default async function PredictionPage({ params }: { params: { partido: string; }; }) {
 
-    const username = await getUserToken()
-    const partidoFromDb: matchResponse[] = await getMatch(params.partido)
-    const partido = partidoFromDb[0]
+    const username = await getUserToken();
+    const partidoFromDb: matchResponse[] = await getMatch(params.partido);
+    const partido = partidoFromDb[0];
 
-    const date = parseDate(partido.fecha)
-    const imgUrlEquipo1 = `/countries/${partido.equipo1}-flag.gif`
-    const imgUrlEquipo2 = `/countries/${partido.equipo2}-flag.gif`
+    const date = parseDate(partido.fecha);
+    const imgUrlEquipo1 = `/countries/${partido.equipo1}-flag.gif`;
+    const imgUrlEquipo2 = `/countries/${partido.equipo2}-flag.gif`;
 
     return (
         <div className='landing-container'>
@@ -72,7 +73,6 @@ export default async function PredictionPage({ params }: { params: { partido: st
 
             </div>
             <MakePrediction partido={partido} user={username} />
-
         </div>
-    )
+    );
 }

@@ -1,13 +1,14 @@
-'use client'
-import { RankingResponse } from "@//lib/user"
+'use client';
 
-export default function RankingCard({ header, users }: { header: string[], users: RankingResponse[] }) {
+import { RankingResponse } from "@//lib/user";
+
+export default function RankingCard({ header, users }: { header: string[], users: RankingResponse[]; }) {
 
     return (
         <div className="col col-10 card text-center">
             <div className="card-header ranking-row">
                 {header.map((headerItem) => {
-                    return <p>{headerItem}</p>
+                    return <p>{headerItem}</p>;
                 })}
             </div>
             <div className="card-body ranking-body">
@@ -18,9 +19,9 @@ export default function RankingCard({ header, users }: { header: string[], users
                             <p>{user.usuario}</p>
                             <p>{user.puntaje}</p>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>
-    )
+    );
 }

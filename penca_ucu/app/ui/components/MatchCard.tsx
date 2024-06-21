@@ -16,7 +16,7 @@ type predictionHashMap = {
     id: string,
     prediction: predictionResponse,
 
-}
+};
 
 export default function MatchCard({ matchInfo, predicted, prediction }: { matchInfo: matchResponse, predicted: boolean, prediction: predictionHashMap | undefined }) {
     const { finalizado } = matchInfo
@@ -39,40 +39,40 @@ export default function MatchCard({ matchInfo, predicted, prediction }: { matchI
     }
 }
 
-export function PredictButton({ matchId }: { matchId: string }) {
-    const router = useRouter()
+export function PredictButton({ matchId }: { matchId: string; }) {
+    const router = useRouter();
 
     const goPredict = (matchId: string) => {
-        router.push(`/pages/home/student/prediction/${matchId}`)
-    }
+        router.push(`/pages/home/student/prediction/${matchId}`);
+    };
 
     return (
         <button className="btn btn-primary predict-btn" onClick={() => goPredict(matchId)} >Predecir</button>
 
-    )
+    );
 }
 
-export function EditPredictBtn({ matchId }: { matchId: string }) {
+export function EditPredictBtn({ matchId }: { matchId: string; }) {
 
-    const router = useRouter()
+    const router = useRouter();
 
     const goPredict = (matchId: string) => {
-        router.push(`/pages/home/student/prediction/${matchId}`)
-    }
+        router.push(`/pages/home/student/prediction/${matchId}`);
+    };
     return (
         <button className="btn btn-primary predict-btn" onClick={() => goPredict(matchId)} >Editar</button>
-    )
+    );
 }
 
-export function ChargeResultBtn({ matchId, goles_equipo1, goles_equipo2 }: { matchId: string, goles_equipo1: number, goles_equipo2: number }) {
+export function ChargeResultBtn({ matchId, goles_equipo1, goles_equipo2 }: { matchId: string, goles_equipo1: number, goles_equipo2: number; }) {
 
     return (
         <button className="btn btn-primary" onClick={() => goChargeResult(matchId, goles_equipo1, goles_equipo2)}>Cargar</button>
-    )
+    );
 }
 
 const goChargeResult = async (matchId: string, goles_equipo1: number, goles_equipo2: number) => {
-    console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2)
+    console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2);
     const response = await updatePrediction(matchId, goles_equipo1, goles_equipo2);
     console.log("Respuesta matchcard cargarResultado", response)
 }

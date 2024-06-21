@@ -1,24 +1,19 @@
 'use client';
+
 import InputForm from './InputForm';
 import { signUp, signIn } from '../../services/auth';
 import '../styles/LoginRegister.css';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
-
 import { SignUpFormState, SignInFormState } from '../../lib/definitions';
-
 
 export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
     const router = useRouter();
     const divElementClassname = 'col-8 form-element-div';
-
-    const [signupState, setSignupState] = useState<SignUpFormState>({});
-
-
-    const [signinState, setSigninState] = useState<SignInFormState>({});
-
+    const [signUpState, setsignUpState] = useState<SignUpFormState>({});
+    const [signInState, setsignInState] = useState<SignInFormState>({});
     const [register, setRegister] = useState(false);
 
     const toggleRegister = () => {
@@ -31,7 +26,7 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
     const signupValidation = (formData: any) => {
         signUp(formData).then((response) => {
-            setSignupState({ errors: response?.errors, message: response?.errors?.message });
+            setsignUpState({ errors: response?.errors, message: response?.errors?.message });
 
             if (response?.message === 'User created successfully') {
                 setRegister(false);
@@ -41,99 +36,91 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
 
     const signinValidation = async (formData: any) => {
 
-        signIn(formData)
-            .then((response) => {
-                setSigninState({ errors: response?.errors, message: response?.errors?.message });
-                setSigninState({ errors: response?.errors, message: response?.errors?.message })
+        signIn(formData).then((response) => {
+            setsignInState({ errors: response?.errors, message: response?.errors?.message });
+            setsignInState({ errors: response?.errors, message: response?.errors?.message });
 
-                if (response?.errors == undefined) {
-                    alert(response?.message);
-                }
-                if (response.message === 'User logged in successfully') {
-                    router.push('/pages/home');
-                }
-            });
+            if (response?.errors == undefined) {
+                alert(response?.message);
+            }
+
+            if (response.message === 'User logged in successfully') {
+                router.push('/pages/home');
+            }
+        });
     };
-
 
     if (register) {
         return (
-
             <div className="col col-10 card">
-
                 <div className='card-content form-container register-container'>
                     <h1 className='card-title'>Register</h1>
                     <form className='row ' action={signupValidation}>
                         <InputForm classname={divElementClassname} id='floatingUsername' type='text' name='username' label='Username' />
                         <div className='input-error-msg'>
-                            {signupState?.errors?.usuario && <p>{signupState.errors.usuario}</p>}
+                            {signUpState?.errors?.usuario && <p>{signUpState.errors.usuario}</p>}
                         </div>
                         <InputForm classname={divElementClassname} id='floatingName' type='text' name='name' label='Name' />
                         <div className='input-error-msg'>
-                            {signupState?.errors?.nombres && <p>{signupState.errors.nombres}</p>}
+                            {signUpState?.errors?.nombres && <p>{signUpState.errors.nombres}</p>}
                         </div>
 
                         <InputForm classname={divElementClassname} id='floatingLastname' type='text' name='lastname' label='Lastname' />
                         <div className='input-error-msg'>
-                            {signupState?.errors?.apellidos && <p>{signupState.errors.apellidos}</p>}
+                            {signUpState?.errors?.apellidos && <p>{signUpState.errors.apellidos}</p>}
                         </div>
 
                         <InputForm classname={divElementClassname} id='floatingEmail' type='email' name='email' label='Email' />
                         <div className='input-error-msg'>
-                            {signupState?.errors?.email && <p>{signupState.errors.email}</p>}
+                            {signUpState?.errors?.email && <p>{signUpState.errors.email}</p>}
                         </div>
 
                         <select className='form-select' name='firstPlace'>
-                            <option selected>Selecciona campeon</option>
+                            <option selected>Selecciona campeón</option>
                             {teams?.map((team: any) => (
                                 <option value={team.pais}>{team.pais}</option>
-
                             ))}
                         </select>
+
                         <select className='form-select' name='secondPlace'>
-                            <option selected>Selecciona subcampeon</option>
+                            <option selected>Selecciona subcampeón</option>
                             {teams.map((team: any) => (
                                 <option value={team.pais}>{team.pais}</option>
-
                             ))}
                         </select>
-                        <div className='input-error-msg'>
-                            {signupState?.errors?.segundo_lugar && <p>{signupState.errors.segundo_lugar}</p>}
 
+                        <div className='input-error-msg'>
+                            {signUpState?.errors?.segundo_lugar && <p>{signUpState.errors.segundo_lugar}</p>}
                         </div>
 
                         <InputForm classname={divElementClassname} id='floatingPassword' type='password' name='password' label='Password' />
-                        {signupState?.errors?.contrasena?.map((error: any) =>
+                        {signUpState?.errors?.contrasena?.map((error: any) =>
                             <div className='input-error-msg'><p>{error}</p></div>
                         )}
 
                         <InputForm classname={divElementClassname} id='floatingConfirmPassword' type='password' name='confirmPassword' label='Confirm password' />
                         <div className='input-error-msg'>
-                            {signupState?.errors?.confirmarContrasena && <p>{signupState.errors.confirmarContrasena}</p>}
+                            {signUpState?.errors?.confirmarContrasena && <p>{signUpState.errors.confirmarContrasena}</p>}
                         </div>
+
                         <InputForm classname={divElementClassname} id='floatingCareer' type='text' name='career' label='Career name' />
 
                         <div className='col-8'>
                             <SignupButton />
-
                         </div>
                     </form>
                     <div className='form-select-other select-login'>
-                        <h3>Ya tienes cuenta?</h3>
-                        <button onClick={toggleLogin}>¡Logueate aqui!</button>
+                        <h3>¿Ya tenés cuenta?</h3>
+                        <button onClick={toggleLogin}>¡Logueate acá!</button>
                     </div>
-
                 </div>
             </div>
         );
-    }
-    else {
+    } else {
         return (
             <div className="col col-10 card">
-
                 <div className='card-body form-container login-container'>
                     <h1 className="card-title">Login</h1>
-
                     <form className='row' action={signinValidation}>
 
                         <InputForm
@@ -143,8 +130,9 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                             name='username'
                             label='Username'
                         />
+
                         <div className='input-error-msg'>
-                            {signinState?.errors?.usuario && <p>{signinState.errors.usuario}</p>}
+                            {signInState?.errors?.usuario && <p>{signInState.errors.usuario}</p>}
                         </div>
 
                         <InputForm
@@ -154,22 +142,23 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
                             name='password'
                             label='Password'
                         />
+
                         <div className='input-error-msg'>
-                            {signinState?.errors?.contrasena && <p>{signinState.errors.contrasena}</p>}
+                            {signInState?.errors?.contrasena && <p>{signInState.errors.contrasena}</p>}
                         </div>
 
                         <div className='col-8'>
                             <SigninButton />
                         </div>
+
                     </form>
                     <div className='form-select-other select-register'>
-                        <h3>¿No tienes cuenta?</h3>
-                        <button onClick={toggleRegister}>¡Registrate aqui!</button>
+                        <h3>¿No tenés cuenta?</h3>
+                        <button onClick={toggleRegister}>¡Registrate acá!</button>
                     </div>
                 </div>
             </div>
         );
-
     }
 }
 

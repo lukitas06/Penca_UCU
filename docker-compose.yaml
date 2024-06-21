@@ -3,8 +3,7 @@ services:
     build:
       context: ./penca_ucu
       dockerfile: Dockerfile
-    container_name: obligatorio_app
-    restart: always
+    container_name: app_penca
     ports:
       - "3000:3000"
     environment:
@@ -15,14 +14,13 @@ services:
       - default
 
   db:
-    image: mysql:latest
-    container_name: obligatorio_bd2
-    restart: always
+    image: mysql:8.0
+    container_name: base_de_datos
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: obligatorio
-      MYSQL_DATABASE: penca_db
+      MYSQL_DATABASE: penca_ucu
       MYSQL_USER: penca
       MYSQL_PASSWORD: penca2024
       LC_ALL: en_US.UTF-8
