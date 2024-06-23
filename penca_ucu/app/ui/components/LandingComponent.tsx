@@ -16,14 +16,19 @@ type predictionHashMap = {
 
 };
 
-export default function LandingComponent({ matches, users, user }: { matches: matchResponse[], users: RankingResponse[], user: string; }) {
+type user = {
+    username: string,
+    rol: string
+}
+
+export default function LandingComponent({ matches, users, user }: { matches: matchResponse[], users: RankingResponse[], user: user; }) {
 
     const [view, setView] = React.useState("proximos");
     const [predictions, setPreditions] = React.useState<predictionHashMap[]>([]);
     const [predictionsIds, setPreditionsIds] = React.useState<string[]>([]);
 
     useEffect(() => {
-        getPredictionsByUser(user).then((res) => {
+        getPredictionsByUser(user.username).then((res) => {
             console.log("predicciones ", res);
             let idsWithPrediction: predictionHashMap[] = [];
             let ids: string[] = [];
@@ -58,31 +63,31 @@ export default function LandingComponent({ matches, users, user }: { matches: ma
                     <h5>Grupo A</h5>
                     <div className="row match-group-container">
                         {partidosGrupoA.filter(match => match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoA.filter(match => match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
                     <h5>Grupo B</h5>
                     <div className="row match-group-container">
                         {partidosGrupoB.filter(match => match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoB.filter(match => match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
 
                     <h5>Grupo C</h5>
                     <div className="row match-group-container">
                         {partidosGrupoC.filter(match => match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoC.filter(match => match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
                     <h5>Grupo D</h5>
                     <div className="row match-group-container">
                         {partidosGrupoD.filter(match => match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoD.filter(match => match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
                 </div>
             </div>
@@ -96,30 +101,30 @@ export default function LandingComponent({ matches, users, user }: { matches: ma
                     <h5>Grupo A</h5>
                     <div className="row match-group-container">
                         {partidosGrupoA.filter(match => !match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoA.filter(match => !match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
                     <h5>Grupo B</h5>
                     <div className="row match-group-container">
                         {partidosGrupoB.filter(match => !match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoB.filter(match => !match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
                     <h5>Grupo C</h5>
                     <div className="row match-group-container">
                         {partidosGrupoC.filter(match => !match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoC.filter(match => !match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
                     <h5>Grupo D</h5>
                     <div className="row match-group-container">
                         {partidosGrupoD.filter(match => !match.finalizado && predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} />)}
+                            <MatchCard matchInfo={match} predicted={true} prediction={findPrediction(match.id)} rol={user.rol} />)}
                         {partidosGrupoD.filter(match => !match.finalizado && !predictionsIds.includes(match.id)).map(match =>
-                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} />)}
+                            <MatchCard matchInfo={match} predicted={false} prediction={undefined} rol={user.rol} />)}
                     </div>
                 </div>
             </div>

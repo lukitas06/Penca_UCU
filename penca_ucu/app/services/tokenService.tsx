@@ -42,9 +42,11 @@ export async function getUserToken() {
         const tokenItself = token.value;
         const payload = await verifyToken(tokenItself);
         if (payload !== false) {
-            return payload.username;
+            const username = payload.username;
+            const rol = payload.rol;
+            return { username, rol };
         }
-        return "";
+        return { username: "", rol: "" };
     }
-    return "";
+    return { username: "", rol: "" };
 }

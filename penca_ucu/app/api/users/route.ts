@@ -32,6 +32,7 @@ export async function POST(req: any, res: any) {
         const res = await postUser(query, [usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar]);
         return Response.json({ message: res });
     } catch (err) {
+        console.log(err);
         return new Response(
             JSON.stringify({ message: err }),
             { status: 500 }

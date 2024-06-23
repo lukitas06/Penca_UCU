@@ -9,7 +9,9 @@ import {
     PredictedAndFinalized,
     PredictedAndNotFinalized,
     NotPredictedAndFinalized,
-    NotPredictedAndNotFinalized
+    NotPredictedAndNotFinalized,
+    AdminAndNotFinalized,
+    AdminAndFinalized,
 } from "./MatchCardContent";
 
 type predictionHashMap = {
@@ -18,24 +20,38 @@ type predictionHashMap = {
 
 };
 
-export default function MatchCard({ matchInfo, predicted, prediction }: { matchInfo: matchResponse, predicted: boolean, prediction: predictionHashMap | undefined }) {
+export default function MatchCard({ matchInfo, predicted, prediction, rol }: { matchInfo: matchResponse, predicted: boolean, prediction: predictionHashMap | undefined, rol: string }) {
     const { finalizado } = matchInfo
 
     const status = getStatus(finalizado, predicted)
 
     //const MatchCardComponent = matchContentMap[status]
+    if (rol === "alumno") {
 
-    switch (status) {
-        case "predictedAndFinalized":
-            return <PredictedAndFinalized matchInfo={matchInfo} prediction={prediction} />
-        case "predictedAndNotFinalized":
-            return <PredictedAndNotFinalized matchInfo={matchInfo} prediction={prediction} />
-        case "notPredictedAndFinalized":
-            return <NotPredictedAndFinalized matchInfo={matchInfo} />
-        case "notPredictedAndNotFinalized":
-            return <NotPredictedAndNotFinalized matchInfo={matchInfo} />
-        default:
-            return <div>Error</div>
+        switch (status) {
+            case "predictedAndFinalized":
+                return <PredictedAndFinalized matchInfo={matchInfo} prediction={prediction} />
+            case "predictedAndNotFinalized":
+                return <PredictedAndNotFinalized matchInfo={matchInfo} prediction={prediction} />
+            case "notPredictedAndFinalized":
+                return <NotPredictedAndFinalized matchInfo={matchInfo} />
+            case "notPredictedAndNotFinalized":
+                return <NotPredictedAndNotFinalized matchInfo={matchInfo} />
+            default:
+                return <div>Error</div>
+        }
+    }
+    else {
+        console.log("entro a rol admin ", rol)
+        console.log("finalizado ", finalizado)
+        switch (finalizado) {
+            case 1:
+                return <AdminAndFinalized matchInfo={matchInfo} />
+            case 0:
+                return <AdminAndNotFinalized matchInfo={matchInfo} />
+            default:
+                return <div>Error</div>
+        }
     }
 }
 
@@ -62,19 +78,6 @@ export function EditPredictBtn({ matchId }: { matchId: string; }) {
     return (
         <button className="btn btn-primary predict-btn" onClick={() => goPredict(matchId)} >Editar</button>
     );
-}
-
-export function ChargeResultBtn({ matchId, goles_equipo1, goles_equipo2 }: { matchId: string, goles_equipo1: number, goles_equipo2: number; }) {
-
-    return (
-        <button className="btn btn-primary" onClick={() => goChargeResult(matchId, goles_equipo1, goles_equipo2)}>Cargar</button>
-    );
-}
-
-const goChargeResult = async (matchId: string, goles_equipo1: number, goles_equipo2: number) => {
-    console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2);
-    const response = await updatePrediction(matchId, goles_equipo1, goles_equipo2);
-    console.log("Respuesta matchcard cargarResultado", response)
 }
 
 const getStatus = (finalizado: number, predicted: boolean) => {
