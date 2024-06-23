@@ -11,7 +11,7 @@ export default async function Login() {
 
 const fetchTeams = async () => {
     try {
-        const url = "http://localhost:3001/api/teams";
+        const url = "http://localhost:3000/api/teams";
         const response = await fetch(url, {
             method: 'GET',
             headers: {

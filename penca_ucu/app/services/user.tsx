@@ -5,7 +5,7 @@ export async function getUsers() {
 }
 
 export async function getUsersOrderedByPoints() {
-    const users = await fetch("http://localhost:3001/api/users/ranking", {
+    const users = await fetch("http://localhost:3000/api/users/ranking", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export async function createUser(username: string, password: string) {
 
 export async function updateUserScore(username: string, puntaje: number) {
 
-    const url = `http://localhost:3001/api/users?username=${username}`;
+    const url = `http://localhost:3000/api/users?username=${username}`;
     const data = { puntaje };
     const response = await fetch(url, {
         method: 'PUT',

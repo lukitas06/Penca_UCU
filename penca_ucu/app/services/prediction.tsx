@@ -9,7 +9,7 @@ export async function getAllPredictions() {
 }
 
 export async function getPredictionsByUser(usuario: string) {
-    const url = `http://localhost:3001/api/prediction?usuario=${usuario}`;
+    const url = `http://localhost:3000/api/prediction?usuario=${usuario}`;
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -23,7 +23,7 @@ export async function getPredictionsByUser(usuario: string) {
 
 export async function getPredictionsByMatch(id_partido: string) {
     //cositas
-    const url = `http://localhost:3001/api/prediction/all?id_partido=${id_partido}`;
+    const url = `http://localhost:3000/api/prediction/all?id_partido=${id_partido}`;
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -36,7 +36,7 @@ export async function getPredictionsByMatch(id_partido: string) {
 
 export async function getPredictionsByUserAndMatch(id_partido: string, usuario: string) {
 
-    const url = `http://localhost:3001/api/prediction/${id_partido}/${usuario}`;
+    const url = `http://localhost:3000/api/prediction/${id_partido}/${usuario}`;
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -59,7 +59,7 @@ export async function makePrediction(goalsEquipo1: number, goalsEquipo2: number,
             return { message: 'Faltan parámetros' };
         }
         else {
-            const url = "http://localhost:3001/api/prediction";
+            const url = "http://localhost:3000/api/prediction";
             const data = { equipo1_goles, equipo2_goles, usuario, id_partido };
             const response = fetch(url, {
                 method: 'POST',
@@ -91,7 +91,7 @@ export async function updatePrediction(id_partido: string, equipo1_goles: number
             console.log("prediction user", prediction.usuario);
             const puntaje = setPredictionScore(prediction, equipo1_goles, equipo2_goles);
 
-            const url = `http://localhost:3001/api/prediction/${id_partido}/${prediction.usuario}`;
+            const url = `http://localhost:3000/api/prediction/${id_partido}/${prediction.usuario}`;
 
             const updatedPrediction = await fetch(url, {
                 method: 'PUT',
