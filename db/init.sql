@@ -118,4 +118,4 @@ INSERT INTO Partido(id, equipo1, equipo2, equipo1_goles, equipo2_goles, etapa, f
     ('24', 'Costa Rica', 'Paraguay',   0, 0, 'GRUPOS', '2024-07-02 22:00:00', false, 'D');
 
 INSERT INTO Usuario(usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES
-    ('admin', 'admin', 'admin', 'correo@correo.com', 'admin', true, NULL, NULL, NULL, NULL);
+    ('admin', 'admin', 'admin', 'correo@correo.com', '$2a$10$/q2pBmaXKockRYnLEbbLo.63dpc7I9pbGPWzkla3EesgYCaR64UGO', true, NULL, NULL, NULL, NULL);

@@ -20,7 +20,7 @@ export default async function PredictionPage({ params }: { params: { partido: st
 
     return (
         <div className='landing-container'>
-            <Header />
+            <Header rol={"student"} />
             <div className='row prediction-info-div'>
                 <div className='col col-12 header-info'>
                     <h1>{date.date}</h1>
@@ -72,7 +72,7 @@ export default async function PredictionPage({ params }: { params: { partido: st
                 </div>
 
             </div>
-            <MakePrediction partido={partido} user={username} />
+            <MakePrediction partido={partido} user={username.username} />
         </div>
     );
 }

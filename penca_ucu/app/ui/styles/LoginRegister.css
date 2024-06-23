@@ -54,45 +54,7 @@
     width: 80%;
 }
 
-input:focus {
-    outline: none;
-}
 
-.focused+label,
-input:focus+label {
-    top: -10px;
-    font-size: 12px;
-    border: none;
-    outline: none;
-    color: white;
-}
-
-.input-wrapper {
-    position: relative;
-    margin-bottom: 10px;
-    color: white;
-}
-
-.label {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    transition: top 0.3s, font-size 0.3s;
-}
-
-
-form {
-    display: flex;
-    gap: 10px;
-    max-height: min-content;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0px;
-}
-
-form select {
-    width: fit-content;
-}
 
 .input-error-msg {
     color: red;

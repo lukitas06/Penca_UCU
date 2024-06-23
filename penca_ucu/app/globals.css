@@ -21,6 +21,71 @@
         align-items: center;
         gap: 15px;
     }
+    select{
+        width: fit-content;
+    }
+    h1, h2, h3, h4, h5, h6{
+        align-content: center;
+        width: fit-content;
+    }
+    .form-element-div {
+        position: relative;
+        margin-top: 10px;
+    }
+.form-element-div label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    transition: top 0.3s, font-size 0.3s;
+    pointer-events: none;
+    width: max-content;
+    color: rgb(144, 144, 144);
+    font-weight: bold;
+    font-size: small;
+}
+    input:focus {
+        outline: none;
+    }
+    
+    .focused+label,
+    input:focus+label {
+        top: -10px;
+        font-size: 12px;
+        border: none;
+        outline: none;
+        color: white;
+    }
+    
+    .input-wrapper {
+        position: relative;
+        margin-bottom: 10px;
+        color: white;
+    }
+    
+    .label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        transition: top 0.3s, font-size 0.3s;
+    }
+    
+    
+    form {
+        display: flex;
+        gap: 10px;
+        max-height: min-content;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0px;
+    }
+    
+    form select {
+        width: fit-content;
+    }
+
+
+
+
     .card{
         margin-top: 10px;
         color: white;
@@ -35,14 +100,22 @@
         height:70px;
         width: 100%;
         display: flex;
-        /* justify-content: center; */
         align-items: center;
-        /* background-color: rgba(0, 0, 0, 0.8); */
+        gap: 20px;
         background-color: rgb(26, 26, 26, 0.8);
         padding: 0 20px 0 20px;
         position: sticky;
         top: 0;
         backdrop-filter: blur(10px);
+        z-index: 1000;
+    }
+    #header-container button{
+        background-color: inherit;
+        border: none;
+    }
+    #header-container button:hover{
+        /* background-color: inherit; */
+        border: 1px solid rgba(0, 238, 255, 0.384);
     }
 
     #appContainer {
@@ -139,13 +212,6 @@
         width: 40px;
         border-radius: 5px;
     }
-
-    h1{
-
-        display: flex;
-        justify-content: center
-    }
-
     .prediction-statistics-div{
         height: fit-content;
         display: flex;
@@ -209,7 +275,53 @@
         flex-direction: row;
         gap: 20px;
     }        
-    
+    .mas{
+
+        background-color: rgb(1, 169, 1);
+        border: none;
+    }
+    .menos{
+
+        background-color: rgb(250, 23, 23);
+        border: none;
+
+    }
+    .mas:hover{
+        background-color: rgb(1, 169, 1);
+        
+    }
+    .menos:hover{
+        background-color: rgb(250, 23, 23);
+    }
+    .create-match-modal{
+        background-color: rgba(0, 0, 0, 0.704);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        z-index: 1050 !important;
+        top: 0;
+        overflow: auto;
+        backdrop-filter: blur(10px);
+        justify-content: center;
+        border-radius: 15px;
+        width: 400px;
+    }
+    .create-match-modal .content{
+       padding: 20px;
+    }
+    .modal-header{
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 20px 10px 0 10px;
+    }
+    .modal-footer{
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 0 10px 20px 10px;
+    }
+
 
 }
 
@@ -272,8 +384,9 @@ a {
 .setPrediction-goals-div button{
     border-radius: 5px;
     border: none;
-
 }
+
+
 
 @media (prefers-color-scheme: dark) {
     html {
