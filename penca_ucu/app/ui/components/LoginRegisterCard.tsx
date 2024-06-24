@@ -28,8 +28,13 @@ export default function LoginRegisterCard({ teams }: { teams: any; }) {
         signUp(formData).then((response) => {
             setsignUpState({ errors: response?.errors, message: response?.errors?.message });
 
+            console.log("response", response);
             if (response?.message === 'User created successfully') {
+                alert(response?.message);
                 setRegister(false);
+            }
+            else {
+                alert(response?.message);
             }
         });
     };
