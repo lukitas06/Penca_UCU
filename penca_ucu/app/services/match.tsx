@@ -23,12 +23,12 @@ export async function getMatch(matchId: string): Promise<matchResponse[]> {
 }
 
 export async function updateMatch(matchId: string, equipo1_goles: number, equipo2_goles: number) {
-    if(equipo1_goles==null || equipo2_goles==null){
+    if (equipo1_goles == null || equipo2_goles == null) {
         return { message: 'Error en los param. de goles' };
     }
-    else{
+    else {
 
-        try{
+        try {
             const dbResponse = await fetch(`http://localhost:3000/api/matches/${matchId}`, {
                 method: 'PUT',
                 headers: {
@@ -38,18 +38,18 @@ export async function updateMatch(matchId: string, equipo1_goles: number, equipo
                 body: JSON.stringify({ equipo1_goles, equipo2_goles })
             });
             //console.log("RESP:",dbResponse.json())
-            
-            
+
+
             return dbResponse.json();
-            
-            
+
+
         }
         catch (error) {
             return { message: error };
         }
 
     }
-    
+
 }
 
 export async function createMatch(equipo1: string, equipo2: string, fecha: string, etapa: string) {
@@ -64,22 +64,24 @@ export async function createMatch(equipo1: string, equipo2: string, fecha: strin
     return dbResponse.json();
 }
 
-export async function UpdateAllUserScore(matchId:string,equipo1_goles:number,equipo2_goles:number){
-    const pred:predictionResponse[] = await getPredictionsByMatch(matchId)
+export async function UpdateAllUserScore(matchId: string, equipo1_goles: number, equipo2_goles: number) {
     try {
-        pred.map(prediction=>{
-            const user=prediction.usuario;
-            const calcScore= setPredictionScore(prediction,equipo1_goles,equipo2_goles)
-            const res= updateUserScore(user,calcScore)
-            console.log(res)
-        })
-        return { message: "puntuacion actualizada" };
-        
+        const pred: predictionResponse[] = await getPredictionsByMatch(matchId)
+        if (pred.length === 0) {
+            return { message: "No hay predicciones para este partido" };
+        }
+        await Promise.all(pred.map(async (prediction) => {
+            const user = prediction.usuario;
+            const calcScore = await setPredictionScore(prediction, equipo1_goles, equipo2_goles)
+            console.log("calcScore", calcScore)
+            console.log("user", user)
+            const res = await updateUserScore(user, calcScore)
+        }))
+        return { message: "Partido y usuarios actualizados" };
+
     } catch (error) {
         return { message: error };
-        
-    }
-    
 
+    }
 }
 

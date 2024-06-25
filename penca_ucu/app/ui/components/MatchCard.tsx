@@ -2,7 +2,7 @@
 import { matchResponse } from "@//lib/match"
 import { predictionResponse } from "@//lib/prediction"
 import { useRouter } from "next/navigation"
-import { updatePrediction } from "@//services/prediction"
+// import { updatePrediction } from "@//services/prediction"
 import "../styles/MatchCard.css"
 
 import {
@@ -41,7 +41,7 @@ export default function MatchCard({ matchInfo, predicted, prediction, rol }: { m
                 return <div>Error</div>
         }
     }
-    else if(rol === "admin") {
+    else if (rol === "admin") {
         console.log("entro a rol admin ", rol)
         console.log("finalizado ", finalizado)
         switch (finalizado) {
@@ -53,7 +53,7 @@ export default function MatchCard({ matchInfo, predicted, prediction, rol }: { m
                 return <div>Error</div>
         }
     }
-    else{
+    else {
         return <div>Error</div>
     }
 }

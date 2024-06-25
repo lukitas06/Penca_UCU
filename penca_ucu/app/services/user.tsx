@@ -25,7 +25,8 @@ export async function createUser(username: string, password: string) {
 }
 
 export async function updateUserScore(username: string, puntaje: number) {
-    
+    console.log("updateUserScore", username, puntaje);
+
     const url = `http://localhost:3000/api/users?username=${username}`;
     const data = { puntaje };
     const response = await fetch(url, {

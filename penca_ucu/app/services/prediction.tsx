@@ -76,46 +76,46 @@ export async function makePrediction(goalsEquipo1: number, goalsEquipo2: number,
     }
 }
 
-export async function updatePrediction(id_partido: string, equipo1_goles: number, equipo2_goles: number) {
+// export async function updatePrediction(id_partido: string, equipo1_goles: number, equipo2_goles: number) {
 
-    const prueba = [];
-    console.log("update prediction", prueba.length);
-    try {
-        const predictions: predictionResponse[] = await getPredictionsByMatch(id_partido);
+//     const prueba = [];
+//     console.log("update prediction", prueba.length);
+//     try {
+//         const predictions: predictionResponse[] = await getPredictionsByMatch(id_partido);
 
-        if (predictions.length === 0) {
-            return { message: 'No hay predicciones para este partido' };
-        }
-        for (const prediction of predictions) {
+//         if (predictions.length === 0) {
+//             return { message: 'No hay predicciones para este partido' };
+//         }
+//         for (const prediction of predictions) {
 
-            console.log("prediction user", prediction.usuario);
-            const puntaje = setPredictionScore(prediction, equipo1_goles, equipo2_goles);
+//             console.log("prediction user", prediction.usuario);
+//             const puntaje = setPredictionScore(prediction, equipo1_goles, equipo2_goles);
 
-            const url = `http://localhost:3000/api/prediction/${id_partido}/${prediction.usuario}`;
+//             const url = `http://localhost:3000/api/prediction/${id_partido}/${prediction.usuario}`;
 
-            const updatedPrediction = await fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ puntaje })
-            });
+//             const updatedPrediction = await fetch(url, {
+//                 method: 'PUT',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ puntaje })
+//             });
 
-            await updatedPrediction.json();
+//             await updatedPrediction.json();
 
-            await updateUserScore(prediction.usuario, puntaje);
+//             await updateUserScore(prediction.usuario, puntaje);
 
-        }
-        await updateMatch(id_partido, equipo1_goles, equipo2_goles);
+//         }
+//         await updateMatch(id_partido, equipo1_goles, equipo2_goles);
 
-        return { message: "Predicciones actualizadas" };
+//         return { message: "Predicciones actualizadas" };
 
-    } catch (error) {
-        return { message: error };
-    }
-}
+//     } catch (error) {
+//         return { message: error };
+//     }
+// }
 
-export const setPredictionScore = (prediction: predictionResponse, equipo1_goles_terminado: number, equipo2_goles_terminado: number) => {
+export const setPredictionScore = async (prediction: predictionResponse, equipo1_goles_terminado: number, equipo2_goles_terminado: number) => {
     let puntaje = 0;
 
     console.log("terminado", equipo1_goles_terminado, equipo2_goles_terminado);
