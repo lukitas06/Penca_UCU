@@ -2,9 +2,11 @@
 import React from "react"
 import { matchResponse, parseDate } from "@//lib/match"
 import { predictionResponse } from "@//lib/prediction"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import Modal from "./Modal"
-import { updateMatch } from "@//services/match"
+import { updateMatch, UpdateAllUserScore } from "@//services/match"
+
+
 
 type predictionHashMap = {
     id: string,
@@ -319,10 +321,24 @@ export function ModalBtn({ match }: { match: matchResponse }) {
 
     const goChargeResult = async (matchId: string) => {
 
-        console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2);
+        console.log("entrando a la funcion CARGAR RESULT")
+        const response = await updateMatch(matchId, goles_equipo1, goles_equipo2);
+        //alert(response)
+        console.log("LA RESP: ", response["affectedRows"])
+        if (response["affectedRows"] === 1 || response.message === 'Prediction updated successfully') {
+            console.log("cargando resultado matchcard", matchId, goles_equipo1, goles_equipo2);
+            const res = await UpdateAllUserScore(matchId, goles_equipo1, goles_equipo2)
+            alert(res.message)
+
+
+        }
+        else {
+            alert('Error al cargar resultado');
+        }
+
         //const response = await updateMatch(matchId, goles_equipo1, goles_equipo2);
         //alert("Resultado cargado con exito");
-        console.log("Todavia no implementado");
+        //console.log("Todavia no implementado");
     }
     return (
         <div>

@@ -2,7 +2,7 @@
 import { matchResponse } from "@//lib/match"
 import { predictionResponse } from "@//lib/prediction"
 import { useRouter } from "next/navigation"
-import { updatePrediction } from "@//services/prediction"
+// import { updatePrediction } from "@//services/prediction"
 import "../styles/MatchCard.css"
 
 import {
@@ -26,7 +26,7 @@ export default function MatchCard({ matchInfo, predicted, prediction, rol }: { m
     const status = getStatus(finalizado, predicted)
 
     //const MatchCardComponent = matchContentMap[status]
-    if (rol === "alumno") {
+    if (rol === "student") {
 
         switch (status) {
             case "predictedAndFinalized":
@@ -41,7 +41,7 @@ export default function MatchCard({ matchInfo, predicted, prediction, rol }: { m
                 return <div>Error</div>
         }
     }
-    else {
+    else if (rol === "admin") {
         console.log("entro a rol admin ", rol)
         console.log("finalizado ", finalizado)
         switch (finalizado) {
@@ -52,6 +52,9 @@ export default function MatchCard({ matchInfo, predicted, prediction, rol }: { m
             default:
                 return <div>Error</div>
         }
+    }
+    else {
+        return <div>Error</div>
     }
 }
 
