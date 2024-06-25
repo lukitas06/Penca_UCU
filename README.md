@@ -4,6 +4,13 @@ Bienvenido a la aplicación de pencas de la Universidad Católica del Uruguay. E
 ## Descripción
 Esta aplicación permite a los alumnos de la universidad realizar predicciones sobre los partidos de la Copa América 2024 y competir contra otros alumnos.
 
+## Instrucciones para ejecutar
+1. Si no tenés Docker Desktop, descargalo de https://www.docker.com/products/docker-desktop/ e instalalo.
+2. Abrí la terminal y cloná este repositorio en tu máquina utilizando el comando `git clone https://github.com/lukitas06/Penca_UCU.git`.
+3. Navegá hasta la carpeta del proyecto utilizando el comando `cd Penca_UCU`.
+4. Ingresá el comando `docker-compose up --build -d`. Esto creará un stack con 2 contenedores. Uno de ellos es la base de datos, que ejecutará los scripts SQL ubicados en la carpeta "db", y el otro contenedor es el de la aplicación.
+5. Abrí tu navegador y dirigite a http://localhost:3000.
+
 ## Estructura del proyecto
 | Directorio                | Descripción                                                                                      |
 |---------------------------|--------------------------------------------------------------------------------------------------|
@@ -17,12 +24,6 @@ Esta aplicación permite a los alumnos de la universidad realizar predicciones s
 | penca_ucu/app/**pages**   | Contiene las páginas de la aplicación. Cada `page.tsx` es una página.                            |
 | penca_ucu/app/ui/**components** | Contiene componentes de UI reutilizables en las páginas.                                 |
 | penca_ucu/app/ui/**styles**    | Se guardan los diferentes estilos de los componentes.                                     |
-
-## Instrucciones para ejecutar (es necesario tener Docker Desktop instalado)
-1. Abrí la terminal y cloná este repositorio en tu máquina utilizando el comando `git clone https://github.com/lukitas06/Penca_UCU.git`.
-2. Navegá hasta la carpeta del proyecto utilizando el comando `cd Penca_UCU`.
-3. Ingresá el comando `docker-compose up --build -d`. Esto creará un stack con 2 contenedores. Uno de ellos es la base de datos, que ejecutará los scripts SQL ubicados en la carpeta "db", y el otro contenedor es el de la aplicación.
-4. Abrí tu navegador y dirigite a http://localhost:3000.
 
 ## Contribuir en el proyecto
 Si querés contribuir en este proyecto por favor seguí estos pasos:
