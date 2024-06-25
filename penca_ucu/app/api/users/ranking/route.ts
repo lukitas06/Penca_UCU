@@ -1,35 +1,26 @@
 'use server';
 
-import { connection } from '@//lib/dbConnection';
+import { withTransaction } from '@//lib/transactionMiddleware';
+import { NextResponse } from 'next/server';
+import { PoolConnection } from 'mysql2/promise';
 
 export async function GET() {
-
     try {
-        const dbResponse = await getOrderedUsers();
-        return new Response(
-            JSON.stringify(dbResponse),
-            { status: 200 }
-        );
-    }
-    catch (err) {
+        return await withTransaction(async (connection: PoolConnection) => {
+            const dbResponse = await getOrderedUsers(connection);
+            return NextResponse.json(dbResponse, { status: 200 });
+        });
+    } catch (err) {
         console.log(err);
-        return new Response(
-            JSON.stringify({ message: err }),
+        return NextResponse.json(
+            { message: err instanceof Error ? err.message : 'Unknown error' },
             { status: 500 }
         );
     }
-
 }
 
-const getOrderedUsers = async () => {
-    const QUERY = `SELECT usuario,puntaje FROM Usuario ORDER BY puntaje DESC;`;
-
-    return new Promise((resolve, reject) => {
-        connection.query(QUERY, (err, results) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(results);
-        });
-    });
+const getOrderedUsers = async (connection: PoolConnection): Promise<any> => {
+    const QUERY = `SELECT usuario, puntaje FROM Usuario ORDER BY puntaje DESC;`;
+    const [results] = await connection.execute(QUERY);
+    return results;
 };
