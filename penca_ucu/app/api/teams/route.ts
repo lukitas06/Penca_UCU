@@ -1,36 +1,29 @@
 'use server';
 
-import { NextResponse, NextRequest } from 'next/server';
-import { connection } from '../../lib/dbConnection';
+import { withTransaction } from '@//lib/transactionMiddleware';
+import { NextRequest, NextResponse } from 'next/server';
+import { PoolConnection } from 'mysql2/promise';
 
 export async function GET(req: NextRequest) {
-    //call the provider or db to get the teams
-
     try {
-        const teams = await getTeams();
-        return NextResponse.json(teams);
+        return await withTransaction(async (connection: PoolConnection) => {
+            const teams = await getTeams(connection);
+            return NextResponse.json(teams, { status: 200 });
+        });
     } catch (err) {
         return NextResponse.json(
-            { message: err },
+            { message: err instanceof Error ? err.message : 'Unknown error' },
             { status: 500 }
         );
     }
 }
 
 export async function POST() {
-    return Response.json({ message: 'POST method not implemented' });
+    return NextResponse.json({ message: 'POST method not implemented' }, { status: 501 });
 }
 
-const getTeams = () => {
-
-    return new Promise((resolve, reject) => {
-
-        connection.query('SELECT * FROM Equipo', (err, results) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(results);
-        });
-    });
+const getTeams = async (connection: PoolConnection): Promise<any> => {
+    const QUERY = 'SELECT * FROM Equipo';
+    const [results] = await connection.execute(QUERY);
+    return results;
 };

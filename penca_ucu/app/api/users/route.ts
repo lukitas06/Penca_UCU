@@ -1,34 +1,32 @@
 'use server';
 
-import { connection } from '@//lib/dbConnection';
 import { RowDataPacket } from 'mysql2';
-import { NextRequest } from 'next/server';
+import { withTransaction } from '@//lib/transactionMiddleware';
+import { NextRequest, NextResponse } from 'next/server';
+import { PoolConnection } from 'mysql2/promise';
 
 export async function GET(req: NextRequest) {
-    //call the provider or db to get the teams
-
     try {
-
         const cookies = req.cookies;
         const cookie = cookies.get('token') || "";
 
-        const res = await getUsers();
-
-        return Response.json(res);
-    }
-    catch (err) {
-        return new Response(
-            JSON.stringify({ message: err }),
+        return await withTransaction(async (connection: PoolConnection) => {
+            const res = await getUsers(connection);
+            return NextResponse.json(res);
+        });
+    } catch (err) {
+        return NextResponse.json(
+            { message: err instanceof Error ? err.message : 'Unknown error' },
             { status: 500 }
         );
     }
 }
 
-export async function POST(req: any, res: any) {
-    const body = await req.json();
-    const { usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar } = body;
-
+export async function POST(req: NextRequest) {
     try {
+        const body = await req.json();
+        const { usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar } = body;
+        
         const userExists = await checkIfUserExists(usuario);
         const emailExists = await checkIfEmailExists(email);
 
@@ -38,26 +36,30 @@ export async function POST(req: any, res: any) {
                 { status: 400 }
             );
         }
+      
         if (emailExists) {
             return new Response(
                 JSON.stringify({ message: "Email already exists" }),
                 { status: 400 }
             );
         }
-
+      
         const query = `INSERT INTO Usuario (usuario, nombres, apellidos, email, contrasena, es_admin, puntaje, carrera, primer_lugar, segundo_lugar) VALUES (?, ?, ?, ?, ?, FALSE, 0, ?, ?, ?);`;
-        const res = await postUser(query, [usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar]);
-        return Response.json({ message: res });
+
+        return await withTransaction(async (connection: PoolConnection) => {
+            const res = await postUser(connection, query, [usuario, nombres, apellidos, email, contrasena, carrera, primer_lugar, segundo_lugar]);
+            return NextResponse.json({ message: res });
+        });
     } catch (err) {
         console.log(err);
-        return new Response(
-            JSON.stringify({ message: err }),
+        return NextResponse.json(
+            { message: err instanceof Error ? err.message : 'Unknown error' },
             { status: 500 }
         );
     }
 }
 
-export async function PUT(req: Request) {
+export async function PUT(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
         const usuario = searchParams.get('username');
@@ -68,59 +70,33 @@ export async function PUT(req: Request) {
         console.log("puntaje", puntaje)
 
         const query = `UPDATE Usuario SET puntaje = puntaje + ? WHERE usuario = ?`;
-        const dbResponse = await updateUser(query, [puntaje, usuario]);
-        return new Response(
-            JSON.stringify(dbResponse),
-            { status: 200 }
-        );
-    }
-    catch (err) {
-        return new Response(
-            JSON.stringify({ message: err }),
+
+        return await withTransaction(async (connection: PoolConnection) => {
+            const dbResponse = await updateUser(connection, query, [puntaje, usuario]);
+            return NextResponse.json(dbResponse, { status: 200 });
+        });
+    } catch (err) {
+        return NextResponse.json(
+            { message: err instanceof Error ? err.message : 'Unknown error' },
             { status: 501 }
         );
     }
-
 }
 
-const updateUser = (query: string, params: any[]): Promise<any> => {
-
-    return new Promise((resolve, reject) => {
-        connection.query(query, params, (err, result) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(result);
-        });
-    });
-
+const updateUser = async (connection: PoolConnection, query: string, params: any[]): Promise<any> => {
+    const [result] = await connection.execute(query, params);
+    return result;
 };
 
-const postUser = (query: any, params: any[]): Promise<string> => {
-    return new Promise((resolve, reject) => {
-        connection.query(query, params, (err, results) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve("User created successfully");
-        });
-    });
+const postUser = async (connection: PoolConnection, query: string, params: any[]): Promise<string> => {
+    const [results] = await connection.execute(query, params);
+    return "User created successfully";
 };
 
-const getUsers = () => {
+const getUsers = async (connection: PoolConnection): Promise<any> => {
     const QUERY = `SELECT usuario, puntaje FROM Usuario ORDER BY puntaje DESC`;
-    return new Promise((resolve, reject) => {
-        connection.query(QUERY, (err, results) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(results);
-        });
-    }
-    );
+    const [results] = await connection.execute(QUERY);
+    return results;
 };
 
 const checkIfUserExists = (username: string): Promise<boolean> => {

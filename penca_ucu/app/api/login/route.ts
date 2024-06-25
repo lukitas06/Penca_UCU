@@ -1,47 +1,44 @@
 'use server';
 
-import { connection } from '../../lib/dbConnection';
+import { withTransaction } from '@//lib/transactionMiddleware';
+import { NextRequest, NextResponse } from 'next/server';
+import { PoolConnection } from 'mysql2/promise';
 import { UserResponse } from '@//lib/user';
 
-export async function POST(req: any, res: any) {
+export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { usuario } = body;
         const query = `SELECT * FROM Usuario WHERE usuario = ?`;
 
-        const dbResponse = await getUser(query, [usuario]) as UserResponse[];
-        if (dbResponse.length === 0) {
-            return new Response(
-                JSON.stringify({ message: 'User not found' }),
-                { status: 404 }
-            );
-        } else {
-            return new Response(
-                JSON.stringify({ user: dbResponse[0] }),
-                {
-                    headers: {
-                        'Set-Cookie': `user=${usuario}`,
-                        'Content-Type': 'application/json',
+        return await withTransaction(async (connection: PoolConnection) => {
+            const dbResponse = await getUser(connection, query, [usuario]) as UserResponse[];
+            if (dbResponse.length === 0) {
+                return NextResponse.json(
+                    { message: 'User not found' },
+                    { status: 404 }
+                );
+            } else {
+                return NextResponse.json(
+                    { user: dbResponse[0] },
+                    {
+                        headers: {
+                            'Set-Cookie': `user=${usuario}`,
+                            'Content-Type': 'application/json',
+                        }
                     }
-                }
-            );
-        }
+                );
+            }
+        });
     } catch (err) {
-        return new Response(
-            JSON.stringify({ message: err }),
+        return NextResponse.json(
+            { message: err instanceof Error ? err.message : 'Unknown error' },
             { status: 500 }
         );
     }
 }
 
-const getUser = (query: string, params: any[]) => {
-    return new Promise((resolve, reject) => {
-        connection.query(query, params, (err, results) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(results);
-        });
-    });
+const getUser = async (connection: PoolConnection, query: string, params: any[]): Promise<UserResponse[]> => {
+    const [results] = await connection.execute(query, params);
+    return results as UserResponse[];
 };
