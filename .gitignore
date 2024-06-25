@@ -73,7 +73,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-.env
+#.env Se sabe que no se debe subir el archivo .env a git, pero a efectos de este proyecto se subirá para simplificar la ejecución del mismo.
 .env.development.local
 .env.test.local
 .env.production.local
