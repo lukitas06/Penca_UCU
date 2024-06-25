@@ -48,8 +48,9 @@ export async function PUT(req: Request) {
         console.log("Usuario", usuario);
         const body = await req.json();
         const { puntaje } = body;
+        console.log(puntaje)
 
-        const query = `UPDATE Usuario SET puntaje = ? WHERE usuario = ?`;
+        const query = `UPDATE Usuario SET puntaje = puntaje + ? WHERE usuario = ?`;
         const dbResponse = await updateUser(query, [puntaje, usuario]);
         return new Response(
             JSON.stringify(dbResponse),

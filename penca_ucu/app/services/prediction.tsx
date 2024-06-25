@@ -115,7 +115,7 @@ export async function updatePrediction(id_partido: string, equipo1_goles: number
     }
 }
 
-const setPredictionScore = (prediction: predictionResponse, equipo1_goles_terminado: number, equipo2_goles_terminado: number) => {
+export const setPredictionScore = (prediction: predictionResponse, equipo1_goles_terminado: number, equipo2_goles_terminado: number) => {
     let puntaje = 0;
 
     console.log("terminado", equipo1_goles_terminado, equipo2_goles_terminado);
