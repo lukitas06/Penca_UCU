@@ -1,12 +1,15 @@
 'use client'
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "@//ui/components/NavBar";
 import { matchResponse } from "@//lib/match";
 import MatchCard from "@//ui/components/MatchCard";
-import { getMatches } from "@//services/match";
-import { useSearchParams, usePathname } from 'next/navigation';
+import { getMatches, createMatch } from "@//services/match";
+import { MatchFormState } from "@//lib/definitions";
 import InputForm from "./InputForm";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
+import RankingCard from "./RankingCard";
+import { RankingResponse } from "@//lib/user";
 
 enum fases {
     CUARTOS = "CUARTOS_DE_FINAL",
@@ -15,31 +18,41 @@ enum fases {
     FINAL = "FINAL"
 }
 
-export default function LandingAdmin() {
+export default function LandingAdmin({ users }: { users: RankingResponse[] }) {
+    console.log("users ", users);
+    const router = useRouter();
+    const [view, setView] = useState("proximos");
 
-    const [view, setView] = React.useState("proximos");
-    const [matches, setMatches] = React.useState<matchResponse[]>([]);
+    const [matchFormState, setMatchFormState] = useState<MatchFormState>({});
+
     const divElementClassname = 'col-8 form-element-div';
 
     const searchParams = useSearchParams();
     const modal = searchParams.get("modal");
-    console.log("modal ", modal);
-    const pathname = usePathname();
-
     const handleViewChange = (viewParam: string) => {
         setView(viewParam);
     };
 
+    const [matches, setMatches] = useState<matchResponse[]>([]);
+
     useEffect(() => {
         getMatches().then((res) => {
-            console.log("matches ", res);
             setMatches(res);
         });
     }, []);
 
-    const makeMatch = async () => {
+    const makeMatch = async (formData: any) => {
+        console.log("formData ", formData)
+        createMatch(formData).then((res) => {
+            setMatchFormState({ errors: res?.errors, message: res?.errors?.message });
+            console.log("match creation response: ", res);
+            if (res?.errors == undefined) {
+                alert(res?.message);
+                router.push('/pages/home/admin');
+            }
 
-        console.log("making match...");
+        });
+
     }
 
     switch (view) {
@@ -64,24 +77,39 @@ export default function LandingAdmin() {
                             <div className="content">
                                 <form className='row ' action={makeMatch}>
                                     <InputForm classname={divElementClassname} id='floatingTeam1' type='text' name='equipo1' label='Team 1' />
+                                    <div className='input-error-msg'>
+                                        {matchFormState?.errors?.equipo1 && <p>{matchFormState.errors.equipo1}</p>}
+                                    </div>
                                     <InputForm classname={divElementClassname} id='floatingTeam2' type='text' name='equipo2' label='Team 2' />
-                                    <InputForm classname={divElementClassname} id='floatingDate' type='date' name='fecha' label='Date' />
-                                    <select className='form-select' name='fase'>
+                                    <div className='input-error-msg'>
+                                        {matchFormState?.errors?.equipo2 && <p>{matchFormState.errors.equipo2}</p>}
+                                    </div>
+                                    <InputForm classname={divElementClassname} id='floatingDate' type='datetime-local' name='fecha' label='Date' />
+                                    <div className='input-error-msg'>
+                                        {matchFormState?.errors?.fecha && <p>{matchFormState.errors.fecha}</p>}
+                                    </div>
+                                    <select className='form-select' name='etapa'>
                                         <option selected>Selecciona Fase</option>
                                         <option value={fases.CUARTOS}>Cuartos de final</option>
                                         <option value={fases.SEMIS}>Semifinal</option>
                                         <option value={fases.TERCER_PUESTO}>Tercer puesto</option>
                                         <option value={fases.FINAL}>Final</option>
                                     </select>
+                                    <div className='input-error-msg'>
+                                        {matchFormState?.errors?.etapa && <p>{matchFormState.errors.etapa}</p>}
+                                    </div>
+                                    <div className="modal-footer">
+                                        <div>
+                                            <SubmitMatchBtn />
+                                        </div>
+                                        <div className="cancel-btn-div">
+                                            <Link href="?modal=false">
+                                                <button type="button" className="btn btn-primary" >Cancelar</button>
+                                            </Link>
+                                        </div>
 
+                                    </div>
                                 </form>
-                            </div>
-                            <div className="modal-footer">
-
-                                <button type="submit" className="btn btn-primary" >Crear encuentro</button>
-                                <Link href="?modal=false">
-                                    <button type="button" className="btn btn-primary" >Cancelar</button>
-                                </Link>
                             </div>
                         </div>
                     }
@@ -100,6 +128,22 @@ export default function LandingAdmin() {
                     </div>
                 </div>
             )
+        case "ranking":
+            return (
+                <div className="col col-12 landing-container">
+                    <NavBar changeView={handleViewChange} />
+                    <RankingCard header={["Posicion", "Usuario", "Puntos"]} users={users} />
+                </div>
+            )
     }
 
 }
+
+export function SubmitMatchBtn() {
+
+    return (
+        <button className='btn btn-primary form-submit' type="submit">
+            Crear encuentro
+        </button>
+    );
+} 

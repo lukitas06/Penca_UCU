@@ -41,6 +41,32 @@ export const SignInFormSchema: any = z.object({
         .trim(),
 });
 
+export const MatchFormSchema: any = z.object({
+    equipo1: z.string().trim(),
+    equipo2: z.string().trim(),
+    fecha: z.string().trim(),
+    etapa: z.string().trim(),
+}).refine(data => data.equipo1 !== data.equipo2, {
+    message: "Los equipos deben ser distintos.",
+    path: ["equipo2"],
+}).refine(data => equipos.includes(data.equipo1) && equipos.includes(data.equipo2), {
+    message: "Los equipos deben ser válidos.",
+    path: ["equipo1"],
+}).refine(data => etapas.includes(data.etapa), {
+    message: "La etapa debe ser válida.",
+    path: ["etapa"],
+});
+
+export type MatchFormState = {
+    errors?: {
+        equipo1?: string[];
+        equipo2?: string[];
+        fecha?: string[];
+        etapa?: string[];
+    };
+    message?: string;
+} | undefined;
+
 export type SignUpFormState = {
     errors?: {
         usuario?: string[];
@@ -63,3 +89,29 @@ export type SignInFormState = {
     };
     message?: string;
 } | undefined;
+
+const equipos = [
+    'Argentina',
+    'Bolivia',
+    'Brasil',
+    'Chile',
+    'Colombia',
+    'Ecuador',
+    'Paraguay',
+    'Perú',
+    'Canadá',
+    'México',
+    'Jamaica',
+    'Estados Unidos',
+    'Uruguay',
+    'Venezuela',
+    'Panamá',
+    'Costa Rica',
+];
+
+const etapas = [
+    'CUARTOS_DE_FINAL',
+    'SEMIFINAL',
+    'TERCER_PUESTO',
+    'FINAL',
+];

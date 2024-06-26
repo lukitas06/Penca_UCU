@@ -51,3 +51,7 @@
   .modal-row-team input{
     width: 50px;
   }
+  #floatingDate{
+    display: flex;
+    justify-content: space-around;
+  }

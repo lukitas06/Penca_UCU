@@ -20,7 +20,7 @@ export async function GET() {
 }
 
 const getOrderedUsers = async (connection: PoolConnection): Promise<any> => {
-    const QUERY = `SELECT usuario, puntaje FROM Usuario ORDER BY puntaje DESC;`;
+    const QUERY = `SELECT usuario, puntaje FROM Usuario where es_admin=0 ORDER BY puntaje DESC;`;
     const [results] = await connection.execute(QUERY);
     return results;
 };

@@ -4,6 +4,7 @@ import { updateUserScore } from "@//services/user";
 import { matchResponse } from "@//lib/match";
 import { getPredictionsByMatch, setPredictionScore } from "./prediction";
 import { predictionResponse } from "../lib/prediction";
+import { MatchFormSchema } from "../lib/definitions";
 
 export async function getMatches(): Promise<matchResponse[]> {
     const matches = await fetch("http://localhost:3000/api/matches", {
@@ -52,7 +53,23 @@ export async function updateMatch(matchId: string, equipo1_goles: number, equipo
 
 }
 
-export async function createMatch(equipo1: string, equipo2: string, fecha: string, etapa: string) {
+export async function createMatch(formData: any) {
+
+    const validatedFields = MatchFormSchema.safeParse({
+        equipo1: formData.get("equipo1"),
+        equipo2: formData.get("equipo2"),
+        fecha: formData.get("fecha"),
+        etapa: formData.get("etapa")
+    })
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+        };
+    }
+    const { equipo1, equipo2, fecha, etapa } = await validatedFields.data;
+
+
     const dbResponse = await fetch(`http://localhost:3000/api/matches`, {
         method: 'POST',
         headers: {

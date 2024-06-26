@@ -60,6 +60,8 @@ export const PredictedAndFinalized = ({ matchInfo, prediction }: { matchInfo: ma
 
     const { id, equipo1, equipo2, equipo1_goles, equipo2_goles, etapa } = matchInfo
 
+    const imgUrlEquipo1 = `/countries/${equipo1}-flag.gif`
+    const imgUrlEquipo2 = `/countries/${equipo2}-flag.gif`
     return (
         <div className="col-8 col-md-3 card text-center match-card">
             <div className="card-header">Partido finalizado
@@ -69,12 +71,16 @@ export const PredictedAndFinalized = ({ matchInfo, prediction }: { matchInfo: ma
                 <div className="card-body-row">
 
                     <div className="teamInfo">
+                        <img className="flag-img" src={imgUrlEquipo1} alt="" />
                         <p>{equipo1}</p>
+
                     </div>
                     <div className="goles-div">
                         <h2>{equipo1_goles} - {equipo2_goles}</h2>
                     </div>
                     <div className="teamInfo">
+                        <img className="flag-img" src={imgUrlEquipo2} alt="" />
+
                         <p>{equipo2}</p>
                     </div>
                 </div>
@@ -239,7 +245,7 @@ export const AdminAndFinalized = ({ matchInfo }: { matchInfo: matchResponse }) =
                         <h2>{equipo1_goles} - {equipo2_goles}</h2>
                     </div>
                     <div className="teamInfo">
-                        <img className="flag-img" src={imgUrlEquipo1} alt="" />
+                        <img className="flag-img" src={imgUrlEquipo2} alt="" />
 
                         <p>{equipo2}</p>
                     </div>
