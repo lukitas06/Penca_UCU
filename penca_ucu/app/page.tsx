@@ -1,8 +1,24 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
 
-export default function Main() {
-  return (
-    <h1>Buenas Buenas</h1>
-  );
+export default function Home() {
+    const [user, setUser] = useState<any>(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const userStorage = localStorage.getItem('token');
+        setUser(userStorage);
+    }, []);
+
+    //Dirigir al login si no esta logueado.
+    useEffect(() => {
+        if (user == null) {
+            router.push("/pages/login");
+        }
+        //Dirigir a la landing page si esta logueado.
+        else {
+            router.push("/pages/home");
+        }
+    });
 }

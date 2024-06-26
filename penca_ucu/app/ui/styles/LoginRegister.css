@@ -1,0 +1,120 @@
+.card {
+    margin-top: 150px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    border-radius: 10px;
+    max-width: 600px;
+    max-height: fit-content;
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    background-color: rgba(79, 79, 79, 0.3);
+    color: white;
+}
+
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    height: 100%;
+}
+
+.form-element-div {
+    position: relative;
+    margin-top: 10px;
+}
+
+.form-element-div label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    transition: top 0.3s, font-size 0.3s;
+    pointer-events: none;
+    width: max-content;
+    color: rgb(144, 144, 144);
+    font-weight: bold;
+    font-size: small;
+}
+
+.form-select {
+    display: flex;
+    width: 80%;
+}
+
+
+
+.input-error-msg {
+    color: red;
+    font-size: small;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.input-error-msg p {
+    margin: 0;
+    width: fit-content;
+
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 0 10px;
+    gap: 20px;
+    padding: 15px 0 15px 0;
+}
+
+.form-select-other {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* color: rgb(144,144,144); */
+    padding: 0 10px 0 10px;
+    min-width: fit-content;
+    border-radius: 10px;
+
+}
+
+.form-select-other button {
+    padding: 10px;
+    border: none;
+    background-color: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+.form-select-other button:hover {
+    text-decoration-line: underline;
+}
+
+form .form-submit {
+    max-width: fit-content;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+form .submit-btn:hover {
+    background-color: #595958;
+    color: white;
+}

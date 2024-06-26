@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: ./penca_ucu
+      dockerfile: Dockerfile
+    container_name: app_penca
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+    depends_on:
+      - db
+    networks:
+      - default
+
+  db:
+    image: mysql:8.0
+    container_name: base_de_datos
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: obligatorio
+      MYSQL_DATABASE: penca_ucu
+      MYSQL_USER: penca
+      MYSQL_PASSWORD: penca2024
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+      LANGUAGE: en_US.UTF-8
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
