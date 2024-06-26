@@ -50,3 +50,7 @@ export async function getUserToken() {
     }
     return { username: "", rol: "" };
 }
+
+export async function deleteUserToken() {
+    cookies().delete('token');
+}
